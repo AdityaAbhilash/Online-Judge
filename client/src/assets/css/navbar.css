@@ -1,0 +1,41 @@
+/* styles.css */
+
+.navbar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    background-color: #333; /* Dark tone background */
+    color: #fff; /* Text color */
+    padding: 20px; /* Increased padding */
+  }
+  
+  .navbar-brand {
+    font-size: 2rem; /* Larger font size */
+    font-weight: bold;
+    text-decoration: none;
+    color: #fff; /* Brand color */
+  }
+  
+  .navbar-link {
+    font-size: 1.2rem; /* Larger font size for links */
+    margin-left: 20px; /* Increased margin between links */
+    text-decoration: none;
+    color: #fff; /* Link color */
+  }
+  
+  .navbar-link:hover {
+    text-decoration: underline;
+  }
+  
+  @media (max-width: 768px) {
+    .navbar {
+      flex-wrap: wrap; /* Allow items to wrap on smaller screens */
+      padding: 10px; /* Reduced padding */
+    }
+  
+    .navbar-link {
+      margin-left: 10px; /* Decreased margin between links */
+      font-size: 1rem; /* Smaller font size for links */
+    }
+  }
+  
