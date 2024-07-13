@@ -1,17 +1,26 @@
 import express from 'express';
 import { UserModel } from '../models/user.js';
-import { validationResult } from 'express-validator';
+import { validationResult } from 'express-validator';   // to check the request body 
 import bcrypt from 'bcrypt';
+import jwt from 'jsonwebtoken'
+import dotenv from 'dotenv'
+
+dotenv.config({path: "../config/.env"})
+
+// register controller
 
 const Register = async (req, res) => {
+    // it checks the request body for any error 
     const errors = validationResult(req);
     if (!errors.isEmpty()) {
         return res.status(400).json({ errors: errors.array() });
     }
-
+    // get all the data from the request body 
     const { name, email, username, password } = req.body;
     
     try {
+
+        // check if the user already exists 
         const userExist = await UserModel.findOne({ email });
         if (userExist) {
             return res.status(400).json({
@@ -19,10 +28,25 @@ const Register = async (req, res) => {
             });
         }
 
-        const hashPassword = await bcrypt.hash(password, 12);
-        const newUser = new UserModel({ name, email, username, password: hashPassword });
+        const userExist1 = await UserModel.findOne({ username });
+        if (userExist1) {
+            return res.status(400).json({
+                errors: [{ msg: 'username is taken,try a new one .' }],
+            });
+        }
 
+
+
+        // encrypt the password 
+        const hashPassword = await bcrypt.hash(password, 12);
+
+        // we store the encrypt password , so we have to create a dummy like user and pass it to store it 
+        const newUser = new UserModel({ name, email, username, password: hashPassword });
+        
+        // save the new user to the database 
         const result = await newUser.save();
+
+        // the _doc is sent to the client , we we should not give the password 
         result._doc.password = undefined;
         return res.status(201).json({ success: true, ...result._doc });
     } catch (err) {
@@ -31,4 +55,59 @@ const Register = async (req, res) => {
     }
 };
 
-export { Register };
+// login controller 
+
+const Login = async (req, res) => {
+    // it checks the request body for any error 
+    const errors = validationResult(req);
+    if (!errors.isEmpty()) {
+        return res.status(400).json({ errors: errors.array() });
+    }
+    // get all the data from the request body 
+    const { username, password } = req.body;
+    
+    try {
+
+        // check if the user already exists 
+        const userExist = await UserModel.findOne({ username });
+        if (!userExist) {
+            return res.status(400).json({
+                errors: [{ msg: 'User Not Registered ' }],
+            });
+        }
+
+
+        // check the password
+        const isPasswordOk = await bcrypt.compare(password,userExist.password);
+
+        if(!isPasswordOk){
+            return res.status(400).json({
+                errors: [{ msg: 'Wrong Password' }],
+            });
+        }
+        
+        // token generation
+
+        const token = jwt.sign({_id: userExist._id},process.env.JWT_SECRET_KEY,{expiresIn: "1d"})
+
+
+        const user = {...userExist._doc,password: undefined}
+        return res.status(201).json({ success: true,user,token});
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ err: err.message });
+    }
+};
+
+
+
+
+
+
+
+
+
+
+
+
+export { Register , Login };

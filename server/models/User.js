@@ -21,5 +21,5 @@ const UserSchema = new mongoose.Schema({
     }
 })
 
-const UserModel = mongoose.model("user",UserSchema)
+const UserModel = mongoose.model("user",UserSchema)  // save in the database as user 
 export {UserModel}

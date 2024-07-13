@@ -15,7 +15,7 @@ app.use(cors())
 
 dotenv.config({path: "./config/.env"}) //load environment virable into this file
 
-app.use('/',Router)  //change this part
+app.use('/',Router) 
 
 
 app.listen(process.env.PORT,()=>{

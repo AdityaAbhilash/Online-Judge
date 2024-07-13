@@ -4,6 +4,8 @@ export default function Validation(values) {
 
     const passwordPattern = /^(?=.*\d)(?=.*[a-z])(?=.*[A-Z])[a-zA-Z0-9]{8,}$/;
 
+  if(values?.name || values?.email) {
+
     if (values.name === "") {
         errors.name = "Name should not be empty";
     } else if (values.name.length < 3 || values.name.length > 30) {
@@ -11,7 +13,7 @@ export default function Validation(values) {
     } else {
         errors.name = "";
     }
-
+  }
 
     if (values.email === "") {
         errors.email = "Email should not be empty";

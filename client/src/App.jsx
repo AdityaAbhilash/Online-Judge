@@ -1,10 +1,12 @@
-import React from "react";
+import React, { createContext, useState } from "react";
 import Home from "./Pages/Home";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Login from "./Pages/Login";
 import Register from "./Pages/Register";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
+
+export const UserContext = createContext(null)
 
 const router = createBrowserRouter([
   {
@@ -21,11 +23,16 @@ const router = createBrowserRouter([
   },
 ]);
 
+// we store the data of each user 
+
 const App = () => {
+  const [user,setUser] = useState()
   return (
     <>
       <ToastContainer />
+      <UserContext.Provider value = {{user,setUser}}>
       <RouterProvider router={router} />
+      </UserContext.Provider>
     </>
   );
 };

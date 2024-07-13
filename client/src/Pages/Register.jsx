@@ -7,6 +7,8 @@ import {toast} from 'react-toastify'
 
 
 const Register = () => {
+
+
   const [values, setValues] = useState({
     name: "",
     email: "",
@@ -22,18 +24,22 @@ const Register = () => {
 
   const [errors, setErrors] = useState({});
 
-  const navigate = useNavigate()
+  const navigate = useNavigate() // TO directly navigate to the login page 
+
+
   const handleSubmit = (e) => {
     e.preventDefault();
-    const errs = Validation(values);
+
+    const errs = Validation(values);  // you have made a function on validation 
     setErrors(errs);
+
     if (
       errs.name === "" &&
-      errs.email === "" &&
+      errs.email === "" &&                        // first we have to check errors in frontend and then we go to backend 
       errs.password === "" &&
       errs.username == ""
     ) {
-      axios.post('http://localhost:3000/register',values).then(res =>{
+      axios.post('http://localhost:3000/register',values).then(res =>{    // end point api to post the data here in the api 
         if(res.data.success){
           toast.success("Account Created Successfully",{
             position:"top-right",
@@ -49,6 +55,7 @@ const Register = () => {
           else{
             console.log(err)
           }
+
       })
     }
   };
@@ -107,13 +114,17 @@ const Register = () => {
           />
           {errors.password && <span className="error">{errors.password}</span>}
         </div>
+
+
         {
           serverErrors.length > 0 && (
-            serverErrors.map((error,index) =>(
+            serverErrors.map((error,index) =>(                                // display the error above the button 
               <p className="error" key = {index}>{error.msg}</p>
             ))
           )
         }
+
+
         <button className="form-btn" type="submit">Register</button>
         <p className="already-registered">
           Already registered? <Link to="/login">Login</Link>
