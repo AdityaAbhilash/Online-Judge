@@ -34,7 +34,7 @@ export default function Validation(values) {
     if (values.password === "") {
         errors.password = "Password should not be empty";
     } else if (!passwordPattern.test(values.password)) {
-        errors.password = "1 Small and 1 Capital charecter 1 Number to total length 8";
+        errors.password = "Password must include at least 1 uppercase, 1 lowercase, 1 number, and be at least 8 characters long";
     } else {
         errors.password = "";
     }
