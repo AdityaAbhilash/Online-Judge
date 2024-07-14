@@ -8,6 +8,7 @@ import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import Dashboard from "./Pages/Dashboard";
 import Problems from "./Components/Problems";
+import AddProblem from "./Components/AddProblem";
 
 
 export const UserContext = createContext(null)  // usercontext holds the data 
@@ -34,6 +35,10 @@ const router = createBrowserRouter([
     //     element: <Problems /> 
     //   }
     // ]
+  },
+  {
+    path: 'addProblem',
+    element: <AddProblem />
   }
 ]);
 

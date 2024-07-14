@@ -30,7 +30,7 @@ const Navbar = () => {
                   <Link to="/dashboard" className="dropdown-item">
                     Solve Problems
                   </Link>
-                  <Link to="/set-problem" className="dropdown-item">
+                  <Link to="/addProblem" className="dropdown-item">
                     Set Problems
                   </Link>
                 </div>
