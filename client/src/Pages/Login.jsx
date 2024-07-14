@@ -36,7 +36,7 @@ const Login = () => {
       errs.username == ""
     ) {
       axios
-        .post("http://localhost:3000/login", values)
+        .post("http://localhost:3000/login", values) // after passing the value there is a response (res)
         .then((res) => {
           // end point api to post the data here in the api
           if (res.data.success) {
@@ -44,8 +44,10 @@ const Login = () => {
               position: "top-right",
               autoClose: 5000,
             });
+
             localStorage.setItem("token",res.data.token)
             setUser(res.data.user)
+
             navigate("/"); // change this part
           }
         })

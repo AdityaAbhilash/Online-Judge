@@ -1,8 +1,9 @@
 import express from "express";
-import { Register ,Login } from "../controller/userController.js";
+import { Register ,Login ,Auth} from "../controller/userController.js";
 
 const router = express.Router();
 import { body } from "express-validator";
+import { VerifyUser } from "../middleware/VerifyUser.js";
 
 router.post(
   "/register",
@@ -44,6 +45,13 @@ router.post(
       .withMessage("Password length be 5 to 30")),
   ],Login
 );
+
+//verify route
+
+router.get("/verify",VerifyUser,Auth)
+
+
+
 
 export { router as Router };
 

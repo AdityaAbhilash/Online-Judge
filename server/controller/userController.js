@@ -1,9 +1,9 @@
 import express from 'express';
-import { UserModel } from '../models/user.js';
 import { validationResult } from 'express-validator';   // to check the request body 
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
+import { UserModel } from '../models/user.js';
 
 dotenv.config({path: "../config/.env"})
 
@@ -99,6 +99,13 @@ const Login = async (req, res) => {
     }
 };
 
+// auth function
+
+const Auth =(req,res)=>{
+    return res.status(200).json({success:true, user: {...req.user._doc}})
+
+    // we will return the user and use in verify middleware.
+}
 
 
 
@@ -110,4 +117,5 @@ const Login = async (req, res) => {
 
 
 
-export { Register , Login };
+
+export { Register , Login ,Auth};
