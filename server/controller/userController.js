@@ -103,7 +103,6 @@ const Login = async (req, res) => {
 
 const Auth =(req,res)=>{
     return res.status(200).json({success:true, user: {...req.user._doc}})
-
     // we will return the user and use in verify middleware.
 }
 

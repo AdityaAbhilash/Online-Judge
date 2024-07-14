@@ -1,41 +1,111 @@
 /* styles.css */
 
 .navbar {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    background-color: #333; /* Dark tone background */
-    color: #fff; /* Text color */
-    padding: 20px; /* Increased padding */
-  }
-  
-  .navbar-brand {
-    font-size: 2rem; /* Larger font size */
-    font-weight: bold;
-    text-decoration: none;
-    color: #fff; /* Brand color */
-  }
-  
-  .navbar-link {
-    font-size: 1.2rem; /* Larger font size for links */
-    margin-left: 20px; /* Increased margin between links */
-    text-decoration: none;
-    color: #fff; /* Link color */
-  }
-  
-  .navbar-link:hover {
-    text-decoration: underline;
-  }
-  
-  @media (max-width: 768px) {
-    .navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  background-color: #333; /* Dark tone background */
+  color: #fff; /* Text color */
+  padding: 15px 30px; /* Balanced padding */
+  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1); /* Subtle shadow for depth */
+}
+
+.navbar-brand {
+  font-size: 1.8rem; /* Slightly adjusted font size */
+  font-weight: bold;
+  text-decoration: none;
+  color: #fff; /* Brand color */
+  transition: color 0.3s; /* Smooth transition */
+}
+
+.navbar-brand:hover {
+  color: #ccc; /* Lighter color on hover */
+}
+
+.navbar-right {
+  display: flex;
+  align-items: center;
+}
+
+.navbar-link {
+  font-size: 1.1rem; /* Adjusted font size for links */
+  margin-left: 25px; /* Balanced margin between links */
+  text-decoration: none;
+  color: #fff; /* Link color */
+  position: relative;
+  cursor: pointer;
+  transition: color 0.3s; /* Smooth transition */
+}
+
+.navbar-link:hover {
+  color: #ccc; /* Lighter color on hover */
+  text-decoration: underline;
+}
+
+.navbar-item {
+  position: relative;
+}
+
+.dropdown-menu {
+  position: absolute;
+  top: 100%;
+  left: 0;
+  background-color: #444; /* Slightly lighter than navbar background */
+  color: #fff;
+  border: 1px solid #555; /* Dark border */
+  border-radius: 8px; /* More rounded corners */
+  display: flex;
+  flex-direction: column;
+  min-width: 200px; /* Wider for better readability */
+  z-index: 1000;
+  margin-top: 10px; /* Slight margin to separate from the navbar */
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.2); /* Stronger shadow for depth */
+  opacity: 0;
+  visibility: hidden;
+  transition: opacity 0.3s, visibility 0.3s; /* Smooth dropdown appearance */
+}
+
+.navbar-item:hover .dropdown-menu {
+  opacity: 1;
+  visibility: visible;
+}
+
+.dropdown-item {
+  padding: 15px 20px; /* Increased padding */
+  text-decoration: none;
+  color: #fff; /* Item color */
+  font-size: 1.1rem; /* Larger font size */
+  transition: background-color 0.3s; /* Smooth transition */
+}
+
+.dropdown-item:hover {
+  background-color: #555; /* Darker background on hover */
+  border-radius: 8px; /* More rounded corners on hover */
+}
+
+@media (max-width: 768px) {
+  .navbar {
       flex-wrap: wrap; /* Allow items to wrap on smaller screens */
-      padding: 10px; /* Reduced padding */
-    }
-  
-    .navbar-link {
-      margin-left: 10px; /* Decreased margin between links */
-      font-size: 1rem; /* Smaller font size for links */
-    }
+      padding: 10px 20px; /* Reduced padding */
   }
-  
+
+  .navbar-brand {
+      font-size: 1.5rem; /* Smaller brand font size for mobile */
+  }
+
+  .navbar-link {
+      margin-left: 15px; /* Decreased margin between links */
+      font-size: 1rem; /* Smaller font size for links */
+  }
+
+  .dropdown-menu {
+      position: static; /* Position dropdowns statically */
+      margin-top: 5px; /* Smaller margin on mobile */
+      box-shadow: none; /* Remove shadow for simplicity */
+      border-radius: 4px; /* Slightly rounded corners */
+  }
+
+  .dropdown-item {
+      font-size: 1rem; /* Adjusted font size for smaller screens */
+  }
+}

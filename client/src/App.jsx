@@ -6,6 +6,8 @@ import Register from "./Pages/Register";
 import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
+import Dashboard from "./Pages/Dashboard";
+import Problems from "./Components/Problems";
 
 
 export const UserContext = createContext(null)  // usercontext holds the data 
@@ -23,6 +25,16 @@ const router = createBrowserRouter([
     path: "/login",
     element: <Login />,
   },
+  {
+    path: '/dashboard',
+    element: <Dashboard />,
+    // children: [
+    //   {
+    //     index: true,
+    //     element: <Problems /> 
+    //   }
+    // ]
+  }
 ]);
 
 // we store the data of each user 

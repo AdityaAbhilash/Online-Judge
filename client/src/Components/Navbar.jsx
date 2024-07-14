@@ -1,10 +1,16 @@
-import React, { useContext } from "react"
-import "../assets/css/navbar.css"
-import { Link } from "react-router-dom"
-import { UserContext } from "../App"
+import React, { useContext,useState } from "react";
+import "../assets/css/navbar.css";
+import { Link } from "react-router-dom";
+import { UserContext } from "../App";
 
 const Navbar = () => {
   const { user } = useContext(UserContext);
+  const [dropdownVisible, setDropdownVisible] = useState(false);
+
+  const toggleDropdown = () => {
+    setDropdownVisible(!dropdownVisible);
+  };
+
   return (
     <div className="navbar">
       <div className="navbar-left">
@@ -13,21 +19,35 @@ const Navbar = () => {
         </Link>
       </div>
       <div className="navbar-right">
-        <Link to="/about" className="navbar-link">
-          About
-        </Link>
-        {
-        user ? 
+        {user ? (
           <>
-            <Link to="/login" className="navbar-link">
+            <div className="navbar-item">
+              <span className="navbar-link" onClick={toggleDropdown}>
+                Problems
+              </span>
+              {dropdownVisible && (
+                <div className="dropdown-menu">
+                  <Link to="/dashboard" className="dropdown-item">
+                    Solve Problems
+                  </Link>
+                  <Link to="/set-problem" className="dropdown-item">
+                    Set Problems
+                  </Link>
+                </div>
+              )}
+            </div>
+            <Link to="/profile" className="navbar-link">
               {user.name}
             </Link>
-            <Link to="/register" className="navbar-link">
+            <Link to="/logout" className="navbar-link">
               Logout
             </Link>
           </>
-         : 
+        ) : (
           <>
+            <Link to="/about" className="navbar-link">
+              About
+            </Link>
             <Link to="/login" className="navbar-link">
               Login
             </Link>
@@ -35,10 +55,10 @@ const Navbar = () => {
               Register
             </Link>
           </>
-        }
+        )}
       </div>
     </div>
-  )
-}
+  );
+};
 
 export default Navbar;

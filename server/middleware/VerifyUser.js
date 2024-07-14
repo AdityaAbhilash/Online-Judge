@@ -14,7 +14,6 @@ export const VerifyUser =(req,res,next) =>{
                 return res.status(401).json({error: "Unauthorized."})
             }
             const user = await UserModel.findOne({_id: playload._id}).select("-password")
-
             req.user = user;
             next();
         } catch(err){
