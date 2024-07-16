@@ -13,7 +13,7 @@ const Home = () => {
         <p className="home-description">
           Start solving problems, improve your skills, and compete with others!
         </p>
-        <a href="/problems" className="home-button">Start Solving</a>
+        {/* <a href="/dashboard" className="home-button">Start Solving</a> */}
       </div>
     </div>
     </>

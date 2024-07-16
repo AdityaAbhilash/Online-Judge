@@ -19,6 +19,7 @@ const Register = () => {
   const handleInput = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
   };
+
   // we now do validation
   const [serverErrors, setServerErrors] = useState([]);
 
@@ -30,7 +31,7 @@ const Register = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    const errs = Validation(values);  // you have made a function on validation 
+    const errs = Validation(values);  // you have made a function on validation  // THIS IS THE VALIDATION ERROR
     setErrors(errs);
 
     if (
@@ -50,7 +51,7 @@ const Register = () => {
        
       }).catch(err =>{
           if(err.response.data.errors){
-            setServerErrors(err.response.data.errors)
+            setServerErrors(err.response.data.errors)    // This is the server error 
           }
           else{
             console.log(err)

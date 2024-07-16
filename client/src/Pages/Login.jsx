@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { UserContext } from "../App";
 
 const Login = () => {
+
   const [values, setValues] = useState({
     username: "",
     password: "",
@@ -48,7 +49,7 @@ const Login = () => {
             localStorage.setItem("token",res.data.token)
             setUser(res.data.user)
 
-            navigate("/dashboard"); // change this part
+            navigate("/dashboard"); 
           }
         })
         .catch((err) => {

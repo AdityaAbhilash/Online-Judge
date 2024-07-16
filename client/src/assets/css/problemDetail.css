@@ -1,0 +1,104 @@
+/* src/assets/css/problemDetails.css */
+
+.problem-details-container {
+    display: flex;
+    margin: 20px auto;
+    background-color: #f9f9f9;
+    border-radius: 8px;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+
+.left-half {
+    flex: 1;
+    padding: 20px;
+}
+
+.right-half {
+    flex: 1;
+    padding: 20px;
+}
+
+.problem-details-container h2 {
+    font-size: 28px;
+    margin-bottom: 20px;
+    color: #333;
+    text-align: center;
+}
+
+.problem-details-container p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #555;
+    white-space: pre-wrap; /* Preserve spaces and wrap text */
+}
+
+.problem-details-container pre {
+    background-color: #f5f5f5;
+    padding: 15px;
+    border-radius: 4px;
+    font-size: 16px;
+    color: #333;
+    overflow-x: auto;
+    white-space: pre-wrap; /* Preserve spaces and wrap text */
+}
+
+.problem-details-container .test-cases {
+    margin-top: 30px;
+}
+
+.problem-details-container .test-case {
+    border: 1px solid #ddd;
+    background-color: #fff;
+    padding: 20px;
+    margin-bottom: 20px;
+    border-radius: 4px;
+}
+
+.problem-details-container .test-case h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.problem-details-container .test-case p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #777;
+    white-space: pre-wrap; /* Preserve spaces and wrap text */
+}
+
+.problem-details-container .time-memory-limits {
+    margin-top: 30px;
+}
+
+.problem-details-container .time-memory-limits h3 {
+    font-size: 22px;
+    margin-bottom: 15px;
+    color: #555;
+}
+
+.problem-details-container .time-memory-limits p {
+    font-size: 18px;
+    line-height: 1.6;
+    color: #777;
+}
+
+.problem-details-container .actions {
+    margin-top: 30px;
+    text-align: center;
+}
+
+.problem-details-container .actions button {
+    background-color: #007bff;
+    color: #fff;
+    border: none;
+    padding: 14px 28px;
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 20px;
+    transition: background-color 0.3s;
+}
+
+.problem-details-container .actions button:hover {
+    background-color: #0056b3;
+}

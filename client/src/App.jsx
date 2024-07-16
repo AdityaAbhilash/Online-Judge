@@ -7,75 +7,63 @@ import { ToastContainer } from "react-toastify";
 import "react-toastify/dist/ReactToastify.css";
 import axios from "axios";
 import Dashboard from "./Pages/Dashboard";
-import Problems from "./Components/Problems";
 import AddProblem from "./Components/AddProblem";
+import ProblemDetail from "./Components/ProblemDetail";
+import Logout from "./Components/Logout";
 
-
-export const UserContext = createContext(null)  // usercontext holds the data 
+export const UserContext = createContext(null);
 
 const router = createBrowserRouter([
-  {
-    path: "/",
-    element: <Home />,
-  },
-  {
-    path: "/register",
-    element: <Register />,
-  },
-  {
-    path: "/login",
-    element: <Login />,
-  },
-  {
-    path: '/dashboard',
-    element: <Dashboard />,
-    // children: [
-    //   {
-    //     index: true,
-    //     element: <Problems /> 
-    //   }
-    // ]
-  },
-  {
-    path: 'addProblem',
-    element: <AddProblem />
-  }
+  { path: "/", element: <Home /> },
+  { path: "/register", element: <Register /> },
+  { path: "/login", element: <Login /> },
+  { path: "/dashboard", element: <Dashboard /> },
+  { path: "/addProblem", element: <AddProblem /> },
+  { path: "/problem/:id", element: <ProblemDetail /> },
+  { path: "/logout", element: <Logout /> }
 ]);
 
-// we store the data of each user 
-
 const App = () => {
-  const [user,setUser] = useState() // we dont have to create this at every slide so we pass it by value
-  
-  useEffect(()=>{
-    axios.get('http://localhost:3000/verify',{
-      headers:{
-        Authorization: `Berear ${localStorage.getItem('token')}`
-      }
-    }).then(res =>{
-      if(res.data.success){
-        setUser(res.data.user)
-      }
-    }).catch(err=>{
-      console.log(err)
-    })
-  },[])
+  // Initialize state
+  const [user, setUser] = useState(null);
+  const [problems, setProblems] = useState([]);
 
+  useEffect(() => {
+    // Example authentication check with token
+    const token = localStorage.getItem('token');
+    if (token) {
+      axios.get('http://localhost:3000/verify', {
+        headers: { Authorization: `Bearer ${token}` }
+      }).then(res => {
+        if (res.data.success) setUser(res.data.user);
+      }).catch(err => {
+        console.log(err);
+      });
+    }
+  }, []);
+
+  // useEffect(() => {
+  //   // Fetch problems from backend
+  //   const fetchProblems = async () => {
+  //     try {
+  //       const response = await axios.get('http://localhost:3000/problems');
+  //       setProblems(response.data); // Assuming response.data is an array of problems
+  //     } catch (error) {
+  //       console.error('Error fetching problems:', error);
+  //     }
+  //   };
+
+  //   fetchProblems();
+  // }, []);
 
   return (
     <>
-      <ToastContainer />                                         
-      <UserContext.Provider value = {{user,setUser}}>
-
-      <RouterProvider router={router} />
-
+      <ToastContainer />
+      <UserContext.Provider value={{ user, setUser, problems, setProblems }}>
+        <RouterProvider router={router} />
       </UserContext.Provider>
     </>
   );
 };
 
 export default App;
-
-
-// remember to use the tost container to shot the tost
-//A UserProvider component is created to wrap the entire application, making user data available to all components.

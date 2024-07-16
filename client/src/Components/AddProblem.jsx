@@ -1,84 +1,177 @@
-import React, { useState } from 'react';
+import React, { useState, useContext } from 'react';
+import { useNavigate } from 'react-router-dom';
+import { UserContext } from '../App';
+import '../assets/css/addProblem.css';
 import Navbar from './Navbar';
-import "../assets/css/addProblem.css";
 
 const AddProblem = () => {
-  const [testCases, setTestCases] = useState([{ input: '', output: '' }]);
+  const [problem, setProblem] = useState({
+    name: '',
+    statement: '',
+    sampleInput: '',                 // for creating each states so that we can store it 
+    sampleOutput: '',
+    difficulty: 'Easy',
+    testCases: [{ input: '', output: '' }],
+  });
+
+  const { problems, setProblems } = useContext(UserContext);
+  const navigate = useNavigate();      // to navigate to the dashboard 
+
+
+  const handleInputChange = (e) => {    // 'e' here reffer to the event triggered and it contains target ans stores in the form of value pair 
+    const { name, value } = e.target;   // e here contains all the value of the new input provided by user 
+    setProblem({ ...problem, [name]: value });  // store as a object 
+  };
+
+
+
+  const handleTestCaseChange = (index, e) => {
+    const { name, value } = e.target;                      // name here indecates input and output
+    const newTestCases = [...problem.testCases];
+    newTestCases[index][name] = value;
+    setProblem({ ...problem, testCases: newTestCases });
+  };
 
   const addTestCase = () => {
-    setTestCases([...testCases, { input: '', output: '' }]);
+    setProblem({ ...problem, testCases: [...problem.testCases, { input: '', output: '' }] });
   };
 
-  const deleteTestCase = (index) => {
-    setTestCases(testCases.filter((_, i) => i !== index));
+  const removeTestCase = (index) => {
+    const newTestCases = problem.testCases.filter((_, i) => i !== index);  // _ is the placeholder not needed and we needed index 
+    setProblem({ ...problem, testCases: newTestCases });
   };
 
-  const handleTestCaseChange = (index, event) => {
-    const { name, value } = event.target;
-    const newTestCases = [...testCases];
-    newTestCases[index][name] = value;
-    setTestCases(newTestCases);
+
+
+
+  const handleSubmit = (e) => {               // should use this function on from and state On submit and deal with the problems 
+    e.preventDefault();                      // to prevent default submission   
+    setProblems([...problems, problem]);    // on submitting we store the problem with the previous problems and navigate to dashboard and store as array 
+    navigate('/dashboard');                 
   };
 
   return (
     <>
-      <Navbar />
-      <div className="add-problem-container">
-        <h1>Problem Setting Page</h1>
-        <form>
-          <div className="form-group">
-            <label htmlFor="problem-name">Problem Name:</label>
-            <input type="text" id="problem-name" name="problemName" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="problem-statement">Problem Statement:</label>
-            <textarea id="problem-statement" name="problemStatement" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="sample-input">Sample Input:</label>
-            <textarea id="sample-input" name="sampleInput" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="sample-output">Sample Output:</label>
-            <textarea id="sample-output" name="sampleOutput" />
-          </div>
-          <div className="form-group">
-            <label htmlFor="difficulty-level">Difficulty Level:</label>
-            <select id="difficulty-level" name="difficultyLevel">
-              <option value="easy">Easy</option>
-              <option value="medium">Medium</option>
-              <option value="hard">Hard</option>
-            </select>
-          </div>
-          <h2>Add Test Case</h2>
-          {testCases.map((testCase, index) => (
-            <div key={index} className="test-case">
-              <div className="form-group">
-                <label htmlFor={`input-${index}`}>Input:</label>
-                <textarea
-                  id={`input-${index}`}
-                  name="input"
-                  value={testCase.input}
-                  onChange={(event) => handleTestCaseChange(index, event)}
-                />
-              </div>
-              <div className="form-group">
-                <label htmlFor={`output-${index}`}>Output:</label>
-                <textarea
-                  id={`output-${index}`}
-                  name="output"
-                  value={testCase.output}
-                  onChange={(event) => handleTestCaseChange(index, event)}
-                />
-              </div>
-              <button type="button" onClick={() => deleteTestCase(index)}>Delete</button>
+    <Navbar />
+    <div className="add-problem-container">
+      <h2 className="heading">PROBLEM SETTING PAGE</h2>
+      <form onSubmit={handleSubmit}>
+        <div className="form-group">
+          <label htmlFor="name">Problem Name:</label> 
+          <input
+            type="text"
+            name="name"   // this name attribute is needed to handel input change 
+            value= {problem.name}                // in form these two are in use , value = problem ans onhange = { function that change value }
+            onChange = {handleInputChange}
+            required
+          />
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="statement">Problem Statement:</label>
+          <textarea
+            name="statement"
+            value={problem.statement}
+            onChange={handleInputChange}
+            required
+          ></textarea>
+        </div> 
+
+        <div className="form-group">
+          <label htmlFor="sampleInput">Sample Input:</label>
+          <textarea
+            name="sampleInput"
+            value={problem.sampleInput}
+            onChange={handleInputChange}
+            required
+          ></textarea>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="sampleOutput">Sample Output:</label>
+          <textarea
+            name="sampleOutput"
+            value={problem.sampleOutput}
+            onChange={handleInputChange}
+            required
+          ></textarea>
+        </div>
+
+        <div className="form-group">
+          <label htmlFor="difficulty">Difficulty Level:</label>
+          <select
+            name="difficulty"
+            value={problem.difficulty}                  // in form we use select fo the popdown mwnu 
+            onChange={handleInputChange}
+          >
+            <option value="Easy">Easy</option>
+            <option value="Medium">Medium</option>
+            <option value="Hard">Hard</option>
+          </select>
+        </div>
+
+        <h3 className="heading">ADD TEST CASES</h3>
+
+        {problem.testCases.map((testCase, index) => (
+          <div className="test-case" key={index}>
+            <div className="form-group">
+              <label htmlFor={`input-${index}`}>Input:</label>
+              <textarea
+                name="input"
+                value={testCase.input}
+                onChange={(e) => handleTestCaseChange(index, e)}
+                required
+              ></textarea>
             </div>
-          ))}
-          <button type="button" onClick={addTestCase}>Add Test Case</button>
-        </form>
-      </div>
+            <div className="form-group">
+              <label htmlFor={`output-${index}`}>Output:</label>
+              <textarea
+                name="output"
+                value={testCase.output}
+                onChange={(e) => handleTestCaseChange(index, e)}   // should execute on change not on refreshing , e to pass as argument 
+                required
+              ></textarea>
+            </div>
+
+
+            <button type="button" onClick={() => removeTestCase(index)}>
+              Delete Test Case
+            </button>
+          </div>
+        ))}
+
+
+        <div className="add-test-case-button">
+          <button type="button" onClick={addTestCase}>
+            Add Test Case
+          </button>
+        </div>
+
+
+        <button type="submit">      
+            Submit           
+        </button>  
+      </form>
+    </div>
     </>
+    // THE ABOVE SUBMIT button we had handeled onSubmit
   );
 };
 
 export default AddProblem;
+
+
+/*
+how will the data store 
+{
+  name: 'Example Problem',
+  statement: 'Problem statement goes here...',
+  sampleInput: 'Sample input goes here...',
+  sampleOutput: 'Expected output goes here...',
+  difficulty: 'Easy',
+  testCases: [
+    { input: 'Input 1', output: 'Output 1' },
+    { input: 'Input 2', output: 'Output 2' }
+  ]
+}
+*/
