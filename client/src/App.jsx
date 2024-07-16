@@ -10,56 +10,80 @@ import Dashboard from "./Pages/Dashboard";
 import AddProblem from "./Components/AddProblem";
 import ProblemDetail from "./Components/ProblemDetail";
 import Logout from "./Components/Logout";
+import Problems from "./Components/Problems";
+import ProtectedRoutes from "./Components/ProtectedRoutes";
+import NotFound from "./Pages/NotFound";
 
 export const UserContext = createContext(null);
 
 const router = createBrowserRouter([
-  { path: "/", element: <Home /> },
-  { path: "/register", element: <Register /> },
-  { path: "/login", element: <Login /> },
-  { path: "/dashboard", element: <Dashboard /> },
-  { path: "/addProblem", element: <AddProblem /> },
-  { path: "/problem/:id", element: <ProblemDetail /> },
-  { path: "/logout", element: <Logout /> }
+  {
+    path: "/",
+    element: <Home />,
+  },
+  {
+    path: "/register",
+    element: <Register />,
+  },
+  {
+    path: "/login",
+    element: <Login />,
+  },
+  {
+    path: "/dashboard",
+    element: <ProtectedRoutes><Dashboard /></ProtectedRoutes>,
+    children: [
+      {
+        index: true,
+        element: <Problems />,
+      },
+      {
+        path: "/dashboard/add-problem",
+        element: <AddProblem />,
+      },
+      // {
+      //   path: "/dashboard/edit-problem/:id",
+      //   element: <EditProblem />
+      // },
+    ],
+  },
+  {
+    path: "/problem/:id",
+    element: <ProtectedRoutes><ProblemDetail /></ProtectedRoutes>,
+  },
+  { path: "/logout", 
+    element: <Logout /> 
+  },
+  {
+    path: "*",
+    element:<NotFound />
+  }
 ]);
 
 const App = () => {
   // Initialize state
   const [user, setUser] = useState(null);
-  const [problems, setProblems] = useState([]);
-
   useEffect(() => {
     // Example authentication check with token
-    const token = localStorage.getItem('token');
+    const token = localStorage.getItem("token");
     if (token) {
-      axios.get('http://localhost:3000/verify', {
-        headers: { Authorization: `Bearer ${token}` }
-      }).then(res => {
-        if (res.data.success) setUser(res.data.user);
-      }).catch(err => {
-        console.log(err);
-      });
+      axios
+        .get("http://localhost:3000/verify", {
+          headers: { Authorization: `Bearer ${token}` },
+        })
+        .then((res) => {
+          if (res.data.success) setUser(res.data.user);
+        })
+        .catch((err) => {
+          console.log(err);
+        });
     }
   }, []);
-
-  // useEffect(() => {
-  //   // Fetch problems from backend
-  //   const fetchProblems = async () => {
-  //     try {
-  //       const response = await axios.get('http://localhost:3000/problems');
-  //       setProblems(response.data); // Assuming response.data is an array of problems
-  //     } catch (error) {
-  //       console.error('Error fetching problems:', error);
-  //     }
-  //   };
-
-  //   fetchProblems();
-  // }, []);
 
   return (
     <>
       <ToastContainer />
-      <UserContext.Provider value={{ user, setUser, problems, setProblems }}>
+      <UserContext.Provider value={{ user, setUser}}>
         <RouterProvider router={router} />
       </UserContext.Provider>
     </>

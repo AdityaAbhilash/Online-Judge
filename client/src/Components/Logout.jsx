@@ -22,6 +22,9 @@ const Logout = () => {
       setUser(null);
       navigate("/");
     }
+    else{
+      navigate("/dashboard");
+    }
   });
 };
 

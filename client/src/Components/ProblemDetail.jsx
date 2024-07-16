@@ -1,45 +1,82 @@
-import React, { useContext } from 'react';
-import { useParams } from 'react-router-dom';
-import { UserContext } from '../App';
-import '../assets/css/problemDetail.css';
-import Navbar from './Navbar';
+import React, { useEffect, useState } from "react";
+import { useParams } from "react-router-dom";
+import axios from "axios";
+import CircleLoader from "react-spinners/CircleLoader";
+import Navbar from "./Navbar";
+import '../assets/css/problemDetail.css'; // Import your CSS file for styling
 
 const ProblemDetails = () => {
-  const { problems } = useContext(UserContext);
   const { id } = useParams();
-  const problem = problems[id];
+  const [problem, setProblem] = useState(null);
+  const [loading, setLoading] = useState(false);
 
-  if (!problem) {
-    return <div>Problem not found</div>;
-  }
+  useEffect(() => {
+    setLoading(true);
+    axios
+      .get(`http://localhost:3000/problem/${id}`, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      })
+      .then((res) => {
+        if (res.data.success) {
+          setProblem(res.data.problem);
+          setLoading(false);
+        }
+      })
+      .catch((err) => {
+        console.log(err);
+        setLoading(false);
+      });
+  }, [id]);
 
   return (
     <>
       <Navbar />
-      <div className="problem-details-container">
-        <div className="left-half">
-          <h2>{problem.name}</h2>
-          <p>{problem.statement}</p>
-          <h3>Sample Input:</h3>
-          <pre>{problem.sampleInput}</pre>
-          <h3>Sample Output:</h3>
-          <pre>{problem.sampleOutput}</pre>
-          {/* {problem.testCases.map((testCase, index) => (
-            <div key={index}>
-              <h3>Test Case {index + 1}</h3>
-              <p><strong>Input:</strong></p>
-              <pre>{testCase.input}</pre>
-              <p><strong>Output:</strong></p>
-              <pre>{testCase.output}</pre>
+      {loading ? (
+        <div className="loader">
+          <CircleLoader
+            loading={loading}
+            size={50}
+            aria-label="Loading Spinner"
+            data-testid="loader"
+          />
+        </div>
+      ) : (
+        <div className="problem-details-page">
+          <div className="left-half">
+            <div className="problem-details-container">
+              {problem && (
+                <>
+                  <h1 className="problem-name">{problem.name}</h1>
+                  <p className="problem-statement">{problem.statement}</p>
+                  <h3 className="section-heading">Sample Input:</h3>
+                  <pre className="code-block">{problem.sampleInput}</pre>
+                  <h3 className="section-heading">Sample Output:</h3>
+                  <pre className="code-block">{problem.sampleOutput}</pre>
+                  <div className="problem-info">
+                    <div className="info-item">
+                      <h3 className="info-label">Difficulty:</h3>
+                      <p className="info-value">{problem.difficulty}</p>
+                    </div>
+                    <div className="info-item">
+                      <h3 className="info-label">Time Limit:</h3>
+                      <p className="info-value">1s</p>
+                    </div>
+                    <div className="info-item">
+                      <h3 className="info-label">Memory Limit:</h3>
+                      <p className="info-value">256MB</p>
+                    </div>
+                  </div>
+                </>
+              )}
             </div>
-          ))} */}
-          <h3>Time Limit: 1s</h3>
-          <h3>Memory Limit: 256MB</h3>
+          </div>
+          <div className="right-half">
+            {/* Placeholder for future content */}
+          </div>
         </div>
-        <div className="right-half">
-          {/* This space is left blank for future use */}
-        </div>
-      </div>
+      )}
     </>
   );
 };

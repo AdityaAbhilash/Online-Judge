@@ -44,14 +44,6 @@ const AddProblem = () => {
   };
 
 
-
-
-  // const handleSubmit = (e) => {               // should use this function on from and state On submit and deal with the problems 
-  //   e.preventDefault();                      // to prevent default submission   
-  //   setProblems([...problems, problem]);    // on submitting we store the problem with the previous problems and navigate to dashboard and store as array 
-  //   navigate('/dashboard');                 
-  // };
-
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
@@ -78,7 +70,6 @@ const AddProblem = () => {
 
   return (
     <>
-    <Navbar />
     <div className="add-problem-container">
       <h2 className="heading">PROBLEM SETTING PAGE</h2>
       <form onSubmit={handleSubmit}>
