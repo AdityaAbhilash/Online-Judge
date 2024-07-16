@@ -4,6 +4,8 @@ import { Register ,Login ,Auth} from "../controller/userController.js";
 const router = express.Router();
 import { body } from "express-validator";
 import { VerifyUser } from "../middleware/VerifyUser.js";
+import { createProblem } from "../controller/problemController.js";
+
 
 router.post(
   "/register",
@@ -50,6 +52,9 @@ router.post(
 //verify route
 
 router.get("/verify",VerifyUser,Auth)
+
+// Problems 
+router.post("/add-problem", VerifyUser, createProblem);
 
 
 

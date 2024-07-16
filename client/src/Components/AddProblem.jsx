@@ -3,6 +3,8 @@ import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../App';
 import '../assets/css/addProblem.css';
 import Navbar from './Navbar';
+import axios from "axios";
+import { toast } from "react-toastify";
 
 const AddProblem = () => {
   const [problem, setProblem] = useState({
@@ -44,11 +46,35 @@ const AddProblem = () => {
 
 
 
-  const handleSubmit = (e) => {               // should use this function on from and state On submit and deal with the problems 
-    e.preventDefault();                      // to prevent default submission   
-    setProblems([...problems, problem]);    // on submitting we store the problem with the previous problems and navigate to dashboard and store as array 
-    navigate('/dashboard');                 
+  // const handleSubmit = (e) => {               // should use this function on from and state On submit and deal with the problems 
+  //   e.preventDefault();                      // to prevent default submission   
+  //   setProblems([...problems, problem]);    // on submitting we store the problem with the previous problems and navigate to dashboard and store as array 
+  //   navigate('/dashboard');                 
+  // };
+
+  const handleSubmit = (e) => {
+    e.preventDefault();
+    axios
+      .post("http://localhost:3000/add-problem", problem, {
+        headers: {
+          Authorization: `Berear ${localStorage.getItem('token')}`
+        }
+      })
+      .then((res) => {
+        if (res.data.success) {
+          toast.success("Problem Added Successfully", {
+            position: "top-right",
+            autoClose: 5000,
+          });
+          navigate("/dashboard");
+        }
+      })
+      .catch((err) => {
+          console.log(err);
+      });
   };
+
+
 
   return (
     <>
