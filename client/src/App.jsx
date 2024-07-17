@@ -13,6 +13,7 @@ import Logout from "./Components/Logout";
 import Problems from "./Components/Problems";
 import ProtectedRoutes from "./Components/ProtectedRoutes";
 import NotFound from "./Pages/NotFound";
+import EditProblem from "./Components/EditProblem";
 
 export const UserContext = createContext(null);
 
@@ -41,10 +42,10 @@ const router = createBrowserRouter([
         path: "/dashboard/add-problem",
         element: <AddProblem />,
       },
-      // {
-      //   path: "/dashboard/edit-problem/:id",
-      //   element: <EditProblem />
-      // },
+      {
+        path: "/dashboard/edit-problem/:id",
+        element: <EditProblem />
+      },
     ],
   },
   {

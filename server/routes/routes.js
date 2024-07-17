@@ -4,7 +4,7 @@ import { Register ,Login ,Auth} from "../controller/userController.js";
 const router = express.Router();
 import { body } from "express-validator";
 import { VerifyUser } from "../middleware/VerifyUser.js";
-import { createProblem,getProblems,getProblemById } from "../controller/problemController.js";
+import { createProblem,getProblems,getProblem,updateProblem } from "../controller/problemController.js";
 
 
 router.post(
@@ -56,9 +56,9 @@ router.get("/verify",VerifyUser,Auth)
 // Problems 
 router.post("/add-problem", VerifyUser, createProblem);
 router.get("/problems", VerifyUser, getProblems);
-router.get("/problem/:id", VerifyUser, getProblemById);
-
-
+// router.get("/problem/:id", VerifyUser, getProblemById);
+router.get("/problems/:id",VerifyUser,getProblem)
+router.put("/update-problem/:id",VerifyUser,updateProblem)
 export { router as Router };
 
 /* It does handle incoming POST requests (option 2), but more precisely, it defines what should happen when a POST request is made to the specified route (/register in this case).*/

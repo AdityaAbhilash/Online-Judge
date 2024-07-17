@@ -19,7 +19,7 @@
     /* Optionally add styles for the right half */
   }
   
-  .problem-details-container {
+  .left-half .problem-details-container {
     background-color: #f2f2f2;
     padding: 20px;
     border-radius: 8px;
@@ -27,25 +27,26 @@
     height: 100%; /* Fill the container height */
   }
   
-  .problem-name {
-    font-size: 24px;
-    color: #333333;
+  .left-half .problem-name {
+    font-size: 35px;
+    color: #320f9b;
     margin-bottom: 10px;
+    text-align: center;
   }
   
-  .problem-statement {
-    font-size: 16px;
+  .left-half .problem-statement {
+    font-size: 17px;
     line-height: 1.6;
     margin-bottom: 20px;
   }
   
-  .section-heading {
+  .left-half .section-heading {
     font-size: 18px;
     color: #2c3e50;
     margin-bottom: 10px;
   }
   
-  .code-block {
+  .left-half .code-block {
     background-color: #ffffff;
     padding: 10px;
     border: 1px solid #ddd;
@@ -54,22 +55,22 @@
     font-family: 'Courier New', Courier, monospace;
   }
   
-  .problem-info {
+  .left-half .problem-info {
     display: flex;
     flex-direction: column; /* Arrange items in a column */
   }
   
-  .info-item {
+  .left-half .info-item {
     margin-bottom: 10px;
   }
   
-  .info-label {
+  .left-half .info-label {
     font-size: 16px;
     color: #555555;
     margin-bottom: 5px;
   }
   
-  .info-value {
+  .left-half .info-value {
     font-size: 16px;
     color: #333333;
   }

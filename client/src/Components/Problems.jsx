@@ -54,7 +54,41 @@ const Problems = () => {
   const [problems, setProblems] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  
+ // const deleteProblem = (id) => {
+  //   MySwal.fire({
+  //     title: "Are you sure?",
+  //     text: "You won't be able to revert this!",
+  //     icon: "warning",
+  //     showCancelButton: true,
+  //     confirmButtonColor: "#3085d6",
+  //     cancelButtonColor: "#d33",
+  //     confirmButtonText: "Yes, delete it!"
+  //   }).then((result) => {
+  //     if (result.isConfirmed) {
+  //       axios
+  //         .delete(`http://localhost:3000/problem/${id}`, {
+  //           headers: {
+  //             Authorization: `Bearer ${localStorage.getItem("token")}`,
+  //           },
+  //         })
+  //         .then((res) => {
+  //           setProblems(res.data.problems);
+  //           MySwal.fire({
+  //             title: "Deleted!",
+  //             text: "The problem has been deleted.",
+  //             icon: "success",
+  //           });
+  //         })
+  //         .catch((err) => {
+  //           MySwal.fire({
+  //             title: "Error!",
+  //             text: "Error Occurred!!!",
+  //             icon: "error",
+  //           });
+  //         });
+  //     }
+  //   });
+  // }; 
 
   const columns = [
     {
@@ -118,7 +152,7 @@ const Problems = () => {
             customStyles={customStyles}
             pagination
           />
-          {problems.length === 0 && <h1>Add a Problem</h1>}
+          {/* {problems.length === 0 && <h1>Add a Problem</h1>} */}
         </div>
       )}
     </>

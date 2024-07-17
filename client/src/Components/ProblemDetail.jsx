@@ -13,14 +13,15 @@ const ProblemDetails = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:3000/problem/${id}`, {
+      .get(`http://localhost:3000/problems/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       })
       .then((res) => {
-        if (res.data.success) {
-          setProblem(res.data.problem);
+        // console.log(res)
+        if (res.data.success){
+          setProblem(res.data);
           setLoading(false);
         }
       })
