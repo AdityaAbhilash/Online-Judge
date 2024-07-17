@@ -3,10 +3,12 @@ import axios from "axios";
 import DataTable from "react-data-table-component";
 import { FaPenSquare, FaTrashAlt } from "react-icons/fa";
 import CircleLoader from "react-spinners/CircleLoader";
-import { Link } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import "../assets/css/problem.css";
+
+
 
 const customStyles = { // styling the DataTable 
   headCells: {
@@ -53,6 +55,7 @@ const MySwal = withReactContent(Swal);
 const Problems = () => {
   const [problems, setProblems] = useState([]);
   const [loading, setLoading] = useState(false);
+  
 
  const deleteProblem = (id) => {
     MySwal.fire({
@@ -77,6 +80,7 @@ const Problems = () => {
               title: "Deleted!",
               text: "The problem has been deleted.",
               icon: "success",
+              
             });
           })
           .catch((err) => {
@@ -84,11 +88,25 @@ const Problems = () => {
               title: "Error!",
               text: "Error Occurred!!!",
               icon: "error",
+
             });
           });
       }
     });
   }; 
+  
+  const navigate = useNavigate(); 
+  
+  const handleEditClick = (e, row) => {
+    if (row.public) {
+      e.preventDefault(); // Prevent navigation
+      MySwal.fire({
+        title: "Error!",
+        text: "You cannot edit public problems.",
+        icon: "error",
+      });
+    }
+  };
 
   const columns = [
     {
@@ -103,9 +121,13 @@ const Problems = () => {
       name: "Action",
       cell: (row) => (
         <div className="table-icons">
-          <Link to={`/dashboard/edit-problem/${row._id}`}>
+          <Link 
+            to={`/dashboard/edit-problem/${row._id}`}
+            onClick={(e) => handleEditClick(e, row)}
+          >
             <FaPenSquare className="table-icon edit-icon" />
           </Link>
+
           <FaTrashAlt className="table-icon delete-icon" onClick={() => deleteProblem(row._id)} />
         </div>
       ),

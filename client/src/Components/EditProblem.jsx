@@ -1,10 +1,10 @@
 import React, { useState, useContext, useEffect } from 'react';
 import { useNavigate, useParams } from 'react-router-dom';
-import { UserContext } from '../App';
+// import { UserContext } from '../App';
 import '../assets/css/addProblem.css';
-import Navbar from './Navbar';
 import axios from "axios";
 import { toast } from "react-toastify";
+
 
 const EditProblem = () => {
   const [problem, setProblem] = useState({
@@ -44,7 +44,7 @@ const EditProblem = () => {
   };
 
   const {id} = useParams()
-
+  
   const handleSubmit = (e) => {
     e.preventDefault();
     axios

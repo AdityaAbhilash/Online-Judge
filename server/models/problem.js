@@ -36,6 +36,10 @@ const ProblemSchema = new mongoose.Schema({
     postedBy: {
         type: mongoose.Schema.Types.ObjectId,
         ref: "user"
+    },
+    public: {  // New field to indicate if a problem is public
+        type: Boolean,
+        default: false,
     }
 });
 

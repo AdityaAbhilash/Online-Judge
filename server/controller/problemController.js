@@ -24,14 +24,37 @@ const createProblem = async (req,res) => {
 }
 }
 
+  // const getProblems = async (req, res) => {
+  //   try {
+  //     const problems = await ProblemModel.find({postedBy: req.user._id})
+  //     return res.status(200).json({ success: true, problems });
+  //   } catch (err) {
+  //     return res.status(500).json({ error: err.message });
+  //   }
+  // };
+
   const getProblems = async (req, res) => {
     try {
-      const problems = await ProblemModel.find({postedBy: req.user._id})
+      let query = {};
+      // Check if req.user is defined (user authenticated)
+      if (req.user) {
+        query.$or = [
+          { postedBy: req.user._id },
+          { public: true }
+        ];
+      } else {
+        query.public = true; // If user not authenticated, only fetch public problems
+      }
+      const problems = await ProblemModel.find(query);
+      if (!problems) {
+        return res.status(404).json({ success: false, message: "No problems found" });
+      }
       return res.status(200).json({ success: true, problems });
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }
   };
+
   
   // const getProblemById = async (req, res) => {
   //   try {
@@ -51,46 +74,101 @@ const createProblem = async (req,res) => {
       return res.status(401).json({error:"No Id Specified"})
     }
     try {
-      const problems = await ProblemModel.findOne({_id: id})
-      return res.status(200).json({ success: true, ...problems._doc });
+      // const problems = await ProblemModel.findOne({_id: id})
+
+      /* const problems = await ProblemModel.find({
+         $or: [{ postedBy: req.user._id }, { public: true }],
+       });*/
+
+      const problems = await ProblemModel.findOne({
+        _id: id,
+        $or: [{ postedBy: req.user._id }, { public: true }],
+      });
+
+
+      return res.status(200).json({ success: true, ...problems._doc });     // findone and find are different 
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }
   };
+
+  // const updateProblem = async (req, res) => {
+  //   const {id} = req.params;
+  //   if(!id){
+  //     return res.status(401).json({error:"No Id Specified"})
+  //   }
+  //   try {
+  //     const result = await ProblemModel.findByIdAndUpdate({_id:id},{...req.body},{new: true})
+  //     return res.status(200).json({ success: true, ...result._doc });
+  //   } catch (err) {
+  //     return res.status(500).json({ error: err.message });
+  //   }
+  // };
 
   const updateProblem = async (req, res) => {
-    const {id} = req.params;
-    if(!id){
-      return res.status(401).json({error:"No Id Specified"})
+    const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({ error: "No Id Specified" });
     }
     try {
-      const result = await ProblemModel.findByIdAndUpdate({_id:id},{...req.body},{new: true})
-      return res.status(200).json({ success: true, ...result._doc });
-    } catch (err) {
-      return res.status(500).json({ error: err.message });
-    }
-  };
+        const problem = await ProblemModel.findById(id);
+        if (!problem) {
+            return res.status(404).json({ error: "Problem not found" });
+        }
 
+        // Check if the problem is public
+        if (problem.public) {
+            return res.status(403).json({ error: "Public problems cannot be updated" });
+        }
+        const result = await ProblemModel.findByIdAndUpdate(id, { ...req.body }, { new: true });
+        return res.status(200).json({ success: true, ...result._doc });
+    } catch (err) {
+        return res.status(500).json({ error: err.message });
+    }
+};
+
+
+  // const deleteProblem = async (req, res) => {
+  //   const {id} = req.params;
+  //   if(!id){
+  //     return res.status(401).json({error:"No Id Specified"})
+  //   }
+  //   try {
+  //     const problem = await ProblemModel.findOne({_id: id})
+  //     if(!problem){
+  //       return res.status(401).json({error:"No Record Existed"})
+  //     }
+  //     const deleteRecord = await ProblemModel.findByIdAndDelete({_id: id})
+  //     const problems = await ProblemModel.find({postedBy:req.user._id})
+  //     return res.status(200).json({ success: true, problems });
+  //   } catch (err) {
+  //     return res.status(500).json({ error: err.message });
+  //   }
+  // };
 
   const deleteProblem = async (req, res) => {
-    const {id} = req.params;
-    if(!id){
-      return res.status(401).json({error:"No Id Specified"})
+    const { id } = req.params;
+    if (!id) {
+        return res.status(400).json({ error: "No Id Specified" });
     }
     try {
-      const problem = await ProblemModel.findOne({_id: id})
-      if(!problem){
-        return res.status(401).json({error:"No Record Existed"})
-      }
-      const deleteRecord = await ProblemModel.findByIdAndDelete({_id: id})
-      const problems = await ProblemModel.find({postedBy:req.user._id})
-      return res.status(200).json({ success: true, problems });
+        const problem = await ProblemModel.findById(id);
+        if (!problem) {
+            return res.status(404).json({ error: "Problem not found" });
+        }
+
+        // Check if the problem is public
+        if (problem.public) {
+            return res.status(403).json({ error: "Public problems cannot be deleted" });
+        }
+
+        await ProblemModel.findByIdAndDelete(id);
+        const problems = await ProblemModel.find({ postedBy: req.user._id });
+        return res.status(200).json({ success: true, problems });
     } catch (err) {
-      return res.status(500).json({ error: err.message });
+        return res.status(500).json({ error: err.message });
     }
-  };
-
-
+};
 
 export {createProblem,getProblems,getProblem,updateProblem , deleteProblem}
 
