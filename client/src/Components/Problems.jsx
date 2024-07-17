@@ -8,7 +8,7 @@ import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import "../assets/css/problem.css";
 
-const customStyles = {   // styling the DataTable 
+const customStyles = { // styling the DataTable 
   headCells: {
     style: {
       fontSize: "18px",
@@ -54,41 +54,41 @@ const Problems = () => {
   const [problems, setProblems] = useState([]);
   const [loading, setLoading] = useState(false);
 
- // const deleteProblem = (id) => {
-  //   MySwal.fire({
-  //     title: "Are you sure?",
-  //     text: "You won't be able to revert this!",
-  //     icon: "warning",
-  //     showCancelButton: true,
-  //     confirmButtonColor: "#3085d6",
-  //     cancelButtonColor: "#d33",
-  //     confirmButtonText: "Yes, delete it!"
-  //   }).then((result) => {
-  //     if (result.isConfirmed) {
-  //       axios
-  //         .delete(`http://localhost:3000/problem/${id}`, {
-  //           headers: {
-  //             Authorization: `Bearer ${localStorage.getItem("token")}`,
-  //           },
-  //         })
-  //         .then((res) => {
-  //           setProblems(res.data.problems);
-  //           MySwal.fire({
-  //             title: "Deleted!",
-  //             text: "The problem has been deleted.",
-  //             icon: "success",
-  //           });
-  //         })
-  //         .catch((err) => {
-  //           MySwal.fire({
-  //             title: "Error!",
-  //             text: "Error Occurred!!!",
-  //             icon: "error",
-  //           });
-  //         });
-  //     }
-  //   });
-  // }; 
+ const deleteProblem = (id) => {
+    MySwal.fire({
+      title: "Are you sure?",
+      text: "You won't be able to revert this!",
+      icon: "warning",
+      showCancelButton: true,
+      confirmButtonColor: "#3085d6",
+      cancelButtonColor: "#d33",
+      confirmButtonText: "Yes, delete it!"
+    }).then((result) => {
+      if (result.isConfirmed) {
+        axios
+          .delete(`http://localhost:3000/problems/${id}`, {
+            headers: {
+              Authorization: `Bearer ${localStorage.getItem("token")}`,
+            },
+          })
+          .then((res) => {
+            setProblems(res.data.problems);
+            MySwal.fire({
+              title: "Deleted!",
+              text: "The problem has been deleted.",
+              icon: "success",
+            });
+          })
+          .catch((err) => {
+            MySwal.fire({
+              title: "Error!",
+              text: "Error Occurred!!!",
+              icon: "error",
+            });
+          });
+      }
+    });
+  }; 
 
   const columns = [
     {

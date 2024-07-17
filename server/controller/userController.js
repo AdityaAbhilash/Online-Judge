@@ -117,4 +117,4 @@ const Auth =(req,res)=>{
 
 
 
-export { Register , Login ,Auth};
+export { Register , Login ,Auth };

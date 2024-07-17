@@ -72,7 +72,27 @@ const createProblem = async (req,res) => {
   };
 
 
-export {createProblem,getProblems,getProblem,updateProblem}
+  const deleteProblem = async (req, res) => {
+    const {id} = req.params;
+    if(!id){
+      return res.status(401).json({error:"No Id Specified"})
+    }
+    try {
+      const problem = await ProblemModel.findOne({_id: id})
+      if(!problem){
+        return res.status(401).json({error:"No Record Existed"})
+      }
+      const deleteRecord = await ProblemModel.findByIdAndDelete({_id: id})
+      const problems = await ProblemModel.find({postedBy:req.user._id})
+      return res.status(200).json({ success: true, problems });
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  };
+
+
+
+export {createProblem,getProblems,getProblem,updateProblem , deleteProblem}
 
 
 /* req.params.id: This retrieves the id parameter from the request URL. For example, if your route is /problems/:id, and you make a request to /problems/123, req.params.id would be '123' */
