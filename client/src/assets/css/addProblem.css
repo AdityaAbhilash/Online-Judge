@@ -1,15 +1,21 @@
 
-.heading{
-    text-align: center;
-}
-
 .add-problem-container {
     padding: 20px;
-    /* max-width: 800px; */
     margin: 0 auto;
-    background-color: #f9f9f9;
+    /* background: linear-gradient(135deg, #6a11cb, #2575fc);  */
+    background-color: #443f3f;
     border-radius: 8px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    max-width: 800px;
+    width: 100%;
+    margin-top: 50px;
+}
+
+.heading {
+    text-align: center;
+    color: #ffd700; 
+    margin-bottom: 20px;
+    text-transform: uppercase;
 }
 
 .form-group {
@@ -17,10 +23,10 @@
 }
 
 .form-group label {
-    display: block;
-    margin-bottom: 5px;
+    color: #ffd700; 
     font-weight: bold;
-    color: #333;
+    margin-bottom: 5px;
+    display: block;
 }
 
 .form-group input,
@@ -39,14 +45,8 @@
 .form-group input:focus,
 .form-group textarea:focus,
 .form-group select:focus {
-    border-color: #007bff;
+    border-color: #6a11cb;
     outline: none;
-}
-
-.form-group .error {
-    color: red;
-    font-size: 0.9em;
-    margin-top: 5px;
 }
 
 .test-case {
@@ -54,8 +54,7 @@
     padding: 15px;
     margin-bottom: 15px;
     border-radius: 4px;
-    background-color: #fff;
-    position: relative;
+    background-color: #444; 
 }
 
 .test-case .form-group {
@@ -72,11 +71,16 @@
     font-size: 16px;
     width: 100%;
     margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.test-case button:hover {
+    background-color: #c82333;
 }
 
 button[type="button"],
 button[type="submit"] {
-    background-color: #007bff;
+    background-color: #6a11cb;
     color: white;
     border: none;
     padding: 10px 20px;
@@ -87,18 +91,13 @@ button[type="submit"] {
 }
 
 button[type="submit"] {
-    background-color: #28a745;
     display: block;
     margin: 20px auto;
 }
 
 button[type="button"]:hover,
 button[type="submit"]:hover {
-    background-color: #0056b3;
-}
-
-button[type="submit"]:hover {
-    background-color: #218838;
+    background-color: #5e0eb4;
 }
 
 .add-test-case-button {
@@ -109,8 +108,11 @@ button[type="submit"]:hover {
 
 .add-test-case-button button {
     background-color: #ffc107;
+    color: #333; 
 }
 
 .add-test-case-button button:hover {
     background-color: #e0a800;
 }
+
+

@@ -52,6 +52,7 @@ const router = createBrowserRouter([
     path: "/problem/:id",
     element: <ProtectedRoutes><ProblemDetail /></ProtectedRoutes>,
   },
+  
   { path: "/logout", 
     element: <Logout /> 
   },

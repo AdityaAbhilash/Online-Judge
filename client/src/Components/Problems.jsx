@@ -41,9 +41,9 @@ const customStyles = { // styling the DataTable
       },
     },
     pageButtonsStyleHover: {
-      backgroundColor: "#f2f2f2 !important", /* Light gray background on hover */
+      backgroundColor: "#f2f2f2 !important", 
       borderRadius: "5px",
-      color: "#2c3e50 !important", /* Change text color on hover */
+      color: "#2c3e50 !important", 
     },
   },
 };

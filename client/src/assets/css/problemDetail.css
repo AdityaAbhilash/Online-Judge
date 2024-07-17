@@ -3,8 +3,9 @@
 .problem-details-page {
     display: flex;
     justify-content: center;
+    background: linear-gradient(135deg, #6a11cb 25%, #2575fc 50%, #ff00c8 75%, #f7b733 100%);
     align-items: flex-start; /* Align items to the top */
-    margin-top: 20px;
+    /* margin-top: 20px; */
     min-height: 100vh; /* Ensure the page fills the viewport height */
   }
   
@@ -38,6 +39,7 @@
     font-size: 17px;
     line-height: 1.6;
     margin-bottom: 20px;
+    white-space: pre-wrap;
   }
   
   .left-half .section-heading {

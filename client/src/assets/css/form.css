@@ -1,37 +1,36 @@
 /* CSS for form input boxes */
-.form-container,
-.add-form-container {
-    font-family: Arial, sans-serif;
-    margin: 0;
-    padding: 0;
+
+.center-container {
     display: flex;
     justify-content: center;
     align-items: center;
-    background-image: linear-gradient(rgba(255, 255, 255, 0.7), rgba(255, 255, 255, 0.7)), url("../bg.png");
-    background-size: cover;
-    background-position: center;
     height: 100vh;
+    background: linear-gradient(135deg, #6a11cb, #2575fc); /* Purple-blue gradient background */
+    color: #fff;
+    font-family: Arial, sans-serif;
+    padding: 20px;
+    box-sizing: border-box;
 }
 
-.add-form-container {
-    height: 90vh;
-}
-
-.form,
-.add-form {
-    background-color: rgba(255, 255, 255, 0.9);
+.form-container {
+    background-color: rgba(30, 30, 30, 0.9); /* Dark background for the form */
     border-radius: 12px;
-    box-shadow: 0 0 20px rgba(0, 0, 0, 0.2);
-    padding: 30px;
+    box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+    padding: 40px;
     width: 400px;
     max-width: 90%;
 }
 
-.form h2,
-.add-form h2 {
+.form {
+    background-color: transparent; /* Transparent form background */
+    border-radius: 12px;
+    padding: 20px;
+}
+
+.form h2 {
     margin-bottom: 30px;
     text-align: center;
-    color: rgb(43, 42, 42);
+    color: #ffd700; /* Gold color for the title */
     text-transform: uppercase;
     letter-spacing: 1px;
 }
@@ -40,38 +39,12 @@
     margin-bottom: 20px;
 }
 
-.add-form .form-group {
-    display: flex;
-    align-items: center;
-    margin-bottom: 20px;
-}
-
-.add-form .form-group input {
-    flex: 1;
-    margin-left: 20px;
-    padding: 12px;
-    border: none;
-    border-bottom: 2px solid rgb(43, 42, 42);
-    background-color: transparent;
-    color: rgb(43, 42, 42);
-    transition: border-bottom-color 0.3s ease;
-}
-
-.add-form .form-group input::placeholder {
-    color: rgb(100, 100, 100);
-}
-
-.add-form .form-group input:focus {
-    outline: none;
-    border-bottom-color: rgb(5, 20, 121);
-}
-
 .form .form-group label {
     display: block;
     font-size: 16px;
     font-weight: bold;
     margin-bottom: 10px;
-    color: rgb(43, 42, 42);
+    color: #fff;
 }
 
 .form .form-group input {
@@ -81,23 +54,28 @@
     margin-top: 5px;
     border: 1px solid #ccc;
     border-radius: 4px;
+    background-color: #333;
+    color: #fff;
     transition: border-color 0.2s;
+}
+
+.form .form-group input::placeholder {
+    color: #bbb;
 }
 
 .form .form-group input:focus {
     outline: none;
-    border-color: rgb(5, 20, 121);
+    border-color: #ffd700; /* Gold border on focus */
 }
 
 .form .error {
-    color: red;
+    color: #ff4d4d; /* Red for error messages */
     font-size: 14px;
     margin-top: 5px;
 }
 
-.form .form-btn,
-.add-form .form-btn {
-    background-color: rgb(5, 20, 121);
+.form .form-btn {
+    background-color: #4CAF50; /* Green button color */
     color: #fff;
     padding: 12px;
     width: 100%;
@@ -108,11 +86,13 @@
     margin-top: 20px;
     text-transform: uppercase;
     letter-spacing: 1px;
+    transition: background-color 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
 }
 
-.form .form-btn:hover,
-.add-form .form-btn:hover {
-    background-color: rgb(0, 15, 91);
+.form .form-btn:hover {
+    background-color: #45a049; /* Darker shade of green on hover */
+    transform: translateY(-2px); /* Slight lift on hover */
 }
 
 .form .already-registered {
@@ -121,7 +101,7 @@
 }
 
 .form .already-registered a {
-    color: rgb(5, 20, 121);
+    color: #ffd700; /* Gold color for the link */
     text-decoration: none;
     font-weight: bold;
 }

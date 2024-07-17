@@ -2,7 +2,6 @@ import React, { useState, useContext } from 'react';
 import { useNavigate } from 'react-router-dom';
 import { UserContext } from '../App';
 import '../assets/css/addProblem.css';
-import Navbar from './Navbar';
 import axios from "axios";
 import { toast } from "react-toastify";
 

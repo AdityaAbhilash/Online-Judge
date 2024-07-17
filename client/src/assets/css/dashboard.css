@@ -1,55 +1,19 @@
 .dashboard-container {
     padding: 20px;
-    max-width: 1200px;
+    max-width: 100%;
     margin: 0 auto;
+    background: linear-gradient(135deg, #6a11cb 25%, #2575fc 50%, #ff00c8 75%, #f7b733 100%);
     background-color: #f9f9f9;
     border-radius: 8px;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.dashboard-heading {
+/* .dashboard-heading {
     text-align: center;
     margin-bottom: 20px;
     font-size: 24px;
     font-weight: bold;
     color: #333;
-}
-
-.problems-table {
-    width: 100%;
-    border-collapse: collapse;
-    margin-top: 20px;
-}
-
-.problems-table th,
-.problems-table td {
-    padding: 12px 15px;
-    border: 1px solid #ddd;
-    text-align: center;
-}
-
-.problems-table th {
-    background-color: #5e7d9e;
-    color: white;
-    font-weight: bold;
-}
-
-.problems-table td {
-    background-color: #fff;
-}
-
-.problems-table td button {
-    background-color: #dc3545;
-    color: white;
-    border: none;
-    padding: 5px 10px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 14px;
-}
-
-.problems-table td button:hover {
-    background-color: #c82333;
 }
 
 .page-heading {
@@ -58,13 +22,14 @@
     font-size: 30px;
     font-weight: bold;
     color: #040404;
-}
+} */
 
 .not-found {
     display:flex;
     flex-direction: column;
     height: 100vh;
-    background-color: rgb(20, 20, 20);
+    /* background-color: rgb(20, 20, 20); */
+    background:linear-gradient(135deg, #6a11cb 25%, #2575fc 50%, #ff00c8 75%, #f7b733 100%);
     color:yellow;
     align-items: center;
     justify-content: center;
