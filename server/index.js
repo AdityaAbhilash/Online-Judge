@@ -12,6 +12,7 @@ const app = express()
 //middlewares
 app.use(express.json()) //convert to json format
 app.use(cors())
+app.use(express.urlencoded({ extended: true }));
 
 
 dotenv.config({path: "./config/.env"}) //load environment virable into this file

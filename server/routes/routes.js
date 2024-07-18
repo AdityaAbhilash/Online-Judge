@@ -5,6 +5,7 @@ const router = express.Router();
 import { body } from "express-validator";
 import { VerifyUser } from "../middleware/VerifyUser.js";
 import { createProblem,getProblems,getProblem,updateProblem,deleteProblem } from "../controller/problemController.js";
+import { runCompiler } from "../controller/compilerController.js";
 
 
 router.post(
@@ -60,6 +61,10 @@ router.get("/problems", VerifyUser, getProblems);
 router.get("/problems/:id",VerifyUser,getProblem)
 router.put("/update-problem/:id",VerifyUser,updateProblem)
 router.delete("/problems/:id",VerifyUser,deleteProblem)
+
+// compiler
+router.post("/run",runCompiler) // add verify user 
+
 
 
 

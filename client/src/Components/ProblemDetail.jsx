@@ -3,12 +3,41 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import CircleLoader from "react-spinners/CircleLoader";
 import Navbar from "./Navbar";
-import '../assets/css/problemDetail.css'; // Import your CSS file for styling
+import Editor from 'react-simple-code-editor';
+import { highlight, languages } from 'prismjs/components/prism-core';
+import 'prismjs/components/prism-clike';
+import 'prismjs/components/prism-javascript';
+import 'prismjs/themes/prism.css';
+import '../assets/css/problemDetail.css';
+
+const prewrittenCodes = {
+  cpp: `#include <iostream>
+
+int main() {
+    std::cout << "Hello World!";
+    return 0;
+}`,
+  c: `#include <stdio.h>
+
+int main() {
+    printf("Hello World!");
+    return 0;
+}`,
+  py: `print("Hello World!")`,
+  java: `public class Main {
+    public static void main(String[] args) {
+        System.out.println("Hello World!");
+    }
+}`,
+};
 
 const ProblemDetails = () => {
   const { id } = useParams();
   const [problem, setProblem] = useState(null);
   const [loading, setLoading] = useState(false);
+  const [code, setCode] = useState(prewrittenCodes.cpp);
+  const [language, setLanguage] = useState('cpp');
+  const [output, setOutput] = useState('');
 
   useEffect(() => {
     setLoading(true);
@@ -30,6 +59,27 @@ const ProblemDetails = () => {
         setLoading(false);
       });
   }, [id]);
+
+  const handleLanguageChange = (e) => {
+    const selectedLanguage = e.target.value;
+    setLanguage(selectedLanguage);
+    setCode(prewrittenCodes[selectedLanguage]);
+  };
+
+  const handleSubmit = async () => {
+    const payload = {
+      language,
+      code
+    };
+
+    try {
+      const { data } = await axios.post('http://localhost:3000/run', payload);
+      console.log(data);
+      setOutput(data.output);
+    } catch (error) {
+      console.log(error.response);
+    }
+  }
 
   return (
     <>
@@ -74,7 +124,40 @@ const ProblemDetails = () => {
             </div>
           </div>
           <div className="right-half">
-            {/* Placeholder for future content */}
+            <div className="code-editor-container">
+              <h2 className="editor-heading">Code Editor</h2>
+              <select onChange={handleLanguageChange} value={language} className="select-language">
+                <option value='cpp'>C++</option>
+                <option value='c'>C</option>
+                <option value='py'>Python</option>
+                <option value='java'>Java</option>
+              </select>
+              <div className="code-editor">
+                <Editor
+                  value={code}
+                  onValueChange={code => setCode(code)}
+                  highlight={code => highlight(code, languages.js)}
+                  padding={10}
+                  style={{
+                    fontFamily: '"Fira code", "Fira Mono", monospace',
+                    fontSize: 14,
+                    outline: 'none',
+                    border: 'none',
+                    backgroundColor: '#f7fafc',
+                    height: '500px',
+                    overflowY: 'auto'
+                  }}
+                />
+              </div>
+              <div className="button-container">
+                <button onClick={handleSubmit} type="button" className="run-button">Run</button>
+                <button onClick={handleSubmit} type="button" className="submit-button">Submit</button>
+              </div>
+              <div className="outputbox">
+                <h3>Output:</h3>
+                <pre>{output}</pre>
+              </div>
+            </div>
           </div>
         </div>
       )}

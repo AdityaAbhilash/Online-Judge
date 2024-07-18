@@ -1,79 +1,153 @@
-/* ProblemDetails.css */
-
 .problem-details-page {
-    display: flex;
-    justify-content: center;
-    background: linear-gradient(135deg, #6a11cb 25%, #2575fc 50%, #ff00c8 75%, #f7b733 100%);
-    align-items: flex-start; /* Align items to the top */
-    /* margin-top: 20px; */
-    min-height: 100vh; /* Ensure the page fills the viewport height */
-  }
-  
-  .left-half {
-    width: 50%;
-    padding: 20px;
-    box-sizing: border-box;
-  }
-  
-  .right-half {
-    width: 50%;
-    /* Optionally add styles for the right half */
-  }
-  
-  .left-half .problem-details-container {
-    background-color: #f2f2f2;
-    padding: 20px;
-    border-radius: 8px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-    height: 100%; /* Fill the container height */
-  }
-  
-  .left-half .problem-name {
-    font-size: 35px;
-    color: #320f9b;
-    margin-bottom: 10px;
-    text-align: center;
-  }
-  
-  .left-half .problem-statement {
-    font-size: 17px;
-    line-height: 1.6;
-    margin-bottom: 20px;
-    white-space: pre-wrap;
-  }
-  
-  .left-half .section-heading {
-    font-size: 18px;
-    color: #2c3e50;
-    margin-bottom: 10px;
-  }
-  
-  .left-half .code-block {
-    background-color: #ffffff;
-    padding: 10px;
-    border: 1px solid #ddd;
-    border-radius: 5px;
-    white-space: pre-wrap;
-    font-family: 'Courier New', Courier, monospace;
-  }
-  
-  .left-half .problem-info {
-    display: flex;
-    flex-direction: column; /* Arrange items in a column */
-  }
-  
-  .left-half .info-item {
-    margin-bottom: 10px;
-  }
-  
-  .left-half .info-label {
-    font-size: 16px;
-    color: #555555;
-    margin-bottom: 5px;
-  }
-  
-  .left-half .info-value {
-    font-size: 16px;
-    color: #333333;
-  }
-  
+  display: flex;
+  justify-content: center;
+  background: linear-gradient(135deg, #6a11cb 25%, #2575fc 50%, #ff00c8 75%, #f7b733 100%);
+  align-items: flex-start;
+  min-height: 100vh;
+}
+
+.left-half {
+  width: 50%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+
+.left-half .problem-details-container {
+  background-color: #f2f2f2;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+  height: 100%;
+}
+
+.left-half .problem-name {
+  font-size: 35px;
+  color: #320f9b;
+  margin-bottom: 10px;
+  text-align: center;
+}
+
+.left-half .problem-statement {
+  font-size: 17px;
+  line-height: 1.6;
+  margin-bottom: 20px;
+  white-space: pre-wrap;
+}
+
+.left-half .section-heading {
+  font-size: 18px;
+  color: #2c3e50;
+  margin-bottom: 10px;
+}
+
+.left-half .code-block {
+  background-color: #ffffff;
+  padding: 10px;
+  border: 1px solid #ddd;
+  border-radius: 5px;
+  white-space: pre-wrap;
+  font-family: 'Courier New', Courier, monospace;
+}
+
+.left-half .problem-info {
+  display: flex;
+  flex-direction: column;
+}
+
+.left-half .info-item {
+  margin-bottom: 10px;
+}
+
+.left-half .info-label {
+  font-size: 16px;
+  color: #555555;
+  margin-bottom: 5px;
+}
+
+.left-half .info-value {
+  font-size: 16px;
+  color: #333333;
+}
+
+
+
+
+.right-half {
+  width: 50%;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.code-editor-container {
+  width: 91%;
+  max-width: 700px;
+}
+
+.editor-heading {
+  font-size: 1.5rem;
+  margin-bottom: 1rem;
+  text-align: center;
+}
+
+.select-language {
+  width: 105%;
+  padding: 0.5rem;
+  margin-bottom: 1rem;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 1rem;
+}
+
+.code-editor {
+  width: 100%;
+  height: 500px;
+  margin-bottom: 1rem;
+  background-color: #f7fafc;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  overflow-y: auto;
+  padding: 1rem;
+}
+
+.button-container {
+  display: flex;
+  justify-content: flex-start; /* Adjusted to align items to the start */
+  margin-right: 2rem;
+  width: calc(100% - 2rem); /* Adjusted to subtract the margin from width */
+}
+
+.run-button,
+.submit-button {
+  display: inline-block;
+  background-color: #4CAF50;
+  color: white;
+  padding: 0.5rem 1rem;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  font-size: 1rem;
+  margin-right: 0.5rem; /* Small margin between buttons */
+}
+
+.run-button:hover,
+.submit-button:hover {
+  background-color: #45a049;
+}
+
+.outputbox {
+  width: 100%;
+  margin-top: 1rem;
+  background-color: #f7fafc;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  padding: 1rem;
+  min-height: 150px;
+}
+
+.outputbox pre {
+  margin: 0;
+  font-family: 'Fira Code', monospace;
+  font-size: 1rem;
+}
