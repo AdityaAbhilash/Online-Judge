@@ -73,7 +73,11 @@ const ProblemDetails = () => {
     };
 
     try {
-      const { data } = await axios.post('http://localhost:3000/run', payload);
+      const { data } = await axios.post('http://localhost:3000/run', payload, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
       console.log(data);
       setOutput(data.output);
     } catch (error) {
@@ -125,7 +129,7 @@ const ProblemDetails = () => {
           </div>
           <div className="right-half">
             <div className="code-editor-container">
-              <h2 className="editor-heading">Code Editor</h2>
+              {/* <h2 className="editor-heading">Code Editor</h2> */}
               <select onChange={handleLanguageChange} value={language} className="select-language">
                 <option value='cpp'>C++</option>
                 <option value='c'>C</option>

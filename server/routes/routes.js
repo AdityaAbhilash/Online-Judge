@@ -63,7 +63,7 @@ router.put("/update-problem/:id",VerifyUser,updateProblem)
 router.delete("/problems/:id",VerifyUser,deleteProblem)
 
 // compiler
-router.post("/run",runCompiler) // add verify user 
+router.post("/run",VerifyUser,runCompiler) // add verify user 
 
 
 

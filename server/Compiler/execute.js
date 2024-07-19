@@ -67,20 +67,17 @@ const executePython = (filePath) => {
 };
 
 const executeJava = (filePath) => {
-    const jobId = path.basename(filePath).split(".")[0];
-    
     return new Promise((resolve, reject) => {
-        exec(`javac ${filePath} && java -cp ${path.dirname(filePath)} ${jobId}`,
-            (error, stdout, stderr) => {
-                if (error) {
-                    reject({ error, stderr });
-                }
-                if (stderr) {
-                    reject(stderr);
-                }
-                resolve(stdout);
-            });
+        exec(`java ${filePath}`, (error, stdout, stderr) => {
+            if (error) {
+                reject({ error, stderr });
+            }
+            if (stderr) {
+                reject(stderr);
+            }
+            resolve(stdout);
+        });
     });
-};
+};   
 
 export { executeCpp, executeC, executePython, executeJava };
