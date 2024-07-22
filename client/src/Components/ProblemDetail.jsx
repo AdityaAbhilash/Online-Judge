@@ -3,12 +3,12 @@ import { useParams } from "react-router-dom";
 import axios from "axios";
 import CircleLoader from "react-spinners/CircleLoader";
 import Navbar from "./Navbar";
-import Editor from 'react-simple-code-editor';
-import { highlight, languages } from 'prismjs/components/prism-core';
-import 'prismjs/components/prism-clike';
-import 'prismjs/components/prism-javascript';
-import 'prismjs/themes/prism.css';
-import '../assets/css/problemDetail.css';
+import Editor from "react-simple-code-editor";
+import { highlight, languages } from "prismjs/components/prism-core";
+import "prismjs/components/prism-clike";
+import "prismjs/components/prism-javascript";
+import "prismjs/themes/prism.css";
+import "../assets/css/problemDetail.css";
 
 const prewrittenCodes = {
   cpp: `#include <iostream>
@@ -37,11 +37,11 @@ const ProblemDetails = () => {
   const [problem, setProblem] = useState(null);
   const [loading, setLoading] = useState(false);
   const [code, setCode] = useState(prewrittenCodes.cpp);
-  const [language, setLanguage] = useState('cpp');
-  const [input, setInput] = useState('');
-  const [output, setOutput] = useState('');
-  const [verdict, setVerdict] = useState('');
-  const [activeTab, setActiveTab] = useState('input');  // This is the default active tab after refresh 
+  const [language, setLanguage] = useState("cpp");
+  const [input, setInput] = useState("");
+  const [output, setOutput] = useState("");
+  const [verdicts, setVerdicts] = useState([]);
+  const [activeTab, setActiveTab] = useState("input"); // This is the default active tab after refresh
 
   useEffect(() => {
     setLoading(true);
@@ -52,7 +52,7 @@ const ProblemDetails = () => {
         },
       })
       .then((res) => {
-        if (res.data.success){
+        if (res.data.success) {
           setProblem(res.data);
           setLoading(false);
         }
@@ -73,17 +73,17 @@ const ProblemDetails = () => {
     const payload = {
       language,
       code,
-      input
+      input,
     };
 
     try {
-      const { data } = await axios.post('http://localhost:3000/run', payload, {
+      const { data } = await axios.post("http://localhost:3000/run", payload, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
       setOutput(data.output);
-      setActiveTab('output');
+      setActiveTab("output");
     } catch (error) {
       console.log(error.response);
     }
@@ -92,22 +92,22 @@ const ProblemDetails = () => {
   const handleSubmit = async () => {
     const payload = {
       language,
-      code
+      code,
     };
-
+  
     try {
-      const { data } = await axios.post('http://localhost:3000/submit', payload, {
+      const { data } = await axios.post(`http://localhost:3000/submit/${id}`, payload, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      setVerdict(data.verdict);
-      setActiveTab('verdict');
+      setVerdicts(data.verdicts);
+      setActiveTab('verdict');  
     } catch (error) {
       console.log(error.response);
     }
   };
-
+  
   return (
     <>
       <Navbar />
@@ -150,85 +150,121 @@ const ProblemDetails = () => {
               )}
             </div>
           </div>
+
           <div className="right-half">
             <div className="code-editor-container">
-              <select onChange={handleLanguageChange} value={language} className="select-language">
-                <option value='cpp'>C++</option>
-                <option value='c'>C</option>
-                <option value='py'>Python</option>
-                <option value='java'>Java</option>
+              <select
+                onChange={handleLanguageChange}
+                value={language}
+                className="select-language"
+              >
+                <option value="cpp">C++</option>
+                <option value="c">C</option>
+                <option value="py">Python</option>
+                <option value="java">Java</option>
               </select>
               <div className="code-editor">
                 <Editor
                   value={code}
-                  onValueChange={code => setCode(code)}
-                  highlight={code => highlight(code, languages.js)}
+                  onValueChange={(code) => setCode(code)}
+                  highlight={(code) => highlight(code, languages.js)}
                   padding={10}
                   style={{
                     fontFamily: '"Fira code", "Fira Mono", monospace',
                     fontSize: 14,
-                    outline: 'none',
-                    border: 'none',
-                    backgroundColor: '#f7fafc',
-                    height: '60vh',
-                    overflowY: 'auto'
+                    outline: "none",
+                    border: "none",
+                    backgroundColor: "#f7fafc",
+                    height: "60vh",
+                    overflowY: "auto",
                   }}
                 />
               </div>
               <div className="tabs">
                 <button
-                  className={`tab-button ${activeTab === 'input' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('input')}
-                  style={{ backgroundColor: activeTab === 'input' ? '#3498db' : '#f7fafc' }}
+                  className="tab-button"
+                  onClick={() => setActiveTab("input")}
+                  style={{
+                    backgroundColor:
+                      activeTab === "input" ? "#3498db" : "#f7fafc",
+                  }}
                 >
                   Input
                 </button>
                 <button
-                  className={`tab-button ${activeTab === 'output' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('output')}
-                  style={{ backgroundColor: activeTab === 'output' ? '#3498db' : '#f7fafc' }}
+                  className="tab-button"
+                  onClick={() => setActiveTab("output")}
+                  style={{
+                    backgroundColor:
+                      activeTab === "output" ? "#3498db" : "#f7fafc",
+                  }}
                 >
                   Output
                 </button>
                 <button
-                  className={`tab-button ${activeTab === 'verdict' ? 'active' : ''}`}
-                  onClick={() => setActiveTab('verdict')}
-                  style={{ backgroundColor: activeTab === 'verdict' ? '#3498db' : '#f7fafc' }}
+                  className="tab-button"
+                  onClick={() => setActiveTab("verdict")}
+                  style={{
+                    backgroundColor:
+                      activeTab === "verdict" ? "#3498db" : "#f7fafc",
+                  }}
                 >
                   Verdict
                 </button>
               </div>
               <div className="tab-content">
-                {activeTab === 'input' && (
+                {activeTab === "input" && (
                   <div className="input-container">
                     <h2 className="input-heading">Input</h2>
                     <textarea
-                      rows='12'
-                      cols='15'
+                      rows="12"
+                      cols="15"
                       value={input}
-                      placeholder='Input'
+                      placeholder="Input"
                       onChange={(e) => setInput(e.target.value)}
                       className="input-textarea"
-                      style={{ width: '97%'}}
+                      style={{ width: "97%" }}
                     ></textarea>
                   </div>
                 )}
-                {activeTab === 'output' && (
+                {activeTab === "output" && (
                   <div className="output-container">
                     <h2 className="output-heading">Output</h2>
                     <pre>{output}</pre>
                   </div>
                 )}
-                {activeTab === 'verdict' && (
+                {activeTab === "verdict" && (
                   <div className="verdict-container">
                     <h2 className="verdict-heading">Verdict</h2>
-                    <pre>{verdict}</pre>
+                    <pre>{verdicts.length > 0 ? (
+                      <ul>
+                        {verdicts.map((verdict, index) => (
+                          <li key={index}>
+                            Test Case {verdict.testCase}: {verdict.status}
+                          </li>
+                        ))}
+                      </ul>
+                    ) : (
+                      <p>No verdicts available.</p>
+                    )}</pre>
                   </div>
                 )}
               </div>
               <div className="button-container">
-                <button onClick={handleRun} type="button" className="run-button">Run</button>
-                <button onClick={handleSubmit} type="button" className="submit-button">Submit</button>
+                <button
+                  onClick={handleRun}
+                  type="button"
+                  className="run-button"
+                >
+                  Run
+                </button>
+                <button
+                  onClick={handleSubmit}
+                  type="button"
+                  className="submit-button"
+                >
+                  Submit
+                </button>
               </div>
             </div>
           </div>
