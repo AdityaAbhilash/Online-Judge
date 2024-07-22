@@ -5,7 +5,7 @@ const router = express.Router();
 import { body } from "express-validator";
 import { VerifyUser } from "../middleware/VerifyUser.js";
 import { createProblem,getProblems,getProblem,updateProblem,deleteProblem } from "../controller/problemController.js";
-import { runCompiler } from "../controller/compilerController.js";
+import { runCompiler } from "../Compiler/compilerController.js";
 
 
 router.post(

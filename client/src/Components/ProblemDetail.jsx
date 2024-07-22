@@ -24,6 +24,7 @@ int main() {
     return 0;
 }`,
   py: `print("Hello World!")`,
+
   java: `public class Main {
     public static void main(String[] args) {
         System.out.println("Hello World!");
@@ -37,7 +38,10 @@ const ProblemDetails = () => {
   const [loading, setLoading] = useState(false);
   const [code, setCode] = useState(prewrittenCodes.cpp);
   const [language, setLanguage] = useState('cpp');
+  const [input, setInput] = useState('');
   const [output, setOutput] = useState('');
+  const [verdict, setVerdict] = useState('');
+  const [activeTab, setActiveTab] = useState('input');  // This is the default active tab after refresh 
 
   useEffect(() => {
     setLoading(true);
@@ -48,7 +52,6 @@ const ProblemDetails = () => {
         },
       })
       .then((res) => {
-        console.log(res)
         if (res.data.success){
           setProblem(res.data);
           setLoading(false);
@@ -66,10 +69,11 @@ const ProblemDetails = () => {
     setCode(prewrittenCodes[selectedLanguage]);
   };
 
-  const handleSubmit = async () => {
+  const handleRun = async () => {
     const payload = {
       language,
-      code
+      code,
+      input
     };
 
     try {
@@ -78,12 +82,31 @@ const ProblemDetails = () => {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
       });
-      console.log(data);
       setOutput(data.output);
+      setActiveTab('output');
     } catch (error) {
       console.log(error.response);
     }
-  }
+  };
+
+  const handleSubmit = async () => {
+    const payload = {
+      language,
+      code
+    };
+
+    try {
+      const { data } = await axios.post('http://localhost:3000/submit', payload, {
+        headers: {
+          Authorization: `Bearer ${localStorage.getItem("token")}`,
+        },
+      });
+      setVerdict(data.verdict);
+      setActiveTab('verdict');
+    } catch (error) {
+      console.log(error.response);
+    }
+  };
 
   return (
     <>
@@ -129,7 +152,6 @@ const ProblemDetails = () => {
           </div>
           <div className="right-half">
             <div className="code-editor-container">
-              {/* <h2 className="editor-heading">Code Editor</h2> */}
               <select onChange={handleLanguageChange} value={language} className="select-language">
                 <option value='cpp'>C++</option>
                 <option value='c'>C</option>
@@ -148,18 +170,65 @@ const ProblemDetails = () => {
                     outline: 'none',
                     border: 'none',
                     backgroundColor: '#f7fafc',
-                    height: '500px',
+                    height: '60vh',
                     overflowY: 'auto'
                   }}
                 />
               </div>
-              <div className="button-container">
-                <button onClick={handleSubmit} type="button" className="run-button">Run</button>
-                <button onClick={handleSubmit} type="button" className="submit-button">Submit</button>
+              <div className="tabs">
+                <button
+                  className={`tab-button ${activeTab === 'input' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('input')}
+                  style={{ backgroundColor: activeTab === 'input' ? '#3498db' : '#f7fafc' }}
+                >
+                  Input
+                </button>
+                <button
+                  className={`tab-button ${activeTab === 'output' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('output')}
+                  style={{ backgroundColor: activeTab === 'output' ? '#3498db' : '#f7fafc' }}
+                >
+                  Output
+                </button>
+                <button
+                  className={`tab-button ${activeTab === 'verdict' ? 'active' : ''}`}
+                  onClick={() => setActiveTab('verdict')}
+                  style={{ backgroundColor: activeTab === 'verdict' ? '#3498db' : '#f7fafc' }}
+                >
+                  Verdict
+                </button>
               </div>
-              <div className="outputbox">
-                <h3>Output:</h3>
-                <pre>{output}</pre>
+              <div className="tab-content">
+                {activeTab === 'input' && (
+                  <div className="input-container">
+                    <h2 className="input-heading">Input</h2>
+                    <textarea
+                      rows='12'
+                      cols='15'
+                      value={input}
+                      placeholder='Input'
+                      onChange={(e) => setInput(e.target.value)}
+                      className="input-textarea"
+                      style={{ width: '97%'}}
+                    ></textarea>
+                  </div>
+                )}
+                {activeTab === 'output' && (
+                  <div className="output-container">
+                    <h2 className="output-heading">Output</h2>
+                    <pre>{output}</pre>
+                  </div>
+                )}
+                {activeTab === 'verdict' && (
+                  <div className="verdict-container">
+                    <h2 className="verdict-heading">Verdict</h2>
+                    <pre>{verdict}</pre>
+                  </div>
+                )}
+              </div>
+              <div className="button-container">
+                <button onClick={handleRun} type="button" className="run-button">Run</button>
+                <button onClick={handleSubmit} type="button" className="submit-button">Submit</button>
               </div>
             </div>
           </div>

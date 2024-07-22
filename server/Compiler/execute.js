@@ -13,13 +13,13 @@ if(!fs.existsSync(outputPath)){
     fs.mkdirSync(outputPath,{recursive: true});
 }
 
-const executeCpp = (filePath)=>{
+const executeCpp = (filePath,input_filePath)=>{
     const jobId = path.basename(filePath).split(".")[0];
     const output_filename = `${jobId}.exe`;
     const outPath = path.join(outputPath,output_filename);
     
     return new Promise((resolve,reject)=>{
-        exec(`g++ ${filePath} -o ${outPath} && cd ${outputPath} && .\\${output_filename}`,
+        exec(`g++ ${filePath} -o ${outPath} && cd ${outputPath} && .\\${output_filename} < ${input_filePath}`,
             (error,stdout,stderr)=>{
             if(error){
                 reject({error,stderr});
@@ -32,13 +32,13 @@ const executeCpp = (filePath)=>{
     });
 };
 
-const executeC = (filePath) => {
+const executeC = (filePath,input_filePath) => {
     const jobId = path.basename(filePath).split(".")[0];
     const output_filename = `${jobId}.exe`;
     const outPath = path.join(outputPath, output_filename);
     
     return new Promise((resolve, reject) => {
-        exec(`gcc ${filePath} -o ${outPath} && cd ${outputPath} && .\\${output_filename}`,
+        exec(`gcc ${filePath} -o ${outPath} && cd ${outputPath} && .\\${output_filename} < ${input_filePath}`,
             (error, stdout, stderr) => {
                 if (error) {
                     reject({ error, stderr });
@@ -51,9 +51,9 @@ const executeC = (filePath) => {
     });
 };
 
-const executePython = (filePath) => {
+const executePython = (filePath,input_filePath) => {
     return new Promise((resolve, reject) => {
-        exec(`python ${filePath}`,
+        exec(`python ${filePath} < ${input_filePath}`,
             (error, stdout, stderr) => {
                 if (error) {
                     reject({ error, stderr });
@@ -66,9 +66,9 @@ const executePython = (filePath) => {
     });
 };
 
-const executeJava = (filePath) => {
+const executeJava = (filePath,input_filePath) => {
     return new Promise((resolve, reject) => {
-        exec(`java ${filePath}`, (error, stdout, stderr) => {
+        exec(`java ${filePath} < ${input_filePath}`, (error, stdout, stderr) => {
             if (error) {
                 reject({ error, stderr });
             }
