@@ -1,5 +1,6 @@
 config/.env
 node_modules
-.env
-Compiler/codes
-Compiler/outputs
+*.env
+/Compiler/codes
+/Compiler/outputs
+/config/.env
