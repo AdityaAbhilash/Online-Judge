@@ -3,4 +3,5 @@ node_modules
 *.env
 /Compiler/codes
 /Compiler/outputs
+/Compiler/inputs
 /config/.env
