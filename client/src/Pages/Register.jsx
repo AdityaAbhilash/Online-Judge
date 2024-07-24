@@ -4,6 +4,7 @@ import "../assets/css/form.css"; // Import your CSS file
 import Validation from "../Components/Validation";
 import axios from 'axios'
 import {toast} from 'react-toastify'
+import Navbar from "../Components/Navbar";
 
 
 const Register = () => {
@@ -62,6 +63,8 @@ const Register = () => {
   };
 
   return (
+    <>
+    <Navbar />
     <div className="center-container">
     <div className="form-container">
       <form className="form" onSubmit={handleSubmit}>
@@ -133,6 +136,7 @@ const Register = () => {
       </form>
     </div>
   </div>
+  </>
   );
 };
 

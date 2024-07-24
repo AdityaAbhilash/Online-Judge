@@ -13,8 +13,10 @@ import "../assets/css/problemDetail.css";
 const prewrittenCodes = {
   cpp: `#include <iostream>
 
+using namespace std;
+
 int main() {
-    std::cout << "Hello World!";
+    cout << "Hello World!";
     return 0;
 }`,
   c: `#include <stdio.h>
@@ -174,7 +176,8 @@ const ProblemDetails = () => {
                     fontSize: 14,
                     outline: "none",
                     border: "none",
-                    backgroundColor: "#f7fafc",
+                    backgroundColor: "#f5f5f5",
+                    color: "#000",               // Black text color
                     height: "60vh",
                     overflowY: "auto",
                   }}

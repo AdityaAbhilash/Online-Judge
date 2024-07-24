@@ -5,7 +5,6 @@ import { ProblemModel } from '../models/problem.js';
 import { generateFile } from './generateFile.js';
 import { executeCpp, executePython, executeC, executeJava } from './execute.js';
 import { generateInputFile } from './generateInputFile.js';
-// import { executeCpp_, executePython_, executeC_, executeJava_ } from './submitExecute.js';
 
 const runCompiler = async (req, res) => {
   const { language = 'cpp', code, input } = req.body;

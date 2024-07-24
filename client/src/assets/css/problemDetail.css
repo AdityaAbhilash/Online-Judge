@@ -1,49 +1,49 @@
 .problem-details-page {
   display: flex;
+  flex-direction: column;
   justify-content: center;
-  background: linear-gradient(135deg, #6a11cb 25%, #2575fc 50%, #ff00c8 75%, #f7b733 100%);
   align-items: flex-start;
+  background-color: #333;
   min-height: 100vh;
-}
-
-.left-half {
-  width: 50%;
   padding: 20px;
   box-sizing: border-box;
 }
 
-.left-half .problem-details-container {
-  background-color: #f2f2f2;
+.left-half, .right-half {
+  width: 100%;
   padding: 20px;
-  border-radius: 8px;
-  box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-  height: 100%;
+  box-sizing: border-box;
 }
 
-.left-half .problem-name {
-  font-size: 35px;
-  color: #320f9b;
-  margin-bottom: 10px;
+.left-half .problem-details-container, .right-half .code-editor-container {
+  background-color: #1c1c1c;
+  padding: 20px;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+  color: #fff;
+}
+
+.left-half .problem-name, .left-half .section-heading {
+  color: #fff;
   text-align: center;
 }
 
+.left-half .problem-name {
+  font-size: 30px;
+  margin-bottom: 15px;
+}
+
 .left-half .problem-statement {
-  font-size: 17px;
+  font-size: 16px;
   line-height: 1.6;
   margin-bottom: 20px;
   white-space: pre-wrap;
 }
 
-.left-half .section-heading {
-  font-size: 18px;
-  color: #2c3e50;
-  margin-bottom: 10px;
-}
-
 .left-half .code-block {
-  background-color: #ffffff;
+  background-color: #2b2b2b;
   padding: 10px;
-  border: 1px solid #ddd;
+  border: 1px solid #444;
   border-radius: 5px;
   white-space: pre-wrap;
   font-family: 'Courier New', Courier, monospace;
@@ -58,70 +58,71 @@
   margin-bottom: 10px;
 }
 
-.left-half .info-label {
+.left-half .info-label, .left-half .info-value {
   font-size: 16px;
-  color: #555555;
-  margin-bottom: 5px;
-}
-
-.left-half .info-value {
-  font-size: 16px;
-  color: #333333;
+  color: #bbb;
 }
 
 
-.right-half {
-  width: 50%;
-  padding: 20px;
+
+.right-half .code-editor-container {
   display: flex;
   flex-direction: column;
   align-items: center;
-  height: 100vh; /* Ensure it occupies full height */
-}
-
-.right-half .code-editor-container {
-  width: 91%;
-  max-width: 700px;
-  display: flex;
-  flex-direction: column;
-  flex-grow: 1;
 }
 
 .right-half .select-language {
   width: 100%;
   padding: 0.5rem;
   margin-bottom: 1rem;
-  border: 1px solid #ccc;
+  border: 1px solid #555;
   border-radius: 5px;
+  background-color: #222;
+  color: #fff;
 }
 
 .right-half .code-editor {
-  flex-grow: 1;
+  width: 100%;
+  background-color: #2b2b2b ;
+  border: 1px solid #444;
+  border-radius: 5px;
   margin-bottom: 1rem;
-  /* height: 20vh; */
+  padding: 10px;
+  height: 60vh;
+  overflow-y: auto;
 }
 
 .right-half .button-container {
   display: flex;
   justify-content: space-between;
   width: 100%;
-  margin-top: 1rem; /* Adjust margin to position below textarea */
+  margin-top: 1rem;
 }
 
 .right-half .run-button, .submit-button {
-  width: 48%;
+  flex: 1; /* Make both buttons take equal space */
   padding: 0.5rem;
   border: none;
   border-radius: 5px;
   cursor: pointer;
+  font-size: 16px;
+  margin: 0 5px; /* Small margin between buttons */
+  transition: background-color 0.3s;
+}
+.right-half .run-button:hover {
+  background-color: #45a049 !important;
 }
 
-.run-button {
+.right-half .submit-button:hover {
+  background-color: #1976d2 !important;
+}
+
+.right-half .run-button {
   background-color: #4caf50;
   color: white;
 }
 
-.submit-button {
+.right-half .submit-button {
   background-color: #2196f3;
   color: white;
 }
@@ -138,12 +139,13 @@
   border: none;
   border-radius: 5px;
   cursor: pointer;
-  /* background-color: #3d0ee6 ; */
-  /* color:white; */
+  background-color: #3d0ee6;
+  color: rgb(16, 15, 15);
+  transition: background-color 0.3s;
 }
 
 .right-half .tab-button.active {
-  background-color: #cccccc;
+  background-color: #5b5b5b;
 }
 
 .right-half .tab-content {
@@ -151,6 +153,7 @@
   background-color: #f7fafc;
   padding: 1rem;
   border-radius: 5px;
+  color: #333;
 }
 
 .right-half .input-container, .output-container, .verdict-container {
@@ -161,6 +164,7 @@
 .right-half .input-heading, .output-heading, .verdict-heading {
   font-size: 18px;
   margin-bottom: 0.5rem;
+  color: #333;
 }
 
 .right-half .input-textarea {
@@ -168,6 +172,8 @@
   padding: 0.5rem;
   border: 1px solid #ccc;
   border-radius: 5px;
+  resize: none;
+  height: 150px;
 }
 
 .right-half .output-container pre, .verdict-container pre {
@@ -179,4 +185,18 @@
   font-family: 'Courier New', Courier, monospace;
   height: 150px;
   overflow-y: auto;
+}
+
+@media (min-width: 768px) {
+  .problem-details-page {
+    flex-direction: row;
+  }
+
+  .left-half, .right-half {
+    width: 50%;
+  }
+
+  .left-half .problem-details-container, .right-half .code-editor-container {
+    height: auto;
+  }
 }

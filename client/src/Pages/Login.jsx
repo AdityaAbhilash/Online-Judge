@@ -5,6 +5,7 @@ import Validation from "../Components/Validation";
 import axios from "axios";
 import { toast } from "react-toastify";
 import { UserContext } from "../App";
+import Navbar from "../Components/Navbar";
 
 const Login = () => {
 
@@ -63,6 +64,8 @@ const Login = () => {
   };
 
   return (
+    <>
+    <Navbar />
     <div className="center-container">
       <div className="form-container">
         <form className="form" onSubmit={handleSubmit}>
@@ -117,6 +120,7 @@ const Login = () => {
         </form>
       </div>
     </div>
+    </>
   );
 };
 
