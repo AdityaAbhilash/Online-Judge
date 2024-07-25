@@ -22,12 +22,12 @@ const executeCpp = (filePath,input_filePath)=>{
         exec(`g++ ${filePath} -o ${outPath} && cd ${outputPath} && .\\${output_filename} < ${input_filePath}`,
             (error,stdout,stderr)=>{
             if(error){
-                reject({error,stderr});
+                return reject({error,stderr});
             }
             if(stderr){
-                reject(stderr);
+                return reject(stderr);
             }
-            resolve(stdout);
+            resolve({stdout,outPath});
         });
     });
 };
@@ -41,12 +41,12 @@ const executeC = (filePath,input_filePath) => {
         exec(`gcc ${filePath} -o ${outPath} && cd ${outputPath} && .\\${output_filename} < ${input_filePath}`,
             (error, stdout, stderr) => {
                 if (error) {
-                    reject({ error, stderr });
+                    return reject({ error, stderr });
                 }
                 if (stderr) {
-                    reject(stderr);
+                    return reject(stderr);
                 }
-                resolve(stdout);
+                resolve({stdout,outPath});
             });
     });
 };
@@ -56,12 +56,12 @@ const executePython = (filePath,input_filePath) => {
         exec(`python ${filePath} < ${input_filePath}`,
             (error, stdout, stderr) => {
                 if (error) {
-                    reject({ error, stderr });
+                    return reject({ error, stderr });
                 }
                 if (stderr) {
-                    reject(stderr);
+                    return reject(stderr);
                 }
-                resolve(stdout);
+                resolve({stdout,outPath});
             });
     });
 };
@@ -70,12 +70,12 @@ const executeJava = (filePath,input_filePath) => {
     return new Promise((resolve, reject) => {
         exec(`java ${filePath} < ${input_filePath}`, (error, stdout, stderr) => {
             if (error) {
-                reject({ error, stderr });
+                return reject({ error, stderr });
             }
             if (stderr) {
-                reject(stderr);
+                return reject(stderr);
             }
-            resolve(stdout);
+            resolve({stdout,outPath});
         });
     });
 };   

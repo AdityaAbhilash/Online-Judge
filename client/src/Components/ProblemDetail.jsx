@@ -88,6 +88,12 @@ const ProblemDetails = () => {
       setActiveTab("output");
     } catch (error) {
       console.log(error.response);
+      if (error.response && error.response.data && error.response.data.message) {
+        setOutput(error.response.data.message);
+      } else {
+        setOutput("An unexpected error occurred.");
+      }
+      setActiveTab("output");
     }
   };
 

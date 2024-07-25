@@ -9,17 +9,17 @@ const defaultProblems = [
   {
   "name": "Print Given String",
   "statement": "Write a function that takes a single string input from the user and prints it exactly as it is. This function should handle different types of strings, including those with special characters, spaces, and punctuation.",
-  "sampleInput": "s = 'user input'",
+  "sampleInput": "s = user input",
   "sampleOutput": "user input",
   "difficulty": "Easy",
   "testCases": [
-    { "input": "s = 'user input'", "output": "user input" },
-    { "input": "s = 'hello world'", "output": "hello world" },
-    { "input": "s = 'example string'", "output": "example string" },
-    { "input": "s = 'print this'", "output": "print this" },
-    { "input": "s = 'DSA problems'", "output": "DSA problems" },
-    { "input": "s = 'simple test'", "output": "simple test" },
-    { "input": "s = 'code sample'", "output": "code sample" }
+    { "input": "user input", "output": "user input" },
+    { "input": "hello world", "output": "hello world" },
+    { "input": "example string", "output": "example string" },
+    { "input": "print this'", "output": "print this" },
+    { "input": "DSA problems", "output": "DSA problems" },
+    { "input": "simple test", "output": "simple test" },
+    { "input": "code sample", "output": "code sample" }
   ],
   "public": true
 
@@ -31,13 +31,13 @@ const defaultProblems = [
     "sampleOutput": "h\ne\nl\nl\no",
     "difficulty": "Easy",
     "testCases": [
-      { "input": "s = 'hello'", "output": "h\ne\nl\nl\no" },
-      { "input": "s = 'world'", "output": "w\no\nr\nl\nd" },
-      { "input": "s = 'abc'", "output": "a\nb\nc" },
-      { "input": "s = '123'", "output": "1\n2\n3" },
-      { "input": "s = 'test'", "output": "t\ne\ns\nt" },
-      { "input": "s = 'string'", "output": "s\nt\nr\ni\nn\ng" },
-      { "input": "s = 'a'", "output": "a" }
+      { "input": "hello", "output": "h\ne\nl\nl\no" },
+      { "input": "world", "output": "w\no\nr\nl\nd" },
+      { "input": "abc", "output": "a\nb\nc" },
+      { "input": "123", "output": "1\n2\n3" },
+      { "input": "test", "output": "t\ne\ns\nt" },
+      { "input": "string", "output": "s\nt\nr\ni\nn\ng" },
+      { "input": "a", "output": "a" }
     ],
     "public": true
   },
@@ -48,13 +48,13 @@ const defaultProblems = [
     "sampleOutput": "2",
     "difficulty": "Easy",
     "testCases": [
-      { "input": "s = 'hello'", "output": "2" },
-      { "input": "s = 'world'", "output": "1" },
-      { "input": "s = 'abc'", "output": "2" },
-      { "input": "s = 'a string'", "output": "2" },
-      { "input": "s = 'test'", "output": "1" },
-      { "input": "s = 'abcdefghijklmnopqrstuvwxyz'", "output": "5" },
-      { "input": "s = 'rhythm'", "output": "0" }
+      { "input": "hello", "output": "2" },
+      { "input": "world", "output": "1" },
+      { "input": "abc", "output": "2" },
+      { "input": "a string", "output": "2" },
+      { "input": "test", "output": "1" },
+      { "input": "abcdefghijklmnopqrstuvwxyz", "output": "5" },
+      { "input": "rhythm", "output": "0" }
     ],
     "public": true
   },
@@ -65,13 +65,13 @@ const defaultProblems = [
     "sampleOutput": "true",
     "difficulty": "Easy",
     "testCases": [
-      { "input": "s = 'madam'", "output": "true" },
-      { "input": "s = 'racecar'", "output": "true" },
-      { "input": "s = 'hello'", "output": "false" },
-      { "input": "s = 'level'", "output": "true" },
-      { "input": "s = 'world'", "output": "false" },
-      { "input": "s = 'a'", "output": "true" },
-      { "input": "s = 'abccba'", "output": "true" }
+      { "input": "madam", "output": "true" },
+      { "input": "racecar", "output": "true" },
+      { "input": "hello", "output": "false" },
+      { "input": "level", "output": "true" },
+      { "input": "world", "output": "false" },
+      { "input": "a", "output": "true" },
+      { "input": "abccba", "output": "true" }
     ],
     "public": true
   },
@@ -82,13 +82,13 @@ const defaultProblems = [
     "sampleOutput": "[0, 1]",
     "difficulty": "Medium",
     "testCases": [
-      { "input": "nums = [2, 7, 11, 15], target = 9", "output": "[0, 1]" },
-      { "input": "nums = [3, 2, 4], target = 6", "output": "[1, 2]" },
-      { "input": "nums = [3, 3], target = 6", "output": "[0, 1]" },
-      { "input": "nums = [1, 5, 9, 12], target = 14", "output": "[1, 2]" },
-      { "input": "nums = [1, 2, 3, 4, 5], target = 7", "output": "[1, 4]" },
-      { "input": "nums = [-1, 0, 1, 2], target = 1", "output": "[0, 2]" },
-      { "input": "nums = [0, 0, 0, 0], target = 0", "output": "[0, 1]" }
+      { "input": "[2, 7, 11, 15], target = 9", "output": "[0, 1]" },
+      { "input": "[3, 2, 4], target = 6", "output": "[1, 2]" },
+      { "input": "[3, 3], target = 6", "output": "[0, 1]" },
+      { "input": "[1, 5, 9, 12], target = 14", "output": "[1, 2]" },
+      { "input": "[1, 2, 3, 4, 5], target = 7", "output": "[1, 4]" },
+      { "input": "[-1, 0, 1, 2], target = 1", "output": "[0, 2]" },
+      { "input": "[0, 0, 0, 0], target = 0", "output": "[0, 1]" }
     ],
     "public": true
   },
