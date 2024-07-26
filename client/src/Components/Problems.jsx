@@ -56,7 +56,7 @@ const Problems = () => {
   const [problems, setProblems] = useState([]);
   const [loading, setLoading] = useState(false);
   
-
+const [count,setCount] = useState(0);
  const deleteProblem = (id) => {
     MySwal.fire({
       title: "Are you sure?",
@@ -93,6 +93,7 @@ const Problems = () => {
           });
       }
     });
+    setCount(count+1);
   }; 
   
   const navigate = useNavigate(); 
@@ -152,7 +153,7 @@ const Problems = () => {
         console.log(err);
         setLoading(false);
       });
-  }, []);
+  }, [count]);
 
   return (
     <>
