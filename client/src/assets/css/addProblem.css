@@ -65,40 +65,17 @@
     background-color: #dc3545;
     color: white;
     border: none;
-    padding: 10px;
+    padding: 8px 16px; /* Smaller padding for test case delete button */
     cursor: pointer;
     border-radius: 4px;
-    font-size: 16px;
-    width: 100%;
+    font-size: 14px; /* Smaller font size */
+    width: auto; /* Adjust width as necessary */
     margin-top: 10px;
     transition: background-color 0.3s;
 }
 
 .test-case button:hover {
     background-color: #c82333;
-}
-
-button[type="button"],
-button[type="submit"] {
-    background-color: #6a11cb;
-    color: white;
-    border: none;
-    padding: 10px 20px;
-    cursor: pointer;
-    border-radius: 4px;
-    font-size: 16px;
-    transition: background-color 0.3s;
-    display: block;
-    width: 100%;
-}
-
-button[type="submit"] {
-    margin: 20px auto;
-}
-
-button[type="button"]:hover,
-button[type="submit"]:hover {
-    background-color: #5e0eb4;
 }
 
 .add-test-case-button {
@@ -110,11 +87,34 @@ button[type="submit"]:hover {
 .add-test-case-button button {
     background-color: #ffc107;
     color: #333;
-    width: 100%; /* Full width for responsiveness */
+    padding: 8px 16px; /* Smaller padding for add test case button */
+    font-size: 14px; /* Smaller font size */
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+    transition: background-color 0.3s;
 }
 
 .add-test-case-button button:hover {
     background-color: #e0a800;
+}
+
+button[type="submit"] {
+    background-color: #6a11cb;
+    color: white;
+    border: none;
+    padding: 10px 20px; /* Standard padding for submit button */
+    cursor: pointer;
+    border-radius: 4px;
+    font-size: 16px; /* Standard font size */
+    transition: background-color 0.3s;
+    display: block;
+    width: 100%;
+    margin-top: 20px;
+}
+
+button[type="submit"]:hover {
+    background-color: #5e0eb4;
 }
 
 /* Media Queries for Responsiveness */
@@ -130,17 +130,10 @@ button[type="submit"]:hover {
         padding: 10px;
     }
     
-    .test-case button {
-        font-size: 14px;
-    }
-    
-    button[type="button"],
+    .test-case button,
+    .add-test-case-button button,
     button[type="submit"] {
         font-size: 14px;
         padding: 8px 16px;
-    }
-    
-    .add-test-case-button button {
-        font-size: 14px;
     }
 }

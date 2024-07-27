@@ -14,6 +14,7 @@ import Problems from "./Components/Problems";
 import ProtectedRoutes from "./Components/ProtectedRoutes";
 import NotFound from "./Pages/NotFound";
 import EditProblem from "./Components/EditProblem";
+import About from "./Pages/About";
 
 export const UserContext = createContext(null);
 
@@ -29,6 +30,10 @@ const router = createBrowserRouter([
   {
     path: "/login",
     element: <Login />,
+  },
+  {
+    path: "/about",
+    element: <About />,
   },
   {
     path: "/dashboard",

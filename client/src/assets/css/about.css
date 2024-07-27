@@ -1,0 +1,105 @@
+body, html {
+    margin: 0;
+    padding: 0;
+    width: 100%;
+    height: 100%;
+    background-color: #242932; /* Dark background for the entire page */
+    font-family: Arial, sans-serif;
+  }
+  
+  .about-container {
+    background-color: rgba(37, 33, 52, 0.95); /* Dark background similar to form page */
+    padding: 40px;
+    border-radius: 12px;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.3);
+    max-width: 800px;
+    margin: 20px auto;
+    color: #ffffff; /* White text for contrast */
+    box-sizing: border-box; /* Include padding in width calculations */
+  }
+  
+  .about-box h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    font-size: 2.2rem;
+    color: #1e90ff; /* Bright blue color for heading */
+  }
+  
+  .about-box p {
+    font-size: 1.1rem;
+    line-height: 1.6;
+    margin-bottom: 30px;
+    color: #d1d1d1; /* Lighter color for paragraph text */
+    text-align: justify;
+    margin: 0 10px; /* Adjusted margin to reduce whitespace */
+    padding-bottom: 30px;
+  }
+  
+  .features-container {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 20px; /* Space between feature boxes */
+  }
+  
+  .feature-box {
+    background-color: #2b2b2b; /* Darker box background */
+    padding: 20px;
+    border-radius: 8px;
+    width: 100%; /* Full width for small screens */
+    max-width: 250px; /* Max width for larger screens */
+    text-align: center;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.2);
+    transition: transform 0.3s ease, box-shadow 0.3s ease; /* Smooth transition for hover effect */
+    margin: 0 auto; /* Center the feature boxes */
+  }
+  
+  .feature-box:hover {
+    transform: translateY(-5px); /* Slight lift on hover */
+    box-shadow: 0 8px 12px rgba(0, 0, 0, 0.3);
+  }
+  
+  .icon {
+    font-size: 2.5rem;
+    margin-bottom: 10px;
+    color: #1e90ff; /* Icon color matching the main heading */
+  }
+  
+  .feature-box h3 {
+    margin-bottom: 10px;
+    font-size: 1.4rem;
+    color: #fff; /* White color for subheadings */
+  }
+  
+  .feature-box p {
+    font-size: 1rem;
+    color: #cccccc; /* Light grey for feature descriptions */
+    text-align: justify;
+    margin-bottom: 0; /* Remove margin from last paragraph */
+  }
+  
+  @media (max-width: 768px) {
+    .about-container {
+      padding: 20px;
+      margin: 10px;
+    }
+  
+    .features-container {
+      flex-direction: column;
+      align-items: center;
+    }
+  
+    .feature-box {
+      width: 90%; /* Adjust width for mobile */
+      max-width: none; /* Remove max-width for better flexibility */
+    }
+  
+    .about-box h2 {
+      font-size: 1.8rem;
+    }
+  
+    .about-box p {
+      font-size: 1rem;
+    }
+  }
+  

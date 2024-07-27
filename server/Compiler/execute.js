@@ -19,7 +19,7 @@ const executeCpp = (filePath,input_filePath)=>{
     const outPath = path.join(outputPath,output_filename);
     
     return new Promise((resolve,reject)=>{
-        exec(`g++ ${filePath} -o ${outPath} && cd ${outputPath} && .\\${output_filename} < ${input_filePath}`,
+        exec(`g++ ${filePath} -o ${outPath} && cd ${outputPath} && ./${output_filename} < ${input_filePath}`,
             (error,stdout,stderr)=>{
             if(error){
                 return reject({error,stderr});
@@ -38,7 +38,7 @@ const executeC = (filePath,input_filePath) => {
     const outPath = path.join(outputPath, output_filename);
     
     return new Promise((resolve, reject) => {
-        exec(`gcc ${filePath} -o ${outPath} && cd ${outputPath} && .\\${output_filename} < ${input_filePath}`,
+        exec(`g++ ${filePath} -o ${outPath} && cd ${outputPath} && ./${output_filename} < ${input_filePath}`,
             (error, stdout, stderr) => {
                 if (error) {
                     return reject({ error, stderr });
@@ -51,9 +51,9 @@ const executeC = (filePath,input_filePath) => {
     });
 };
 
-const executePython = (filePath,input_filePath) => {
+const executePython = (filePath, input_filePath) => {
     return new Promise((resolve, reject) => {
-        exec(`python ${filePath} < ${input_filePath}`,
+        exec(`python3 ${filePath} < ${input_filePath}`,
             (error, stdout, stderr) => {
                 if (error) {
                     return reject({ error, stderr });
@@ -61,22 +61,23 @@ const executePython = (filePath,input_filePath) => {
                 if (stderr) {
                     return reject(stderr);
                 }
-                resolve({stdout,outPath});
+                resolve({ stdout }); 
             });
     });
 };
 
-const executeJava = (filePath,input_filePath) => {
+const executeJava = (filePath, input_filePath) => {
     return new Promise((resolve, reject) => {
-        exec(`java ${filePath} < ${input_filePath}`, (error, stdout, stderr) => {
-            if (error) {
-                return reject({ error, stderr });
-            }
-            if (stderr) {
-                return reject(stderr);
-            }
-            resolve({stdout,outPath});
-        });
+        exec(`java ${filePath} < ${input_filePath}`,
+            (error, stdout, stderr) => {
+                if (error) {
+                    return reject({ error, stderr });
+                }
+                if (stderr) {
+                    return reject(stderr);
+                }
+                resolve({ stdout }); 
+            });
     });
 };   
 

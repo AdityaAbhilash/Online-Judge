@@ -54,7 +54,7 @@ const AddProblem = () => {
       .then((res) => {
         if (res.data.success) {
           toast.success("Problem Added Successfully", {
-            position: "top-right",
+            position: "top-center",
             autoClose: 5000,
           });
           navigate("/dashboard");

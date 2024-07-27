@@ -55,6 +55,7 @@ const MySwal = withReactContent(Swal);
 const Problems = () => {
   const [problems, setProblems] = useState([]);
   const [loading, setLoading] = useState(false);
+  const navigate = useNavigate(); 
   
 const [count,setCount] = useState(0);
  const deleteProblem = (id) => {
@@ -75,7 +76,8 @@ const [count,setCount] = useState(0);
             },
           })
           .then((res) => {
-            setProblems(res.data.problems);
+            // setProblems(res.data.problems);
+            setProblems(prevProblems => prevProblems.filter(problem => problem._id !== id));
             MySwal.fire({
               title: "Deleted!",
               text: "The problem has been deleted.",
@@ -96,7 +98,7 @@ const [count,setCount] = useState(0);
     setCount(count+1);
   }; 
   
-  const navigate = useNavigate(); 
+  
   
   const handleEditClick = (e, row) => {
     if (row.public) {

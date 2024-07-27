@@ -71,8 +71,7 @@ const runCompiler = async (req, res) => {
 
     res.json({ filePath, inputFilePath, output });
   } catch (error) {
-    // console.log(error);
-    // res.status(500).json({ success: false, message: error.stderr || error.message });
+    console.log(error);
     const errorMessage = error.stderr || error.message;
     const relevantMessage = extractErrorMessage(errorMessage);
     console.log(relevantMessage);
