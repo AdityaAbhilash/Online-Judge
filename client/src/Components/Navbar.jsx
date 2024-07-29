@@ -36,8 +36,8 @@ const Navbar = () => {
                 </div>
               )}
             </div>
-            <Link to="/profile" className="navbar-link">
-              {user.name}
+            <Link to="/dashboard/view-profile" className="navbar-link">
+              {user.name.split(" ")[0]}
             </Link>
             <Link to="/logout" className="navbar-link">
               Logout

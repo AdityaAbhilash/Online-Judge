@@ -15,6 +15,8 @@ import ProtectedRoutes from "./Components/ProtectedRoutes";
 import NotFound from "./Pages/NotFound";
 import EditProblem from "./Components/EditProblem";
 import About from "./Pages/About";
+import ViewProfile from "./Components/ViewProfile";
+import EditProfile from "./Components/EditProfile";
 
 export const UserContext = createContext(null);
 
@@ -51,6 +53,12 @@ const router = createBrowserRouter([
         path: "/dashboard/edit-problem/:id",
         element: <EditProblem />
       },
+      { path: "/dashboard/view-profile", 
+        element: <ViewProfile />
+      },
+       { path: "/dashboard/edit-profile", 
+        element: <EditProfile />
+  },
     ],
   },
   {
@@ -61,6 +69,8 @@ const router = createBrowserRouter([
   { path: "/logout", 
     element: <Logout /> 
   },
+
+ 
   {
     path: "*",
     element:<NotFound />

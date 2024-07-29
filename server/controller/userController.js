@@ -1,5 +1,6 @@
 import express from 'express';
 import { validationResult } from 'express-validator';   // to check the request body 
+import { ProfileModel } from '../models/profile.js';
 import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
@@ -35,8 +36,6 @@ const Register = async (req, res) => {
             });
         }
 
-
-
         // encrypt the password 
         const hashPassword = await bcrypt.hash(password, 12);
 
@@ -46,6 +45,19 @@ const Register = async (req, res) => {
         // save the new user to the database 
         const result = await newUser.save();
 
+        
+        const newProfile = new ProfileModel({
+            userId: result._id,
+            name: result.name,
+            username: result.username,
+            photo: "",
+            dob: "",
+            institute: "",
+            gender: "other" // default value
+        });
+
+        await newProfile.save();
+
         // the _doc is sent to the client , we we should not give the password 
         result._doc.password = undefined;
         return res.status(201).json({ success: true, ...result._doc });
@@ -54,6 +66,11 @@ const Register = async (req, res) => {
         return res.status(500).json({ err: err.message });
     }
 };
+
+
+
+
+
 
 // login controller 
 
@@ -105,16 +122,6 @@ const Auth =(req,res)=>{
     return res.status(200).json({success:true, user: {...req.user._doc}})
     // we will return the user and use in verify middleware.
 }
-
-
-
-
-
-
-
-
-
-
 
 
 export { Register , Login ,Auth };

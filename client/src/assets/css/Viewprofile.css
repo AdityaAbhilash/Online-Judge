@@ -1,0 +1,73 @@
+.center-container {
+  background-color: rgba(20, 20, 40, 0.95); /* Darker background with high opacity */
+  padding: 40px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  min-height: 100vh;
+  color: #e0e0e0; /* Light gray text color for contrast */
+}
+
+.profile-container {
+  background-color: #1f1f1f; /* Slightly lighter background for the card */
+  padding: 30px;
+  border-radius: 16px; /* More rounded corners */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* More pronounced shadow */
+  width: 100%;
+  max-width: 600px; /* Consistent with previous max-width */
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  transition: transform 0.3s, box-shadow 0.3s; /* Smooth hover effects */
+}
+
+.profile-container:hover {
+  transform: translateY(-5px); /* Slight lift effect */
+  box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5); /* Enhanced shadow on hover */
+}
+
+.profile-details {
+  text-align: center;
+  margin-bottom: 20px; /* Space before the button */
+}
+
+.profile-details p {
+  margin: 12px 0; /* Increased margin for spacing */
+  font-size: 1.2rem; /* Slightly larger font size for readability */
+}
+
+.profile-details p strong {
+  color: #00bcd4; /* Cool cyan color for highlighted text */
+}
+
+.edit-profile-btn {
+  background-color: #00bcd4; /* Cyan button color */
+  color: #fff;
+  padding: 12px 24px; /* Increased padding for a larger button */
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background-color 0.3s, transform 0.3s;
+  font-size: 1.1rem; /* Slightly larger font size */
+}
+
+.edit-profile-btn:hover {
+  background-color: #0097a7; /* Slightly darker cyan on hover */
+  transform: scale(1.05); /* Slight scaling effect */
+}
+
+@media (max-width: 768px) {
+  .profile-container {
+    padding: 20px;
+    max-width: 90%;
+  }
+
+  .profile-details p {
+    font-size: 1.1rem;
+  }
+
+  .edit-profile-btn {
+    padding: 10px 20px;
+    font-size: 1rem;
+  }
+}
