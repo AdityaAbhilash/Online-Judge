@@ -46,7 +46,7 @@ const AddProblem = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post("http://localhost:3000/add-problem", problem, {
+      .post(import.meta.env.VITE_POST_ADDPROBLEM, problem, {
         headers: {
           Authorization: `Berear ${localStorage.getItem('token')}`
         }

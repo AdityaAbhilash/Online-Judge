@@ -86,32 +86,52 @@
 
 @media (max-width: 768px) {
   .navbar {
-    flex-wrap: nowrap; /* Prevent wrapping of navbar items */
+    flex-direction: column;
+    align-items: center;
     padding: 10px 20px;
   }
 
-  .navbar-right {
-    display: flex; /* Ensure items stay in a row */
-    flex-direction: row; /* Explicitly set direction to row */
+  .navbar-left, .navbar-right {
+    width: 100%;
+    display: flex;
+    justify-content: center;
   }
 
-  .navbar-brand {
-    font-size: 1.5rem;
+  .navbar-right {
+    flex-direction: column; /* Stack items vertically */
+    align-items: center;
+    margin-top: 10px;
+  }
+
+  .navbar-item {
+    position: relative;
+    width: 100%;
+    text-align: center;
   }
 
   .navbar-link {
-    margin-left: 15px;
+    margin: 5px 0;
     font-size: 1rem;
+    display: block;
+    width: 100%;
+    text-align: center;
   }
 
   .dropdown-menu {
-    position: absolute; /* Retain position for dropdowns */
+    position: static; /* Position dropdown relative to its parent */
+    width: 100%;
+    text-align: center;
     margin-top: 5px;
-    box-shadow: none;
+    background-color: #333; /* Match the navbar's background */
     border-radius: 4px;
+    box-shadow: none;
+    display: block;
   }
 
   .dropdown-item {
     font-size: 1rem;
+    color: #fff;
+    padding: 10px 0;
   }
 }
+

@@ -41,7 +41,7 @@ const Register = () => {
       errs.password === "" &&
       errs.username == ""
     ) {
-      axios.post('http://localhost:3000/register',values).then(res =>{    // end point api to post the data here in the api 
+      axios.post(import.meta.env.VITE_POST_REGISTER,values).then(res =>{    // end point api to post the data here in the api 
         if(res.data.success){
           toast.success("Account Created Successfully",{
             position:"top-right",

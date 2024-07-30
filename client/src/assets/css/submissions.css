@@ -1,57 +1,67 @@
 .submissions-page {
   padding: 20px;
-  background-color: #f4f4f4;
+  background-color: #1e1e1e; /* Dark background */
   min-height: 100vh;
   display: flex;
   flex-direction: column;
   align-items: center;
+  overflow-x: auto; /* Allow horizontal scrolling if needed */
 }
 
-.page-heading {
-  color: #333;
-  font-size: 2rem;
+.submissions-page .page-heading {
+  color: #fff; /* Light text color */
+  font-size: 2.5rem;
   margin-bottom: 20px;
+  font-weight: bold;
+  text-align: center; /* Centered heading */
 }
 
-.submissions-table {
-  width: 80%;
+.submissions-page .submissions-table {
+  width: 100%;
+  max-width: 900px;
   border-collapse: collapse;
   margin-top: 20px;
-  background-color: #fff;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  background-color: #333; /* Darker background for table */
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  border-radius: 8px; /* Rounded corners */
+  overflow-x: auto; /* Enable horizontal scrolling for table */
 }
 
-.submissions-table th,
+.submissions-page .submissions-table th,
 .submissions-table td {
-  padding: 12px 20px;
+  padding: 15px 20px;
   text-align: left;
+  white-space: nowrap; /* Prevent text wrapping */
 }
 
-.submissions-table th {
-  background-color: #333;
+.submissions-page .submissions-table th {
+  background-color: #444; /* Slightly lighter for headers */
+  color: #1e90ff; /* Blue header text color */
+  text-transform: uppercase;
+  font-weight: bold;
+}
+
+.submissions-page .submissions-table td {
+  border-bottom: 1px solid #555; /* Lighter border color */
+  color: #ccc; /* Light grey text */
+}
+
+.submissions-page .submissions-table td button {
+  background-color: #1e90ff; /* Blue button color */
   color: #fff;
-}
-
-.submissions-table td {
-  border-bottom: 1px solid #ddd;
-  color: #333;
-}
-
-.submissions-table td button {
-  background-color: #1e90ff;
-  color: #fff;
-  padding: 8px 16px;
+  padding: 10px 20px;
   border: none;
-  border-radius: 4px;
+  border-radius: 5px;
   cursor: pointer;
-  transition: background-color 0.3s;
+  transition: background-color 0.3s, transform 0.2s;
 }
 
-.submissions-table td button:hover {
+ .submissions-table td button:hover {
   background-color: #007acc;
+  transform: translateY(-2px); /* Slight lift effect */
 }
 
-.modal {
+ .modal {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -60,46 +70,83 @@
   left: 0;
   width: 100%;
   height: 100%;
-  background-color: rgba(0, 0, 0, 0.8);
+  background-color: rgba(0, 0, 0, 0.8); /* Dark overlay */
   z-index: 1000;
 }
 
-.modal-content {
-  background-color: #fff;
-  padding: 20px;
-  border-radius: 10px;
-  width: 80%;
-  max-width: 600px;
+ .modal-content {
+  background-color: #1e1e1e; /* Dark background */
+  padding: 30px;
+  border-radius: 12px;
+  width: 90%;
+  max-width: 700px;
   text-align: center;
-  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
   position: relative;
+  color: #eee; /* Light text color */
 }
 
-.close {
+ .close {
   position: absolute;
-  top: 10px;
-  right: 10px;
-  color: #333;
+  top: 15px;
+  right: 15px;
+  color: #fff; /* White close button */
   font-size: 1.5rem;
   cursor: pointer;
 }
 
-pre {
+ .CODE {
   text-align: left;
-  background-color: #f5f5f5;
-  padding: 10px;
-  border-radius: 5px;
+  background-color: #333; /* Darker background for code */
+  padding: 20px;
+  border-radius: 8px;
   overflow-x: auto;
+  color: #eee; /* Light text color for code */
+  max-height: 400px; /* Limit height */
+  overflow-y: auto;
 }
 
 @media (max-width: 768px) {
-  .submissions-table, .modal-content {
-      width: 100%;
-      margin: 0 20px;
+  .submissions-page {
+    padding: 10px;
+  }
+
+  .page-heading {
+    font-size: 1.8rem; /* Slightly smaller font for headings */
+    margin-bottom: 15px;
+  }
+
+  .submissions-table {
+    width: 100%;
+    margin: 0 auto; /* Center the table */
+    max-width: 370px; /* Set a maximum width for the table */
   }
 
   .submissions-table th, .submissions-table td {
-      font-size: 0.9rem;
-      padding: 10px 15px;
+    font-size: 0.9rem;
+    padding: 8px 10px; /* Reduced padding for smaller screens */
+  }
+
+  .submissions-table td button {
+    padding: 6px 12px; /* Smaller button padding for mobile */
+    font-size: 0.9rem; /* Adjust font size for buttons */
+  }
+
+  .modal-content {
+    padding: 15px;
+    max-width: 370px; /* Set a maximum width for modal */
+    margin: 0 10px;
+  }
+
+  .close {
+    top: 10px;
+    right: 10px;
+    font-size: 1.2rem; /* Slightly smaller close button */
+  }
+
+  pre {
+    padding: 15px;
+    font-size: 0.9rem; /* Smaller font size for code block */
   }
 }
+

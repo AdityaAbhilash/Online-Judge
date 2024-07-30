@@ -48,7 +48,7 @@ const ProblemDetails = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`http://localhost:3000/problems/${id}`, {
+      .get(`${import.meta.env.VITE_GET_PROBLEMS}/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -79,7 +79,7 @@ const ProblemDetails = () => {
     };
 
     try {
-      const { data } = await axios.post("http://localhost:3000/run", payload, {
+      const { data } = await axios.post(import.meta.env.VITE_POST_RUN, payload, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -104,7 +104,7 @@ const ProblemDetails = () => {
     };
   
     try {
-      const { data } = await axios.post(`http://localhost:3000/submit/${id}`, payload, {
+      const { data } = await axios.post(`${import.meta.env.VITE_POST_SUBMIT}/${id}`, payload, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -186,6 +186,7 @@ const ProblemDetails = () => {
                     color: "#000",               // Black text color
                     height: "60vh",
                     overflowY: "auto",
+                    
                   }}
                 />
               </div>

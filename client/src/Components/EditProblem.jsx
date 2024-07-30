@@ -48,7 +48,7 @@ const EditProblem = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put("http://localhost:3000/update-problem/"+id, problem, {
+      .put(`${import.meta.env.VITE_POST_UPDATE_PROBLEMS}/${id}`, problem, {
         headers: {
           Authorization: `Berear ${localStorage.getItem('token')}`
         }
@@ -71,7 +71,7 @@ const EditProblem = () => {
 
   useEffect(() => {
     axios
-      .get("http://localhost:3000/problems/"+ id, {
+      .get(`${import.meta.env.VITE_GET_PROBLEMS}/${id}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

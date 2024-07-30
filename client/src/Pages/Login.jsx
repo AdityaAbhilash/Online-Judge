@@ -38,7 +38,7 @@ const Login = () => {
       errs.username == ""
     ) {
       axios
-        .post("http://localhost:3000/login", values) // after passing the value there is a response (res)
+        .post(import.meta.env.VITE_POST_LOGIN, values) // after passing the value there is a response (res)
         .then((res) => {
           // end point api to post the data here in the api
           if (res.data.success) {

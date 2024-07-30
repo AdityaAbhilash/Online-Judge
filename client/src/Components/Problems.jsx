@@ -70,7 +70,7 @@ const [count,setCount] = useState(0);
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`http://localhost:3000/problems/${id}`, {
+          .delete(`${import.meta.env.VITE_GET_PROBLEMS}/${id}`, {
             headers: {
               Authorization: `Bearer ${localStorage.getItem("token")}`,
             },
@@ -140,7 +140,7 @@ const [count,setCount] = useState(0);
   useEffect(() => {
     setLoading(true);
     axios
-      .get("http://localhost:3000/problems", {
+      .get(import.meta.env.VITE_GET_PROBLEMS, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },

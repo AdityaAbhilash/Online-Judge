@@ -17,7 +17,7 @@ const EditProfile = () => {
 
   useEffect(() => {
     if (user) {
-      axios.get(`http://localhost:3000/profile/${user.username}`, {
+      axios.get(`${import.meta.env.VITE_GET_PROFILE}/${user.username}`, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem("token")}`,
         },
@@ -34,7 +34,7 @@ const EditProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`http://localhost:3000/profile/update/${user.username}`, profile, {
+      const response = await axios.put(`${import.meta.env.VITE_PUT_PROFILE}/${user.username}`, profile, {
         headers: {
           Authorization: `Bearer ${localStorage.getItem('token')}`
         },

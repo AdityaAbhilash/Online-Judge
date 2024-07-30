@@ -85,11 +85,10 @@ const App = () => {
   // Initialize state
   const [user, setUser] = useState(null);
   useEffect(() => {
-    // Example authentication check with token
     const token = localStorage.getItem("token");
     if (token) {
       axios
-        .get("http://localhost:3000/verify", {
+        .get(import.meta.env.VITE_GET_VERIFY, {
           headers: { Authorization: `Bearer ${token}` },
         })
         .then((res) => {

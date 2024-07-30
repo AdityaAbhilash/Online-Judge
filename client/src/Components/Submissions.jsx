@@ -9,7 +9,7 @@ const Submissions = () => {
     useEffect(() => {
         const fetchSubmissions = async () => {
             try {
-                const { data } = await axios.get('http://localhost:3000/submissions');
+                const { data } = await axios.get(import.meta.env.VITE_GET_SUBMISSIONS);
                 setSubmissions(data);
             } catch (error) {
                 console.error('Error fetching submissions:', error);
@@ -20,6 +20,7 @@ const Submissions = () => {
     }, []);
 
     const handleCodeClick = (code) => {
+        console.log('Code clicked:', code); // Debugging line
         setSelectedCode(code);
     };
 
@@ -60,7 +61,7 @@ const Submissions = () => {
                 <div className="modal">
                     <div className="modal-content">
                         <span className="close" onClick={handleCloseModal}>&times;</span>
-                        <pre>{selectedCode}</pre>
+                        <pre className='CODE'>{selectedCode}</pre>
                     </div>
                 </div>
             )}

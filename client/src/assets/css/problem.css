@@ -18,7 +18,7 @@
     transition: color 0.3s;
   }
   
-  .problem-name:hover {
+  .problem-list .problem-name:hover {
     color: #320f9b;
     text-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
   }
