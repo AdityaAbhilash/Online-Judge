@@ -22,6 +22,9 @@ const Navbar = () => {
         {user ? (
           <>
             <div className="navbar-item">
+            <Link to="/dashboard/Submissions" className="navbar-link">
+              Submissions
+            </Link>
               <span className="navbar-link" onClick={toggleDropdown}>
                 Problems
               </span>

@@ -5,18 +5,19 @@ import { ProblemModel } from "../models/problem.js";
 import { generateFile } from "./generateFile.js";
 import { executeCpp, executePython, executeC, executeJava } from "./execute.js";
 import { generateInputFile } from "./generateInputFile.js";
-
+import { SubmissionModel } from "../models/submission.js";
+import { UserModel } from "../models/user.js";
 
 const extractErrorMessage = (stderr) => {
   // Split the error output into lines
-  const lines = stderr.split('\n');
-  let errorMessage = '';
+  const lines = stderr.split("\n");
+  let errorMessage = "";
 
   for (let i = 0; i < lines.length; i++) {
     // Check if the line contains an error message
-    if (lines[i].includes('error:')) {
+    if (lines[i].includes("error:")) {
       // Extract the part after "error:"
-      const parts = lines[i].split('error:');
+      const parts = lines[i].split("error:");
       if (parts.length > 1) {
         errorMessage = parts[1].trim(); // Get the message part after "error:"
       }
@@ -26,8 +27,6 @@ const extractErrorMessage = (stderr) => {
 
   return errorMessage;
 };
-
-
 
 const runCompiler = async (req, res) => {
   const { language = "cpp", code, input } = req.body;
@@ -96,6 +95,7 @@ const runCompiler = async (req, res) => {
 const submitCode = async (req, res) => {
   const { language, code } = req.body;
   const { id } = req.params;
+  const userId = req.user._id;
 
   try {
     const problem = await ProblemModel.findById(id);
@@ -143,7 +143,6 @@ const submitCode = async (req, res) => {
 
       verdicts.push({ testCase: index + 1, status: verdict });
 
-      // Clean up files after processing each test case
       try {
         await fs.promises.unlink(filePath);
         await fs.promises.unlink(inputFilePath);
@@ -153,11 +152,41 @@ const submitCode = async (req, res) => {
       }
     }
 
+    const user = await UserModel.findById(userId); // Fetch user using userId
+    if (!user) return res.status(404).json({ error: "User not found" });
+
+    const newSubmission = new SubmissionModel({
+      username: user.username, // Use the username from the user object
+      problemName: problem.name, // Use the problem name from the problem object
+      code,
+      language,
+      verdict:
+        verdicts.map((v) => v.status).includes("Wrong Answer") ||
+        verdicts.map((v) => v.status).includes("Compilation Error")
+          ? "Wrong Answer"
+          : "Accepted",
+      createdAt: new Date(), // Save the submission time
+    });
+
+    await newSubmission.save();
+
     res.json({ verdicts });
   } catch (error) {
-    // console.error(error);
+    console.error("Error in submitCode:", error); // Log the error for debugging
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
 
-export { runCompiler, submitCode };
+const getSubmissions = async (req, res) => {
+  try {
+    const submissions = await SubmissionModel.find().select(
+      "username problemName code language verdict createdAt" // Select only the fields you want to show
+    );
+
+    res.status(200).json(submissions);
+  } catch (error) {
+    res.status(500).json({ error: "Internal Server Error" });
+  }
+};
+
+export { runCompiler, submitCode, getSubmissions };

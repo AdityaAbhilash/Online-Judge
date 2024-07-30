@@ -5,8 +5,9 @@ const router = express.Router();
 import { body } from "express-validator";
 import { VerifyUser } from "../middleware/VerifyUser.js";
 import { createProblem,getProblems,getProblem,updateProblem,deleteProblem } from "../controller/problemController.js";
-import { runCompiler, submitCode } from "../Compiler/compilerController.js";
+import { getSubmissions, runCompiler, submitCode } from "../Compiler/compilerController.js";
 import { getProfile, updateProfile } from '../controller/profileController.js';
+
 
 router.post(
   "/register",
@@ -70,6 +71,9 @@ router.post("/submit/:id", VerifyUser, submitCode);
 //Profilr router
 router.get('/profile/:username', VerifyUser, getProfile);
 router.put("/profile/update/:username",VerifyUser, updateProfile);
+
+//Submissions
+router.get('/submissions', getSubmissions);
 
 
 export { router as Router };

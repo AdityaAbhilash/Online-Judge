@@ -17,6 +17,7 @@ import EditProblem from "./Components/EditProblem";
 import About from "./Pages/About";
 import ViewProfile from "./Components/ViewProfile";
 import EditProfile from "./Components/EditProfile";
+import Submissions from "./Components/Submissions";
 
 export const UserContext = createContext(null);
 
@@ -59,6 +60,9 @@ const router = createBrowserRouter([
        { path: "/dashboard/edit-profile", 
         element: <EditProfile />
   },
+  { path: "/dashboard/submissions", 
+    element: <Submissions />
+},
     ],
   },
   {
