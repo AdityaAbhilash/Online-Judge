@@ -42,16 +42,14 @@ const About = () => {
           <h2>Instant Feedback</h2>
           <p>
             Receive immediate feedback on your submissions, helping you quickly understand 
-            mistakes and learn from them. Our system provides detailed explanations for 
-            incorrect solutions, guiding you towards the correct approach.
+            mistakes and learn from them. 
           </p>
         </div>
         <div className="feature-box">
           <div className="icon">📝</div>
           <h2>Create and Manage Problems</h2>
           <p>
-            Create and manage your own problems, share them with the community, and engage with 
-            other users. Our platform offers tools for problem creation, testing, and evaluation, 
+            Create and manage your own problems. Our platform offers tools for problem creation, testing, and evaluation, 
             making it easy to contribute and collaborate.
           </p>
         </div>

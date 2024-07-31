@@ -27,10 +27,6 @@ const updateProfile = async (req, res) => {
   try {
     const { userId, name, dob, institute, gender } = req.body;
 
-    // Log the received data for debugging
-    console.log("User ID:", userId);
-    console.log("Institute:", institute);
-
     // Ensure that all required fields are provided
     if (!userId || !name || !dob || !institute || !gender) {
       return res.status(400).json({ error: "All fields are required" });

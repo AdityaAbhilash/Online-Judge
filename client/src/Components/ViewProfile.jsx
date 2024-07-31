@@ -38,6 +38,7 @@ const ViewProfile = () => {
         <p>Loading...</p>
       ) : (
         <div className="profile-container">
+          <h2>Profile</h2>
           <div className="profile-details">
             <p><strong>Name:</strong> {profile?.name}</p>
             <p><strong>Username:</strong> {user?.username}</p>

@@ -10,14 +10,14 @@
 
 .profile-container {
   background-color: #1f1f1f; /* Slightly lighter background for the card */
-  padding: 30px;
-  border-radius: 16px; /* More rounded corners */
-  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* More pronounced shadow */
+  padding: 40px;
+  border-radius: 16px; /* Rounded corners */
+  box-shadow: 0 8px 16px rgba(0, 0, 0, 0.4); /* Subtle shadow */
   width: 100%;
-  max-width: 600px; /* Consistent with previous max-width */
+  max-width: 400px; /* Reduced width for a narrower box */
   display: flex;
   flex-direction: column;
-  align-items: center;
+  align-items: center; /* Center align contents */
   transition: transform 0.3s, box-shadow 0.3s; /* Smooth hover effects */
 }
 
@@ -26,33 +26,48 @@
   box-shadow: 0 12px 24px rgba(0, 0, 0, 0.5); /* Enhanced shadow on hover */
 }
 
+h2 {
+  margin-bottom: 20px; /* Space below the heading */
+  text-align: center; /* Center align the heading */
+  font-size: 1.5rem; /* Appropriate font size for heading */
+  color: #00bcd4; /* Cyan color for heading */
+}
+
 .profile-details {
-  text-align: center;
+  text-align: left; /* Align text to the left */
   margin-bottom: 20px; /* Space before the button */
+  width: 100%;
 }
 
 .profile-details p {
-  margin: 12px 0; /* Increased margin for spacing */
-  font-size: 1.2rem; /* Slightly larger font size for readability */
+  margin: 16px 0; /* Increased margin for better spacing */
+  font-size: 1.2rem; /* Increased font size */
 }
 
 .profile-details p strong {
-  color: #00bcd4; /* Cool cyan color for highlighted text */
+  color: #00bcd4; /* Cyan color for key labels */
+}
+
+.profile-details p span {
+  display: inline-block;
+  margin-left: 10px; /* Space between label and content */
 }
 
 .edit-profile-btn {
   background-color: #00bcd4; /* Cyan button color */
   color: #fff;
-  padding: 12px 24px; /* Increased padding for a larger button */
+  padding: 12px 24px; /* Button padding */
   border: none;
-  border-radius: 8px;
+  border-radius: 8px; /* Rounded button */
   cursor: pointer;
   transition: background-color 0.3s, transform 0.3s;
-  font-size: 1.1rem; /* Slightly larger font size */
+  font-size: 1.1rem; /* Button font size */
+  margin-top: 30px; /* Space above the button for uniformity */
+  align-self: center; /* Center the button */
 }
 
 .edit-profile-btn:hover {
-  background-color: #0097a7; /* Slightly darker cyan on hover */
+  background-color: #0097a7; /* Darker cyan on hover */
   transform: scale(1.05); /* Slight scaling effect */
 }
 
