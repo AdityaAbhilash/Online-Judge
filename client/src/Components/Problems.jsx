@@ -10,45 +10,55 @@ import "../assets/css/problem.css";
 
 
 
-const customStyles = { // styling the DataTable 
+const customStyles = {
+  table: {
+    style: {
+      backgroundColor: "#1c1c1c", // Darker background for the table
+    },
+  },
   headCells: {
     style: {
       fontSize: "18px",
       fontWeight: 600,
-      color: "#2c3e50",
+      color: "#f1c40f", // Bright yellow for a striking contrast
+      backgroundColor: "#2c3e50", // Darker background for header cells
     },
   },
   cells: {
     style: {
       fontSize: "16px",
       fontWeight: 500,
-      color: "#34495e",
+      color: "#ecf0f1", // Light color for the cell text
+      backgroundColor: "#2c3e50",
     },
   },
   pagination: {
     style: {
       fontSize: "16px",
+      backgroundColor: "#1c1c1c", // Match the darker background
+      color: "#ecf0f1", // Light color for pagination text
     },
     pageButtonsStyle: {
-      border: "none !important",
-      backgroundColor: "transparent !important",
-      color: "#34495e !important",
+      border: "none",
+      backgroundColor: "transparent",
+      color: "#ecf0f1",
       cursor: "pointer",
-      padding: "5px 10px !important",
-      margin: "0 5px !important",
+      padding: "5px 10px",
+      margin: "0 5px",
       transition: "background-color 0.3s ease",
       '&:hover': {
-        backgroundColor: "#f2f2f2",
-        color: "#2c3e50",
+        backgroundColor: "#333", // Darker hover effect
+        color: "#ecf0f1",
       },
     },
     pageButtonsStyleHover: {
-      backgroundColor: "#f2f2f2 !important", 
+      backgroundColor: "#333", // Darker hover effect for rounded buttons
       borderRadius: "5px",
-      color: "#2c3e50 !important", 
+      color: "#ecf0f1",
     },
   },
 };
+
 
 const MySwal = withReactContent(Swal);
 

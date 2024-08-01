@@ -1,4 +1,3 @@
-// Home.js
 import React from 'react';
 import '../assets/css/home.css';
 import Navbar from '../Components/Navbar';
@@ -9,11 +8,28 @@ const Home = () => {
       <Navbar />
       <div className="home">
         <div className="home-content">
+          <div className="logo-container">
+            <div className="circular-logo">
+              <div className="outer-circle">
+                <div className="inner-circle">
+                  <div className="logo-text">AlgoApex</div>
+                </div>
+              </div>
+              <div className="decorative-elements">
+                <div className="bracket left-bracket"></div>
+                <div className="bracket right-bracket"></div>
+              </div>
+            </div>
+          </div>
           <h1 className="home-title">Welcome to AlgoApex Online Judge</h1>
           <p className="home-description">
             Start solving problems, improve your skills, and compete with others!
           </p>
-          <a href="/dashboard" className="home-button">Start Solving</a>
+          <div className="home-buttons">
+            <a href="/dashboard" className="home-button">Start Solving</a>
+            <a href="/about" className="home-button secondary">Learn More</a>
+            <a href="/register" className="home-button tertiary">Join Now</a>
+          </div>
         </div>
       </div>
     </>
