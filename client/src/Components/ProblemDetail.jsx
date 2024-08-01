@@ -153,6 +153,9 @@ const ProblemDetails = () => {
                       <h3 className="info-label">Memory Limit:</h3>
                       <p className="info-value">256MB</p>
                     </div>
+                    <div className="info-item">
+                      <p className="info-value-created"><b>Created By : </b>{problem.postedBy.username}</p>
+                    </div>
                   </div>
                 </>
               )}

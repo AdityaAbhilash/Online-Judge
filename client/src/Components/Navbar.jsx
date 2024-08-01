@@ -22,9 +22,6 @@ const Navbar = () => {
         {user ? (
           <>
             <div className="navbar-item">
-            <Link to="/dashboard/Submissions" className="navbar-link">
-              Submissions
-            </Link>
               <span className="navbar-link" onClick={toggleDropdown}>
                 Problems
               </span>
@@ -36,9 +33,15 @@ const Navbar = () => {
                   <Link to="/dashboard/add-problem" className="dropdown-item">
                     Set Problems
                   </Link>
+                  <Link to="/dashboard/your-problems" className="dropdown-item">
+                    Your Problems
+                  </Link>
                 </div>
               )}
             </div>
+            <Link to="/dashboard/Submissions" className="navbar-link">
+              Submissions
+            </Link>
             <Link to="/dashboard/view-profile" className="navbar-link">
               {user.name.split(" ")[0]}
             </Link>

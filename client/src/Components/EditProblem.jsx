@@ -59,7 +59,7 @@ const EditProblem = () => {
             position: "top-right",
             autoClose: 5000,
           });
-          navigate("/dashboard");
+          navigate("/dashboard/your-problems");
         }
       })
       .catch((err) => {

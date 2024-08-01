@@ -28,7 +28,7 @@ const Home = () => {
           <div className="home-buttons">
             <a href="/dashboard" className="home-button">Start Solving</a>
             <a href="/about" className="home-button secondary">Learn More</a>
-            <a href="/register" className="home-button tertiary">Join Now</a>
+            {/* <a href="/register" className="home-button tertiary">Join Now</a> */}
           </div>
         </div>
       </div>

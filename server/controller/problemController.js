@@ -24,29 +24,6 @@ const createProblem = async (req,res) => {
 }
 }
 
-  const getProblems = async (req, res) => {
-    try {
-      let query = {};
-      // Check if req.user is defined (user authenticated)
-      if (req.user) {
-        query.$or = [
-          { postedBy: req.user._id },
-          { public: true }
-        ];
-      } else {
-        query.public = true; // If user not authenticated, only fetch public problems
-      }
-      const problems = await ProblemModel.find(query);
-      if (!problems) {
-        return res.status(404).json({ success: false, message: "No problems found" });
-      }
-      return res.status(200).json({ success: true, problems });
-    } catch (err) {
-      return res.status(500).json({ error: err.message });
-    }
-  };
-
-
   const getProblem = async (req, res) => {
     const {id} = req.params;
     if(!id){
@@ -54,17 +31,47 @@ const createProblem = async (req,res) => {
     }
     try {
 
-      const problems = await ProblemModel.findOne({
-        _id: id,
-        $or: [{ postedBy: req.user._id }, { public: true }],
+      const problems = await ProblemModel.findOne({ _id: id })
+      .populate({
+        path: "postedBy",
+        select: "username" // This fetches only the username from the UserModel
       });
-
-
-      return res.status(200).json({ success: true, ...problems._doc });     // findone and find are different 
+      const username = problems.postedBy ? problems.postedBy.username : "Admin";  
+      return res.status(200).json({
+        success: true,
+        ...problems._doc,
+        postedBy: {
+          username, // Send either the fetched username or "Admin"
+          _id: problems.postedBy ? problems.postedBy._id : null,
+        },
+      });  
     } catch (err) {
       return res.status(500).json({ error: err.message });
     }
   };
+
+  const getAllProblems = async (req, res) => {
+    try {
+      const problems = await ProblemModel.find();
+      return res.status(200).json({ success: true, problems });
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  };
+  
+  const getUserProblems = async (req, res) => { 
+    if (!req.user._id) {
+      return res.status(400).json({ error: "No user ID specified" });
+    }
+  
+    try {
+      const userProblems = await ProblemModel.find({ postedBy: req.user._id });
+      return res.status(200).json({ success: true, userProblems });
+    } catch (err) {
+      return res.status(500).json({ error: err.message });
+    }
+  };
+
 
 
   const updateProblem = async (req, res) => {
@@ -113,7 +120,7 @@ const createProblem = async (req,res) => {
     }
 };
 
-export {createProblem,getProblems,getProblem,updateProblem , deleteProblem}
+export {createProblem,getAllProblems,getUserProblems,getProblem,updateProblem , deleteProblem}
 
 
 /* req.params.id: This retrieves the id parameter from the request URL. For example, if your route is /problems/:id, and you make a request to /problems/123, req.params.id would be '123' */

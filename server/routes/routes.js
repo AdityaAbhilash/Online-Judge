@@ -4,7 +4,7 @@ import { Register ,Login ,Auth} from "../controller/userController.js";
 const router = express.Router();
 import { body } from "express-validator";
 import { VerifyUser } from "../middleware/VerifyUser.js";
-import { createProblem,getProblems,getProblem,updateProblem,deleteProblem } from "../controller/problemController.js";
+import { createProblem,getAllProblems,getUserProblems,getProblem,updateProblem,deleteProblem } from "../controller/problemController.js";
 import { getSubmissions, runCompiler, submitCode } from "../Compiler/compilerController.js";
 import { getProfile, updateProfile } from '../controller/profileController.js';
 
@@ -57,11 +57,14 @@ router.get("/verify",VerifyUser,Auth)
 
 // Problems 
 router.post("/add-problem", VerifyUser, createProblem);
-router.get("/problems", VerifyUser, getProblems);
+router.get("/problems", VerifyUser, getAllProblems);
 // router.get("/problem/:id", VerifyUser, getProblemById);
 router.get("/problems/:id",VerifyUser,getProblem)
 router.put("/update-problem/:id",VerifyUser,updateProblem)
 router.delete("/problems/:id",VerifyUser,deleteProblem)
+
+//yourproblem
+router.get("/your-problems", VerifyUser, getUserProblems);
 
 // compiler
 router.post("/run",VerifyUser,runCompiler) 

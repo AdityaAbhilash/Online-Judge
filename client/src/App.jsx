@@ -18,6 +18,7 @@ import About from "./Pages/About";
 import ViewProfile from "./Components/ViewProfile";
 import EditProfile from "./Components/EditProfile";
 import Submissions from "./Components/Submissions";
+import YourProblems from "./Components/YourProblems";
 
 export const UserContext = createContext(null);
 
@@ -59,10 +60,13 @@ const router = createBrowserRouter([
       },
        { path: "/dashboard/edit-profile", 
         element: <EditProfile />
-  },
-  { path: "/dashboard/submissions", 
-    element: <Submissions />
-},
+      },
+      { path: "/dashboard/submissions", 
+        element: <Submissions />
+      },
+      { path: "/dashboard/your-problems", 
+        element: <YourProblems />
+      },
     ],
   },
   {
