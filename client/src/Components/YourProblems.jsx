@@ -7,7 +7,7 @@ import { Link, useNavigate } from "react-router-dom";
 import Swal from 'sweetalert2';
 import withReactContent from 'sweetalert2-react-content';
 import "../assets/css/problem.css";
-
+import Cookies from 'js-cookie';
 
 
 const customStyles = {
@@ -83,11 +83,13 @@ const [count,setCount] = useState(0);
     }).then((result) => {
       if (result.isConfirmed) {
         axios
-          .delete(`${import.meta.env.VITE_GET_PROBLEMS}/${id}`, {
+          .delete(`${import.meta.env.VITE_GET_PROBLEMS}/${id}`
+            , {
             headers: {
-              Authorization: `Bearer ${localStorage.getItem("token")}`,
+              Authorization: `Bearer ${Cookies.get('authToken')}`
             },
-          })
+          }
+        )
           .then((res) => {
             // setProblems(res.data.problems);
             setProblems(prevProblems => prevProblems.filter(problem => problem._id !== id));
@@ -156,11 +158,14 @@ const [count,setCount] = useState(0);
   useEffect(() => {
     setLoading(true);
     axios
-      .get(import.meta.env.VITE_GET_YOUR_PROBLEMS, {
+      .get(import.meta.env.VITE_GET_YOUR_PROBLEMS
+        , 
+        {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${Cookies.get('authToken')}`
         },
-      })
+      }
+    )
       .then((res) => {
         if (res.data.success) {
           setProblems(res.data.userProblems);

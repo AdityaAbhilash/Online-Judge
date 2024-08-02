@@ -9,6 +9,7 @@ import "prismjs/components/prism-clike";
 import "prismjs/components/prism-javascript";
 import "prismjs/themes/prism.css";
 import "../assets/css/problemDetail.css";
+import Cookies from 'js-cookie';
 
 const prewrittenCodes = {
   cpp: `#include <iostream>
@@ -48,11 +49,13 @@ const ProblemDetails = () => {
   useEffect(() => {
     setLoading(true);
     axios
-      .get(`${import.meta.env.VITE_GET_PROBLEMS}/${id}`, {
+      .get(`${import.meta.env.VITE_GET_PROBLEMS}/${id}`
+        , {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${Cookies.get('authToken')}`
         },
-      })
+      }
+    )
       .then((res) => {
         if (res.data.success) {
           setProblem(res.data);
@@ -79,11 +82,13 @@ const ProblemDetails = () => {
     };
 
     try {
-      const { data } = await axios.post(import.meta.env.VITE_POST_RUN, payload, {
+      const { data } = await axios.post(import.meta.env.VITE_POST_RUN, payload
+        , {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${Cookies.get('authToken')}`
         },
-      });
+      }
+    );
       setOutput(data.output);
       setActiveTab("output");
     } catch (error) {
@@ -104,11 +109,13 @@ const ProblemDetails = () => {
     };
   
     try {
-      const { data } = await axios.post(`${import.meta.env.VITE_POST_SUBMIT}/${id}`, payload, {
+      const { data } = await axios.post(`${import.meta.env.VITE_POST_SUBMIT}/${id}`, payload
+        , {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${Cookies.get('authToken')}`
         },
-      });
+      }
+    );
       setVerdicts(data.verdicts);
       setActiveTab('verdict');  
     } catch (error) {

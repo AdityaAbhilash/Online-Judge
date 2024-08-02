@@ -57,7 +57,7 @@ router.get("/verify",VerifyUser,Auth)
 
 // Problems 
 router.post("/add-problem", VerifyUser, createProblem);
-router.get("/problems", VerifyUser, getAllProblems);
+router.get("/problems",VerifyUser, getAllProblems);  
 // router.get("/problem/:id", VerifyUser, getProblemById);
 router.get("/problems/:id",VerifyUser,getProblem)
 router.put("/update-problem/:id",VerifyUser,updateProblem)

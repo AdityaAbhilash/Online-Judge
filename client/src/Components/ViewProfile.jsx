@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { UserContext } from "../App";
 import axios from "axios";
 import '../assets/css/Viewprofile.css';
+import Cookies from 'js-cookie';
 
 const ViewProfile = () => {
   const { user } = useContext(UserContext);
@@ -14,11 +15,13 @@ const ViewProfile = () => {
     const fetchProfile = async () => {
       try {
         setLoading(true);
-        const response = await axios.get(`${import.meta.env.VITE_GET_PROFILE}/${user.username}`, {
+        const response = await axios.get(`${import.meta.env.VITE_GET_PROFILE}/${user.username}`
+          , {
           headers: {
-            Authorization: `Bearer ${localStorage.getItem("token")}`,
+            Authorization: `Bearer ${Cookies.get('authToken')}`
           },
-        });
+        }
+      );
         setProfile(response.data);
       } catch (error) {
         console.error("Error fetching profile:", error);

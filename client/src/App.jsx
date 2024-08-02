@@ -19,6 +19,7 @@ import ViewProfile from "./Components/ViewProfile";
 import EditProfile from "./Components/EditProfile";
 import Submissions from "./Components/Submissions";
 import YourProblems from "./Components/YourProblems";
+import Cookies from 'js-cookie';
 
 export const UserContext = createContext(null);
 
@@ -89,12 +90,16 @@ const App = () => {
   // Initialize state
   const [user, setUser] = useState(null);
   useEffect(() => {
-    const token = localStorage.getItem("token");
+    // const token = localStorage.getItem("token");
+    const token = Cookies.get("authToken");
     if (token) {
       axios
-        .get(import.meta.env.VITE_GET_VERIFY, {
+        .get(import.meta.env.VITE_GET_VERIFY
+        , 
+        {
           headers: { Authorization: `Bearer ${token}` },
-        })
+        }
+      )
         .then((res) => {
           if (res.data.success) setUser(res.data.user);
         })

@@ -5,9 +5,11 @@ import dotenv from 'dotenv'
 dotenv.config({path: '../config/.env'})
 
 export const VerifyUser =(req,res,next) =>{
-    const authHeader = req.headers.authorization;
-    if(authHeader){
-        const token = authHeader.split(" ")[1]
+    // const authHeader = req.headers.authorization;            //  Authorization: `Bearer ${Cookies.get('authToken')}`
+    // const token = req.cookies.authToken;
+     const token = req.headers.authorization.split(" ")[1];
+    if(token){
+        // const token = authHeader.split(" ")[1]
         jwt.verify(token,process.env.JWT_SECRET_KEY,async (err,playload)=>{
         try{
             if(err){

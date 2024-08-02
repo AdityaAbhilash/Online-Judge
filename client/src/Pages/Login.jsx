@@ -6,6 +6,7 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import { UserContext } from "../App";
 import Navbar from "../Components/Navbar";
+import Cookies from "js-cookie";
 
 const Login = () => {
 
@@ -47,7 +48,8 @@ const Login = () => {
               autoClose: 5000,
             });
 
-            localStorage.setItem("token",res.data.token)
+            // localStorage.setItem("token",res.data.token)
+            Cookies.set("authToken", res.data.token, { secure: false, sameSite: 'strict' });    
             setUser(res.data.user)
 
             navigate("/dashboard"); 

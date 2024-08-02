@@ -3,7 +3,7 @@ import dotenv from 'dotenv'
 import cors from 'cors'
 import { Connection } from './config/db.js'
 import { Router } from './routes/routes.js'
-
+import cookieParser from 'cookie-parser';
 
 Connection()
 
@@ -11,6 +11,8 @@ const app = express()
 
 //middlewares
 app.use(express.json()) //convert to json format
+app.use(cookieParser()); 
+app.use(cors({withCredentials: true, origin: process.env.FRONTEND_URL}));
 app.use(cors())
 app.use(express.urlencoded({ extended: true }));
 

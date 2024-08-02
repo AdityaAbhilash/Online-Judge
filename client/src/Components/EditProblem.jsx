@@ -4,6 +4,7 @@ import { useNavigate, useParams } from 'react-router-dom';
 import '../assets/css/addProblem.css';
 import axios from "axios";
 import { toast } from "react-toastify";
+import Cookies from 'js-cookie';
 
 
 const EditProblem = () => {
@@ -48,11 +49,13 @@ const EditProblem = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .put(`${import.meta.env.VITE_POST_UPDATE_PROBLEMS}/${id}`, problem, {
+      .put(`${import.meta.env.VITE_POST_UPDATE_PROBLEMS}/${id}`, problem
+        , {
         headers: {
-          Authorization: `Berear ${localStorage.getItem('token')}`
+          Authorization: `Bearer ${Cookies.get('authToken')}`
         }
-      })
+      }
+    )
       .then((res) => {
         if (res.data.success) {
           toast.success("Problem Updated Successfully", {
@@ -71,11 +74,13 @@ const EditProblem = () => {
 
   useEffect(() => {
     axios
-      .get(`${import.meta.env.VITE_GET_PROBLEMS}/${id}`, {
+      .get(`${import.meta.env.VITE_GET_PROBLEMS}/${id}`
+        , {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${Cookies.get('authToken')}`
         },
-      })
+      }
+    )
       .then((res) => {
         if (res.data.success) {
         setProblem({

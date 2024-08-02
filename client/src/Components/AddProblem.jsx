@@ -4,6 +4,7 @@ import { UserContext } from '../App';
 import '../assets/css/addProblem.css';
 import axios from "axios";
 import { toast } from "react-toastify";
+import Cookies from 'js-cookie';
 
 const AddProblem = () => {
   const [problem, setProblem] = useState({
@@ -46,11 +47,13 @@ const AddProblem = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
     axios
-      .post(import.meta.env.VITE_POST_ADDPROBLEM, problem, {
+      .post(import.meta.env.VITE_POST_ADDPROBLEM, problem
+        , {
         headers: {
-          Authorization: `Berear ${localStorage.getItem('token')}`
+          Authorization: `Bearer ${Cookies.get('authToken')}`
         }
-      })
+      }
+    )
       .then((res) => {
         if (res.data.success) {
           toast.success("Problem Added Successfully", {

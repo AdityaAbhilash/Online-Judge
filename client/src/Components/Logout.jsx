@@ -3,6 +3,7 @@ import { UserContext } from "../App";
 import Swal from "sweetalert2";
 import withReactContent from "sweetalert2-react-content";
 import { useNavigate } from "react-router-dom";
+import Cookies from 'js-cookie';
 
 const Logout = () => {
   const { setUser } = useContext(UserContext);
@@ -18,7 +19,8 @@ const Logout = () => {
     confirmButtonText: "Yes, I Want!",
   }).then((result) => {
     if (result.isConfirmed) {
-      localStorage.clear();
+      // localStorage.clear();
+      Cookies.remove('authToken');
       setUser(null);
       navigate("/");
     }

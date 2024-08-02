@@ -4,6 +4,7 @@ import axios from "axios";
 import { useNavigate } from 'react-router-dom';
 import '../assets/css/Viewprofile.css';
 import { toast } from 'react-toastify'; // Import toast notification library
+import Cookies from 'js-cookie';
 
 const EditProfile = () => {
   const { user, setUser } = useContext(UserContext);
@@ -17,11 +18,13 @@ const EditProfile = () => {
 
   useEffect(() => {
     if (user) {
-      axios.get(`${import.meta.env.VITE_GET_PROFILE}/${user.username}`, {
+      axios.get(`${import.meta.env.VITE_GET_PROFILE}/${user.username}`
+        , {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem("token")}`,
+          Authorization: `Bearer ${Cookies.get('authToken')}`
         },
-      })
+      }
+    )
         .then(response => setProfile(response.data))
         .catch(error => console.error("Error fetching profile:", error));
     }
@@ -34,11 +37,13 @@ const EditProfile = () => {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const response = await axios.put(`${import.meta.env.VITE_PUT_PROFILE}/${user.username}`, profile, {
+      const response = await axios.put(`${import.meta.env.VITE_PUT_PROFILE}/${user.username}`, profile
+        , {
         headers: {
-          Authorization: `Bearer ${localStorage.getItem('token')}`
+          Authorization: `Bearer ${Cookies.get('authToken')}`
         },
-      });
+      }
+    );
       setUser({ ...user, ...response.data.profile });
       setProfile(response.data.profile);
       toast.success("Profile updated"); // Show success toast notification
