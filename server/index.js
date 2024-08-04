@@ -12,7 +12,7 @@ const app = express()
 //middlewares
 app.use(express.json()) //convert to json format
 app.use(cookieParser()); 
-app.use(cors({withCredentials: true, origin: process.env.FRONTEND_URL}));
+app.use(cors({withCredentials: true, origin:"https://www.algoapex.online"}));
 app.use(express.urlencoded({ extended: true }));
 
 
