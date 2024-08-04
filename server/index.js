@@ -13,7 +13,6 @@ const app = express()
 app.use(express.json()) //convert to json format
 app.use(cookieParser()); 
 app.use(cors({withCredentials: true, origin: process.env.FRONTEND_URL}));
-app.use(cors())
 app.use(express.urlencoded({ extended: true }));
 
 
