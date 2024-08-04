@@ -42,6 +42,7 @@ const Login = () => {
         .post(import.meta.env.VITE_POST_LOGIN, values) // after passing the value there is a response (res)
         .then((res) => {
           // end point api to post the data here in the api
+          console.log(res)
           if (res.data.success) {
             toast.success("Login Successfully", {
               position: "top-right",
