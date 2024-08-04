@@ -37,41 +37,41 @@ const Login = () => {
       errs.password === "" &&
       errs.username == ""
     ) {
-      try {
-        const data = await axios.post(import.meta.env.VITE_POST_LOGIN, values);
-        console.log(data);
-        toast.success("Login Successfully", {
-          position: "top-right",
-          autoClose: 5000,
-        });
-      } catch (err) {
-        console.log(err);
-      }
-
-      // axios
-      //   .post(import.meta.env.VITE_POST_LOGIN, values) // after passing the value there is a response (res)
-      //   .then((res) => {
-      //     // end point api to post the data here in the api
-      //     console.log(res)
-      //     if (res.data.success) {
-      //       toast.success("Login Successfully", {
-      //         position: "top-right",
-      //         autoClose: 5000,
-      //       });
-
-      //       // localStorage.setItem("token",res.data.token)
-      //       Cookies.set("authToken", res.data.token, { secure: true, sameSite: 'strict' });
-      //       setUser(res.data.user)
-      //       navigate("/dashboard");
-      //     }
-      //   })
-      //   .catch((err) => {
-      //     if (err.response.data.errors) {
-      //       setServerErrors(err.response.data.errors);
-      //     } else {
-      //       console.log(err);
-      //     }
+      // try {
+      //   const data = await axios.post(import.meta.env.VITE_POST_LOGIN, values);
+      //   console.log(data);
+      //   toast.success("Login Successfully", {
+      //     position: "top-right",
+      //     autoClose: 5000,
       //   });
+      // } catch (err) {
+      //   console.log(err);
+      // }
+
+      axios
+        .post(import.meta.env.VITE_POST_LOGIN, values) // after passing the value there is a response (res)
+        .then((res) => {
+          // end point api to post the data here in the api
+          console.log(res)
+          if (res.data.success) {
+            toast.success("Login Successfully", {
+              position: "top-right",
+              autoClose: 5000,
+            });
+
+            // localStorage.setItem("token",res.data.token)
+            Cookies.set("authToken", res.data.token, { secure: true, sameSite: 'strict' });
+            setUser(res.data.user)
+            navigate("/dashboard");
+          }
+        })
+        .catch((err) => {
+          if (err.response.data.errors) {
+            setServerErrors(err.response.data.errors);
+          } else {
+            console.log(err);
+          }
+        });
     }
   };
 
