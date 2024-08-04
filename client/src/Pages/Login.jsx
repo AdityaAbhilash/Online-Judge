@@ -60,7 +60,7 @@ const Login = () => {
             });
 
             // localStorage.setItem("token",res.data.token)
-            Cookies.set("authToken", res.data.token, { secure: true, sameSite: 'strict' });
+            Cookies.set("authToken", res.data.token, { secure: true, sameSite: 'None' });
             setUser(res.data.user)
             navigate("/dashboard");
           }
