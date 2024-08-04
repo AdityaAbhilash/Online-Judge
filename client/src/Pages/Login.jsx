@@ -26,7 +26,7 @@ const Login = () => {
 
   const navigate = useNavigate(); // TO directly navigate to the login page
 
-  const handleSubmit = (e) => {
+  const handleSubmit = async(e) => {
     e.preventDefault();
 
     const errs = Validation(values); // you have made a function on validation
@@ -38,7 +38,7 @@ const Login = () => {
       errs.username == ""
     ) {
       try {
-        const data = axios.post(import.meta.env.VITE_POST_LOGIN, values);
+        const data = await axios.post(import.meta.env.VITE_POST_LOGIN, values);
         console.log(data);
         toast.success("Login Successfully", {
           position: "top-right",
