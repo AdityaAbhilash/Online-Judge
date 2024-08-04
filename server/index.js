@@ -19,7 +19,12 @@ app.use(express.urlencoded({ extended: true }));
 
 dotenv.config({path: "./config/.env"}) //load environment virable into this file
 
+// app.get('/',(req,res)=>{
+//     res.send('Hello world')
+// })
+
 app.use('/',Router) 
+
 
 
 app.listen(process.env.PORT,()=>{

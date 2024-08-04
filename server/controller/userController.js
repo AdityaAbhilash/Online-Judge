@@ -106,7 +106,7 @@ const Login = async (req, res) => {
         // token generation
 
         const token = jwt.sign({_id: userExist._id},process.env.JWT_SECRET_KEY,{expiresIn: "1d"})
-        res.cookie('authToken', token, { httpOnly: true, secure: false, sameSite: 'strict' });
+        res.cookie('authToken', token, { httpOnly: true, secure: true, sameSite: 'strict' });
 
         const user = {...userExist._doc,password: undefined}
         return res.status(201).json({ success: true,user,token});

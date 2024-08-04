@@ -49,9 +49,8 @@ const Login = () => {
             });
 
             // localStorage.setItem("token",res.data.token)
-            Cookies.set("authToken", res.data.token, { secure: false, sameSite: 'strict' });    
+            Cookies.set("authToken", res.data.token, { secure: true, sameSite: 'strict' });    
             setUser(res.data.user)
-
             navigate("/dashboard"); 
           }
         })
