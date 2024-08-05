@@ -1,10 +1,11 @@
 import React from 'react';
 import '../assets/css/home.css';
 import Navbar from '../Components/Navbar';
+import Footer from '../Components/Footer';
 
 const Home = () => {
   return (
-    <>
+    <div className="container">
       <Navbar />
       <div className="home">
         <div className="home-content">
@@ -32,7 +33,8 @@ const Home = () => {
           </div>
         </div>
       </div>
-    </>
+      <Footer />
+    </div>
   );
 }
 
