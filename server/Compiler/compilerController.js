@@ -177,16 +177,30 @@ const submitCode = async (req, res) => {
   }
 };
 
+// const getSubmissions = async (req, res) => {
+//   try {
+//     const submissions = await SubmissionModel.find().select(
+//       "username problemName code language verdict createdAt" // Select only the fields you want to show
+//     );
+
+//     res.status(200).json(submissions);
+//   } catch (error) {
+//     res.status(500).json({ error: "Internal Server Error" });
+//   }
+// };
+
 const getSubmissions = async (req, res) => {
   try {
-    const submissions = await SubmissionModel.find().select(
-      "username problemName code language verdict createdAt" // Select only the fields you want to show
-    );
+    // Sorting by createdAt in descending order
+    const submissions = await SubmissionModel.find()
+      .select("username problemName code language verdict createdAt")
+      .sort({ createdAt: -1 }); // Sort by createdAt in descending order
 
     res.status(200).json(submissions);
   } catch (error) {
     res.status(500).json({ error: "Internal Server Error" });
   }
 };
+
 
 export { runCompiler, submitCode, getSubmissions };
