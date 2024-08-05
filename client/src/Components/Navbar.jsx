@@ -1,4 +1,4 @@
-import React, { useContext,useState } from "react";
+import React, { useContext, useState, useEffect, useRef } from "react";
 import "../assets/css/navbar.css";
 import { Link } from "react-router-dom";
 import { UserContext } from "../App";
@@ -6,9 +6,44 @@ import { UserContext } from "../App";
 const Navbar = () => {
   const { user } = useContext(UserContext);
   const [dropdownVisible, setDropdownVisible] = useState(false);
+  const [isLargeScreen, setIsLargeScreen] = useState(window.innerWidth > 768);
+  const dropdownRef = useRef(null);
 
-  const toggleDropdown = () => {
+  useEffect(() => {
+    const handleResize = () => {
+      setIsLargeScreen(window.innerWidth > 768);
+    };
+    window.addEventListener("resize", handleResize);
+
+    return () => {
+      window.removeEventListener("resize", handleResize);
+    };
+  }, []);
+
+  useEffect(() => {
+    if (!isLargeScreen && dropdownVisible) {
+      const handleOutsideClick = (event) => {
+        if (dropdownRef.current && !dropdownRef.current.contains(event.target)) {
+          setDropdownVisible(false);
+        }
+      };
+
+      window.addEventListener("click", handleOutsideClick);
+      return () => {
+        window.removeEventListener("click", handleOutsideClick);
+      };
+    }
+  }, [dropdownVisible, isLargeScreen]);
+
+  const toggleDropdown = (event) => {
+    event.stopPropagation();
     setDropdownVisible(!dropdownVisible);
+  };
+
+  const handleDropdownItemClick = () => {
+    if (isLargeScreen) {
+      setDropdownVisible(false);
+    }
   };
 
   return (
@@ -21,19 +56,31 @@ const Navbar = () => {
       <div className="navbar-right">
         {user ? (
           <>
-            <div className="navbar-item">
+            <div className="navbar-item" ref={dropdownRef}>
               <span className="navbar-link" onClick={toggleDropdown}>
                 Problems
               </span>
               {dropdownVisible && (
                 <div className="dropdown-menu">
-                  <Link to="/dashboard" className="dropdown-item">
+                  <Link
+                    to="/dashboard"
+                    className="dropdown-item"
+                    onClick={handleDropdownItemClick}
+                  >
                     Solve Problems
                   </Link>
-                  <Link to="/dashboard/add-problem" className="dropdown-item">
+                  <Link
+                    to="/dashboard/add-problem"
+                    className="dropdown-item"
+                    onClick={handleDropdownItemClick}
+                  >
                     Set Problems
                   </Link>
-                  <Link to="/dashboard/your-problems" className="dropdown-item">
+                  <Link
+                    to="/dashboard/your-problems"
+                    className="dropdown-item"
+                    onClick={handleDropdownItemClick}
+                  >
                     Your Problems
                   </Link>
                 </div>
