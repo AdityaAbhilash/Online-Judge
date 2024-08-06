@@ -14,71 +14,7 @@ if(!fs.existsSync(outputPath)){
     fs.mkdirSync(outputPath,{recursive: true});
 }
 
-const TIME_LIMIT = 10000;
-
-// const executeCpp = (filePath,input_filePath)=>{
-//     const jobId = path.basename(filePath).split(".")[0];
-//     const output_filename = `${jobId}.exe`;
-//     const outPath = path.join(outputPath,output_filename);
-    
-//     return new Promise((resolve,reject)=>{
-//         exec(`g++ ${filePath} -o ${outPath} && cd ${outputPath} && ./${output_filename} < ${input_filePath}`,{ timeout: TIME_LIMIT },
-//             (error, stdout, stderr) => {
-//                 if (error) {
-//                   if (error.killed) {
-//                     return reject({ error: "Time Limit Exceeded" });
-//                   }
-//                   return reject({ error, stderr });
-//                 }
-//                 if (stderr) {
-//                     return reject({ error: stderr });
-//                 }
-//                 resolve({ stdout, outPath });
-//               }
-//     );
-//     });
-// };
-
-
-// const executeCpp = (filePath, inputFilePath) => {
-//     const jobId = path.basename(filePath).split(".")[0];
-//     const outputFilename = `${jobId}.exe`;
-//     const outPath = path.join(outputPath, outputFilename);
-
-//     return new Promise((resolve, reject) => {
-//         const process = exec(`g++ ${filePath} -o ${outPath} && cd ${outputPath} && ./${outputFilename} < ${inputFilePath}`);
-
-//         const timer = setTimeout(() => {
-//             process.kill();
-//             reject({ error: "Time Limit Exceeded" });
-//         }, TIME_LIMIT);
-
-//         process.on('close', (code) => {
-//             clearTimeout(timer);
-//             if (code !== 0 && code !== null) {
-//                 console.error(`Process exited with code ${code}`);
-//                 return reject({ error: `Process exited with code ${code}` });
-//             }
-//             resolve({ stdout: process.stdout, outPath });
-//         });
-
-//         process.on('error', (error) => {
-//             clearTimeout(timer);
-//             console.error(`Process error: ${error.message}`);
-//             reject({ error, stderr: error.message });
-//         });
-
-//         process.stdout.on('data', (data) => {
-//             resolve({ stdout: data, outPath });
-//         });
-
-//         process.stderr.on('data', (data) => {
-//             clearTimeout(timer);
-//             console.error(`Process stderr: ${data.toString()}`);
-//             reject({ error: data.toString() });
-//         });
-//     });
-// };
+const TIME_LIMIT = 5000;
 
 const executeCpp = (filePath, inputFilePath) => {
     const jobId = path.basename(filePath, path.extname(filePath));
