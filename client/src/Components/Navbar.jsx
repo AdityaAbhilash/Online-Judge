@@ -90,7 +90,8 @@ const Navbar = () => {
               Submissions
             </Link>
             <Link to="/dashboard/view-profile" className="navbar-link">
-              {user.name.split(" ")[0]}
+              {/* {user.name.split(" ")[0]} */}
+              Profile
             </Link>
             <Link to="/logout" className="navbar-link">
               Logout
