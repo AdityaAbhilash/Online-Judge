@@ -52,7 +52,7 @@ const createProblem = async (req,res) => {
 
   const getAllProblems = async (req, res) => {
     try {
-      const problems = await ProblemModel.find();
+      const problems = await ProblemModel.find({},'-testCases');
       return res.status(200).json({ success: true, problems });
     } catch (err) {
       return res.status(500).json({ error: err.message });
