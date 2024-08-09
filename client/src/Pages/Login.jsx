@@ -7,6 +7,7 @@ import { toast } from "react-toastify";
 import { UserContext } from "../App";
 import Navbar from "../Components/Navbar";
 import Cookies from "js-cookie";
+import CryptoJS from "crypto-js";
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -26,7 +27,7 @@ const Login = () => {
 
   const navigate = useNavigate(); // TO directly navigate to the login page
 
-  const handleSubmit = async(e) => {
+  const handleSubmit = async (e) => {
     e.preventDefault();
 
     const errs = Validation(values); // you have made a function on validation
@@ -37,22 +38,19 @@ const Login = () => {
       errs.password === "" &&
       errs.username == ""
     ) {
-      // try {
-      //   const data = await axios.post(import.meta.env.VITE_POST_LOGIN, values);
-      //   console.log(data);
-      //   toast.success("Login Successfully", {
-      //     position: "top-right",
-      //     autoClose: 5000,
-      //   });
-      // } catch (err) {
-      //   console.log(err);
-      // }
+      const encryptedPassword = CryptoJS.AES.encrypt(
+        values.password,
+        import.meta.env.VITE_ENCRYPTION_KEY
+      ).toString();
 
       axios
-        .post(import.meta.env.VITE_POST_LOGIN, values) // after passing the value there is a response (res)
+        .post(import.meta.env.VITE_POST_LOGIN, {
+          username: values.username,
+          password: encryptedPassword, // Send encrypted password
+        }) // after passing the value there is a response (res)
         .then((res) => {
           // end point api to post the data here in the api
-          console.log(res)
+          console.log(res);
           if (res.data.success) {
             toast.success("Login Successfully", {
               position: "top-right",
@@ -60,8 +58,11 @@ const Login = () => {
             });
 
             // localStorage.setItem("token",res.data.token)
-            Cookies.set("authToken", res.data.token, { secure: true, sameSite: 'None' });
-            setUser(res.data.user)
+            Cookies.set("authToken", res.data.token, {
+              secure: true,
+              sameSite: "None",
+            });
+            setUser(res.data.user);
             navigate("/dashboard");
           }
         })

@@ -5,6 +5,7 @@ import bcrypt from 'bcrypt';
 import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import { UserModel } from '../models/user.js';
+import CryptoJS from 'crypto-js';
 
 dotenv.config({path: "../config/.env"})
 
@@ -20,7 +21,7 @@ const Register = async (req, res) => {
     const { name, email, username, password } = req.body;
     
     try {
-
+        const decryptedPassword = CryptoJS.AES.decrypt(password, process.env.ENCRYPTION_KEY).toString(CryptoJS.enc.Utf8);
         // check if the user already exists 
         const userExist = await UserModel.findOne({ email });
         if (userExist) {
@@ -37,7 +38,7 @@ const Register = async (req, res) => {
         }
 
         // encrypt the password 
-        const hashPassword = await bcrypt.hash(password, 12);
+        const hashPassword = await bcrypt.hash(decryptedPassword, 12);
 
         // we store the encrypt password , so we have to create a dummy like user and pass it to store it 
         const newUser = new UserModel({ name, email, username, password: hashPassword });
@@ -84,7 +85,7 @@ const Login = async (req, res) => {
     const { username, password } = req.body;
     
     try {
-
+        const decryptedPassword = CryptoJS.AES.decrypt(password, process.env.ENCRYPTION_KEY).toString(CryptoJS.enc.Utf8);
         // check if the user already exists 
         const userExist = await UserModel.findOne({ username });
         if (!userExist) {
@@ -95,7 +96,7 @@ const Login = async (req, res) => {
 
 
         // check the password
-        const isPasswordOk = await bcrypt.compare(password,userExist.password);
+        const isPasswordOk = await bcrypt.compare(decryptedPassword,userExist.password);
 
         if(!isPasswordOk){
             return res.status(400).json({

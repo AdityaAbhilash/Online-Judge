@@ -27,7 +27,7 @@ router.post(
       .trim()
       .notEmpty()
       .withMessage("Password Should not be empty")
-      .isLength({ min: 5, max: 30 })
+      .isLength({ min: 8, max: 100 })
       .withMessage("Password length be 5 to 30")),
   ],
   Register // this was the registration controller
