@@ -42,15 +42,17 @@ h2 {
 .profile-details p {
   margin: 16px 0; /* Increased margin for better spacing */
   font-size: 1.2rem; /* Increased font size */
+  display: flex;
+  justify-content: flex-start;
 }
 
 .profile-details p strong {
   color: #00bcd4; /* Cyan color for key labels */
+  min-width: 150px; /* Set a fixed width for the labels to add gap */
 }
 
 .profile-details p span {
-  display: inline-block;
-  margin-left: 10px; /* Space between label and content */
+  margin-left: 30px; /* Increased space between label and content */
 }
 
 .edit-profile-btn {
