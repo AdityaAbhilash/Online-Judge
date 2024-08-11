@@ -478,7 +478,7 @@ const ProblemDetails = () => {
               </select>
               <div className="code-editor">
                 <MonacoEditor
-                  height="40vh"
+                  height="60vh"
                   language={language}
                   value={code}
                   theme="vs-dark"

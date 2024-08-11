@@ -302,6 +302,7 @@ body {
 
   .right-half .code-editor {
     height: 40vh;
+    margin-bottom: 10rem;
   }
 
   .right-half .input-textarea {
@@ -311,6 +312,7 @@ body {
   .right-half .output-container pre, .right-half .verdict-container pre {
     height: 100px;
     width: 90%;
+
   }
 
   .right-half .button-container {
