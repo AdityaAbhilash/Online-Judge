@@ -8,6 +8,8 @@ import { UserContext } from "../App";
 import Navbar from "../Components/Navbar";
 import Cookies from "js-cookie";
 import CryptoJS from "crypto-js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const Login = () => {
   const [values, setValues] = useState({
@@ -26,6 +28,9 @@ const Login = () => {
   const [errors, setErrors] = useState({});
 
   const navigate = useNavigate(); // TO directly navigate to the login page
+
+  const [showPassword, setShowPassword] = useState(false);
+
 
   const handleSubmit = async (e) => {
     e.preventDefault();
@@ -99,14 +104,22 @@ const Login = () => {
             </div>
             <div className="form-group">
               <label htmlFor="password">Password:</label>
+              <div className="password-container">
               <input
-                type="password"
+                // type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="*******"
                 className={`form-control ${errors.password && "error-border"}`}
                 name="password"
                 onChange={handleInput}
                 required
               />
+              <FontAwesomeIcon
+                icon={showPassword ? faEye:faEyeSlash}
+                className="show-hide-icon"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+              </div>
               {errors.password && (
                 <span className="error">{errors.password}</span>
               )}

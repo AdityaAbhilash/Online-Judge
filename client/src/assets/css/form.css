@@ -97,3 +97,26 @@
     }
   }
   
+
+  .password-container {
+    position: relative;
+    display: flex;
+    align-items: center;
+  }
+  
+  .form-control {
+    width: 100%;
+    padding-right: 40px; /* Add space for the icon */
+  }
+  
+  .show-hide-icon {
+    position: absolute;
+    right: 10px;
+    cursor: pointer;
+    color: #007bff;
+  }
+  
+  .show-hide-icon:hover {
+    color: #0056b3;
+  }
+  

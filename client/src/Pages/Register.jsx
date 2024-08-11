@@ -6,6 +6,8 @@ import axios from "axios";
 import { toast } from "react-toastify";
 import Navbar from "../Components/Navbar";
 import CryptoJS from "crypto-js";
+import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
+import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
 
 const Register = () => {
   const [values, setValues] = useState({
@@ -23,6 +25,8 @@ const Register = () => {
   const [serverErrors, setServerErrors] = useState([]);
 
   const [errors, setErrors] = useState({});
+
+  const [showPassword, setShowPassword] = useState(false);
 
   const navigate = useNavigate(); // TO directly navigate to the login page
 
@@ -116,14 +120,22 @@ const Register = () => {
             </div>
             <div className="form-group">
               <label htmlFor="password">Password:</label>
+              <div className="password-container">
               <input
-                type="password"
+                // type="password"
+                type={showPassword ? "text" : "password"}
                 placeholder="*******"
                 className={`form-control ${errors.password && "error-border"}`}
                 name="password"
                 onChange={handleInput}
                 required
               />
+              <FontAwesomeIcon
+                icon={showPassword ?  faEye:faEyeSlash }
+                className="show-hide-icon"
+                onClick={() => setShowPassword(!showPassword)}
+              />
+              </div>
               {errors.password && (
                 <span className="error">{errors.password}</span>
               )}

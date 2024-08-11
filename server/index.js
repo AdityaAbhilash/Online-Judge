@@ -18,7 +18,8 @@ app.use(cookieParser());
 const allowedOrigins = [
     'https://www.algoapex.online',
     'http://localhost:5173',
-    'https://online-judge-frkkz97yy-aditya-abhilashs-projects.vercel.app'
+    'https://online-judge-frkkz97yy-aditya-abhilashs-projects.vercel.app',
+    'https://online-judge-be9e5a8e9-aditya-abhilashs-projects.vercel.app'
 ];
 
 app.use(cors({
