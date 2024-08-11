@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useContext,useState } from "react";
 import { Link, useNavigate } from "react-router-dom";
 import "../assets/css/form.css"; // Import your CSS file
 import Validation from "../Components/Validation";
@@ -8,6 +8,8 @@ import Navbar from "../Components/Navbar";
 import CryptoJS from "crypto-js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
+import Cookies from "js-cookie";
+import { UserContext } from "../App";
 
 const Register = () => {
   const [values, setValues] = useState({
@@ -16,6 +18,8 @@ const Register = () => {
     username: "",
     password: "",
   });
+
+  const { user, setUser } = useContext(UserContext);
 
   const handleInput = (event) => {
     setValues({ ...values, [event.target.name]: event.target.value });
@@ -59,7 +63,13 @@ const Register = () => {
               position: "top-right",
               autoClose: 5000,
             });
-            navigate("/login");
+            // navigate("/login");
+            Cookies.set("authToken", res.data.token, {
+              secure: true,
+              sameSite: "None",
+            });
+            setUser(res.data.user);
+            navigate("/dashboard");
           }
         })
         .catch((err) => {

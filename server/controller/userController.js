@@ -33,7 +33,7 @@ const Register = async (req, res) => {
         const userExist1 = await UserModel.findOne({ username });
         if (userExist1) {
             return res.status(400).json({
-                errors: [{ msg: 'username is taken,try a new one .' }],
+                errors: [{ msg: 'username is taken,try a new one' }],
             });
         }
 
@@ -60,8 +60,11 @@ const Register = async (req, res) => {
         await newProfile.save();
 
         // the _doc is sent to the client , we we should not give the password 
-        result._doc.password = undefined;
-        return res.status(201).json({ success: true, ...result._doc });
+        const token = jwt.sign({_id: result._id},process.env.JWT_SECRET_KEY,{expiresIn: "1d"})
+        res.cookie('authToken', token, { httpOnly: true, secure: true, sameSite: "None" });
+
+        const user = {...result._doc,password: undefined}
+        return res.status(201).json({ success: true,user,token});
     } catch (err) {
         console.log(err);
         return res.status(500).json({ err: err.message });
