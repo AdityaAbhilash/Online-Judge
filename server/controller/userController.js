@@ -6,8 +6,33 @@ import jwt from 'jsonwebtoken'
 import dotenv from 'dotenv'
 import { UserModel } from '../models/user.js';
 import CryptoJS from 'crypto-js';
+import nodemailer from 'nodemailer';
+import { VerificationModel } from '../models/verification.js';
 
 dotenv.config({path: "../config/.env"})
+
+const transporter = nodemailer.createTransport({
+    service: 'Gmail',
+    auth: {
+        user: process.env.EMAIL,
+        pass: process.env.EMAIL_PASSWORD
+    }
+});
+
+const sendVerificationEmail = async (email, verificationCode) => {
+    const mailOptions = {
+        from: process.env.EMAIL,
+        to: email,
+        subject: 'Your Verification Code',
+        text: `Your verification code is ${verificationCode}`
+    };
+    try {
+        await transporter.sendMail(mailOptions);
+        console.log('Email sent successfully');
+    } catch (error) {
+        console.error('Error sending email:', error);
+    }
+};
 
 // register controller
 
@@ -40,14 +65,69 @@ const Register = async (req, res) => {
         // encrypt the password 
         const hashPassword = await bcrypt.hash(decryptedPassword, 12);
 
-        // we store the encrypt password , so we have to create a dummy like user and pass it to store it 
-        const newUser = new UserModel({ name, email, username, password: hashPassword });
+        // Generate a 6-digit verification code
+        const verificationCode = Math.floor(100000 + Math.random() * 900000);
+
+        // Save the verification code in a temporary collection
+        const newVerification = new VerificationModel({ email, verificationCode, hashPassword, name, username });
+        await newVerification.save();
+
+        // Send the verification email
+        await sendVerificationEmail(email, verificationCode);
         
         // save the new user to the database 
-        const result = await newUser.save();
+        // const result = await newUser.save();
 
         
-        const newProfile = new ProfileModel({
+        // const newProfile = new ProfileModel({
+        //     userId: result._id,
+        //     name: result.name,
+        //     username: result.username,
+        //     photo: "",
+        //     dob: "",
+        //     institute: "",
+        //     gender: "other" // default value
+        // });
+
+        // await newProfile.save();
+
+        // the _doc is sent to the client , we we should not give the password 
+        // const token = jwt.sign({_id: result._id},process.env.JWT_SECRET_KEY,{expiresIn: "1d"})
+        // res.cookie('authToken', token, { httpOnly: true, secure: true, sameSite: "None" });
+
+        // const user = {...result._doc,password: undefined}
+        return res.status(201).json({ success: true});
+    } catch (err) {
+        console.log(err);
+        return res.status(500).json({ err: err.message });
+    }
+};
+
+const VerifyCode = async (req, res) => {
+    const { email, code } = req.body;
+
+    try {
+        const verificationRecord = await VerificationModel.findOne({ email });
+
+        if (!verificationRecord) {
+            return res.status(400).json({ errors: [{ msg: 'Invalid or expired verification code.' }] });
+        }
+
+        if (verificationRecord.verificationCode !== code) {
+            return res.status(400).json({ errors: [{ msg: 'Invalid verification code.' }] });
+        }
+
+        // Create a new user with the verified details
+        const newUser = new UserModel({
+            name: verificationRecord.name,
+            email,
+            username: verificationRecord.username,
+            password: verificationRecord.hashPassword
+        });
+
+        const result = await newUser.save();
+
+         const newProfile = new ProfileModel({
             userId: result._id,
             name: result.name,
             username: result.username,
@@ -59,15 +139,19 @@ const Register = async (req, res) => {
 
         await newProfile.save();
 
-        // the _doc is sent to the client , we we should not give the password 
-        const token = jwt.sign({_id: result._id},process.env.JWT_SECRET_KEY,{expiresIn: "1d"})
+        // Delete the verification record
+        await VerificationModel.deleteOne({ email });
+
+        // Create JWT token
+        const token = jwt.sign({ _id: result._id }, process.env.JWT_SECRET_KEY, { expiresIn: "1d" });
+
+        // Set cookie with the token
         res.cookie('authToken', token, { httpOnly: true, secure: true, sameSite: "None" });
 
         const user = {...result._doc,password: undefined}
         return res.status(201).json({ success: true,user,token});
-    } catch (err) {
-        console.log(err);
-        return res.status(500).json({ err: err.message });
+    } catch (error) {
+        return res.status(500).json({ errors: [{ msg: 'Server Error' }] });
     }
 };
 
@@ -128,4 +212,4 @@ const Auth =(req,res)=>{
 }
 
 
-export { Register , Login ,Auth };
+export { Register , Login ,Auth ,VerifyCode};

@@ -30,7 +30,7 @@ h2 {
   margin-bottom: 20px; /* Space below the heading */
   text-align: center; /* Center align the heading */
   font-size: 1.5rem; /* Appropriate font size for heading */
-  color: #00bcd4; /* Cyan color for heading */
+  color: #00bcd4 !important; /* Cyan color for heading */
 }
 
 .profile-details {

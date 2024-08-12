@@ -8,7 +8,7 @@ import Navbar from "../Components/Navbar";
 import CryptoJS from "crypto-js";
 import { FontAwesomeIcon } from "@fortawesome/react-fontawesome";
 import { faEye, faEyeSlash } from "@fortawesome/free-solid-svg-icons";
-import Cookies from "js-cookie";
+// import Cookies from "js-cookie";
 import { UserContext } from "../App";
 
 const Register = () => {
@@ -59,17 +59,25 @@ const Register = () => {
         .then((res) => {
           // end point api to post the data here in the api
           if (res.data.success) {
-            toast.success("Account Created Successfully", {
+            // toast.success("Account Created Successfully", {
+            //   position: "top-right",
+            //   autoClose: 5000,
+            // });
+            // // navigate("/login");
+            // Cookies.set("authToken", res.data.token, {
+            //   secure: true,
+            //   sameSite: "None",
+            // });
+            // setUser(res.data.user);
+            // navigate("/dashboard");
+
+            toast.success("Verification Code Sent to Email", {
               position: "top-right",
               autoClose: 5000,
             });
-            // navigate("/login");
-            Cookies.set("authToken", res.data.token, {
-              secure: true,
-              sameSite: "None",
-            });
-            setUser(res.data.user);
-            navigate("/dashboard");
+
+            // Navigate to the VerifyCode page with the email as state
+            navigate("/verify", { state: { email: values.email } });
           }
         })
         .catch((err) => {

@@ -1,0 +1,83 @@
+.verify-container {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    background-color: #3d0ee6;
+}
+
+.verify-form {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    background-color: #ffffff;
+    padding: 30px;
+    border-radius: 10px;
+    box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+    width: 100%;
+    max-width: 400px;
+}
+
+h2 {
+    margin-bottom: 20px;
+    color: #333;
+    font-size: 1.5rem;
+}
+
+.input-group {
+    display: flex;
+    justify-content: space-between;
+    width: 100%;
+    margin-bottom: 20px;
+}
+
+.code-input {
+    width: 50px;
+    height: 50px;
+    margin: 0 5px;
+    text-align: center;
+    font-size: 1.5rem;
+    border: 1px solid #ddd;
+    border-radius: 5px;
+    transition: border-color 0.2s;
+}
+
+.code-input:focus {
+    border-color: #333;
+    outline: none;
+}
+
+.verify-button {
+    padding: 10px 20px;
+    font-size: 1rem;
+    background-color: #333;
+    color: #fff;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.verify-button:hover {
+    background-color: #555;
+}
+
+.error-messages {
+    margin-top: 20px;
+    color: red;
+    font-size: 0.9rem;
+    text-align: center;
+}
+
+@media (max-width: 600px) {
+    .code-input {
+        width: 40px;
+        height: 40px;
+        font-size: 1.2rem;
+    }
+
+    .verify-button {
+        font-size: 0.9rem;
+        padding: 8px 16px;
+    }
+}

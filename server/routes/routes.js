@@ -1,5 +1,5 @@
 import express from "express";
-import { Register ,Login ,Auth} from "../controller/userController.js";
+import { Register ,Login ,Auth, VerifyCode} from "../controller/userController.js";
 
 const router = express.Router();
 import { body } from "express-validator";
@@ -32,6 +32,9 @@ router.post(
   ],
   Register // this was the registration controller
 );
+
+//verifyuser
+router.post("/verify-code",VerifyCode);
 
 // for login
 

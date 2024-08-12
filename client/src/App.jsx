@@ -19,7 +19,8 @@ import ViewProfile from "./Components/ViewProfile";
 import EditProfile from "./Components/EditProfile";
 import Submissions from "./Components/Submissions";
 import YourProblems from "./Components/YourProblems";
-import Cookies from 'js-cookie';
+import Cookies from "js-cookie";
+import VerifyCode from "./Components/VerifyCode";
 
 export const UserContext = createContext(null);
 
@@ -42,7 +43,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/dashboard",
-    element: <ProtectedRoutes><Dashboard /></ProtectedRoutes>,
+    element: (
+      <ProtectedRoutes>
+        <Dashboard />
+      </ProtectedRoutes>
+    ),
     children: [
       {
         index: true,
@@ -54,36 +59,29 @@ const router = createBrowserRouter([
       },
       {
         path: "/dashboard/edit-problem/:id",
-        element: <EditProblem />
+        element: <EditProblem />,
       },
-      { path: "/dashboard/view-profile", 
-        element: <ViewProfile />
-      },
-       { path: "/dashboard/edit-profile", 
-        element: <EditProfile />
-      },
-      { path: "/dashboard/submissions", 
-        element: <Submissions />
-      },
-      { path: "/dashboard/your-problems", 
-        element: <YourProblems />
-      },
+      { path: "/dashboard/view-profile", element: <ViewProfile /> },
+      { path: "/dashboard/edit-profile", element: <EditProfile /> },
+      { path: "/dashboard/submissions", element: <Submissions /> },
+      { path: "/dashboard/your-problems", element: <YourProblems /> },
     ],
   },
   {
     path: "/problem/:id",
-    element: <ProtectedRoutes><ProblemDetail /></ProtectedRoutes>,
-  },
-  
-  { path: "/logout", 
-    element: <Logout /> 
+    element: (
+      <ProtectedRoutes>
+        <ProblemDetail />
+      </ProtectedRoutes>
+    ),
   },
 
- 
+  { path: "/logout", element: <Logout /> },
+  { path: "/verify", element: <VerifyCode /> },
   {
     path: "*",
-    element:<NotFound />
-  }
+    element: <NotFound />,
+  },
 ]);
 
 const App = () => {
@@ -94,12 +92,9 @@ const App = () => {
     const token = Cookies.get("authToken");
     if (token) {
       axios
-        .get(import.meta.env.VITE_GET_VERIFY
-        , 
-        {
+        .get(import.meta.env.VITE_GET_VERIFY, {
           headers: { Authorization: `Bearer ${token}` },
-        }
-      )
+        })
         .then((res) => {
           if (res.data.success) setUser(res.data.user);
         })
@@ -112,7 +107,7 @@ const App = () => {
   return (
     <>
       <ToastContainer />
-      <UserContext.Provider value={{ user, setUser}}>
+      <UserContext.Provider value={{ user, setUser }}>
         <RouterProvider router={router} />
       </UserContext.Provider>
     </>
