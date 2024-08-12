@@ -5,6 +5,8 @@ import '../assets/css/submissions.css';
 const Submissions = () => {
     const [submissions, setSubmissions] = useState([]);
     const [selectedCode, setSelectedCode] = useState(null);
+    const [currentPage, setCurrentPage] = useState(1);
+    const submissionsPerPage = 10;
 
     useEffect(() => {
         const fetchSubmissions = async () => {
@@ -32,6 +34,25 @@ const Submissions = () => {
         setSelectedCode(null);
     };
 
+    // Pagination logic
+    const indexOfLastSubmission = currentPage * submissionsPerPage;
+    const indexOfFirstSubmission = indexOfLastSubmission - submissionsPerPage;
+    const currentSubmissions = submissions.slice(indexOfFirstSubmission, indexOfLastSubmission);
+
+    const totalPages = Math.ceil(submissions.length / submissionsPerPage);
+
+    const handleNextPage = () => {
+        if (currentPage < totalPages) {
+            setCurrentPage(currentPage + 1);
+        }
+    };
+
+    const handlePreviousPage = () => {
+        if (currentPage > 1) {
+            setCurrentPage(currentPage - 1);
+        }
+    };
+
     return (
         <>
             <div className="submissions-page">
@@ -47,7 +68,7 @@ const Submissions = () => {
                         </tr>
                     </thead>
                     <tbody>
-                        {submissions.map((submission) => (
+                        {currentSubmissions.map((submission) => (
                             <tr key={submission._id}>
                                 <td>{submission.username}</td>
                                 <td>{submission.problemName}</td>
@@ -60,7 +81,14 @@ const Submissions = () => {
                         ))}
                     </tbody>
                 </table>
+
+                <div className="pagination-controls">
+                    <button onClick={handlePreviousPage} disabled={currentPage === 1}>&lt; Previous</button>
+                    <span>Page {currentPage} of {totalPages}</span>
+                    <button onClick={handleNextPage} disabled={currentPage === totalPages}>Next &gt;</button>
+                </div>
             </div>
+
             {selectedCode && (
                 <div className="modal">
                     <div className="modal-content">
