@@ -2,7 +2,20 @@
 
 AlgoApex is a project aimed at providing a basic environment for coding practice and problem-solving. It offers essential features for users to engage in competitive programming and manage coding problems efficiently.
 
+## Table of Contents
+<details>
+<summary>Click to expand</summary>
+
+- [Features](#features)
+- [Website](#website)
+- [Built With](#built-with)
+- [Prerequisites](#prerequisites)
+- [Getting Started](#getting-started)
+
+</details>
+
 ## Features
+
 - **User Management**: Register, log in, and manage user profiles with ease. Update profile information and maintain a personalized experience.
 - **Problem Dashboard**: Browse and create coding problems with detailed descriptions and specifications.
 - **Submission System**: Submit and run code with immediate feedback on various verdicts, including Time Limit Exceeded (TLE), Wrong Answer, Compilation Error, and Accepted.
@@ -10,7 +23,9 @@ AlgoApex is a project aimed at providing a basic environment for coding practice
 - **Problem Details Page**: View detailed problem descriptions, input/output examples, and interact with an integrated code editor.
 
 ## Website
-For more information and to try out AlgoApex, visit our website: [AlgoApex Website](https://www.algoapex.online)
+
+For more information and to try out AlgoApex, visit my website: [AlgoApex Website](https://www.algoapex.online)
+
 ## Built With
 
 The project is based on the MERN stack with the help of additional tools such as Docker, AWS, and Vercel.
@@ -59,4 +74,3 @@ Before running the project, ensure you have the following installed:
     npm install
     npm run dev
     ```
-    
