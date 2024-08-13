@@ -74,3 +74,18 @@ Before running the project, ensure you have the following installed:
     npm install
     npm run dev
     ```
+## Roadmap
+
+- [x] **Frontend**: Developed the user interface and user experience components.
+- [x] **Compiler**: Integrated a code compiler for running and submitting code.
+- [x] **Verdicts**: Provide feedback on code submissions (e.g., TLE, Compilation error, Wrong Answer, Accepted).
+- [x] **Docker**: Containerize the application for consistent environments.
+- [x] **AWS Deployment**: Deploy the application on AWS for production.
+- [x] **Multi-language Support**: Support multiple programming languages for code submissions (C++,C,Java,Python).
+- [x] **Email Verification**: Implement email verification for user accounts.
+- [x] **Mobile Optimization**: Ensure the platform is responsive and usable on mobile devices.
+- [ ] **Editorial and Discussion Page**: Add pages for problem discussions and editorial content.
+- [ ] **Live Contests**: Implement coding contests feature.
+- [ ] **Search and Filter**: Enhance the problem dashboard with search and filtering capabilities.
+
+[Back to Top](#table-of-contents)
