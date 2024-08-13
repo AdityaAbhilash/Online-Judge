@@ -51,6 +51,8 @@ const Register = () => {
         import.meta.env.VITE_ENCRYPTION_KEY
       ).toString();
 
+      navigate("/verify", { state: { email: values.email }});
+
       axios
         .post(import.meta.env.VITE_POST_REGISTER, {
           ...values,
@@ -77,7 +79,7 @@ const Register = () => {
             });
 
             // Navigate to the VerifyCode page with the email as state
-            navigate("/verify", { state: { email: values.email } });
+            // navigate("/verify", { state: { email: values.email } });
           }
         })
         .catch((err) => {
