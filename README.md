@@ -11,6 +11,7 @@ AlgoApex is a project aimed at providing a basic environment for coding practice
 - [Built With](#built-with)
 - [Prerequisites](#prerequisites)
 - [Getting Started](#getting-started)
+- [Roadmap](#roadmap)
 
 </details>
 
