@@ -22,10 +22,12 @@ const Home = () => {
               </div>
             </div>
           </div>
-          <h1 className="home-title">Welcome to AlgoApex Online Judge</h1>
+          {/* <h1 className="home-title">Welcome to AlgoApex Online Judge</h1>
           <p className="home-description">
             Start solving problems, improve your skills, and compete with others!
-          </p>
+          </p> */}
+          <h1 className="home-title animate-text">Welcome to AlgoApex Online Judge</h1>
+          <p className="home-description animate-text">Start solving problems, improve your skills, and compete with others!</p>
           <div className="home-buttons">
             <a href="/dashboard" className="home-button">Start Solving</a>
             <a href="/about" className="home-button secondary">Learn More</a>

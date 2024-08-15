@@ -48,12 +48,26 @@ html, body {
   border-radius: 15px;
   box-shadow: 0 8px 20px rgba(0, 0, 0, 0.5);
   animation: fadeIn 2s ease-in-out;
-  z-index: 2; /* Ensure this is on top */
+  z-index: 2;
 }
 
 @keyframes fadeIn {
   from { opacity: 0; transform: scale(0.9); }
   to { opacity: 1; transform: scale(1); }
+}
+
+@keyframes slideIn {
+  from { opacity: 0; transform: translateX(-50px); }
+  to { opacity: 1; transform: translateX(0); }
+}
+
+@keyframes bounceIn {
+  from { transform: scale(0.9); }
+  to { transform: scale(1); }
+}
+
+.animate-text {
+  animation: slideIn 1s ease-out;
 }
 
 .home-title {
@@ -85,14 +99,11 @@ html, body {
   border-radius: 50px;
   transition: background-color 0.3s ease, transform 0.3s ease;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+  animation: bounceIn 1.5s ease-out;
 }
 
 .home-button.secondary {
   background-color: #ff8c00;
-}
-
-.home-button.tertiary {
-  background-color: #8a2be2;
 }
 
 .home-button:hover {
@@ -132,7 +143,8 @@ html, body {
   justify-content: center;
   align-items: center;
   margin-bottom: 20px;
-  z-index: 2; /* Ensure this is on top */
+  z-index: 2;
+  animation: bounceIn 2s ease;
 }
 
 .circular-logo {
@@ -199,6 +211,7 @@ html, body {
   color: #00d4ff;
   opacity: 0.7;
   position: absolute;
+  animation: fadeIn 3s ease-in-out;
 }
 
 .left-bracket {
